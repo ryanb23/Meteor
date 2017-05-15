@@ -1,0 +1,371 @@
+<template name="studentRecords">
+<!-- studentRecords Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="cover"></div>
+-->
+{{#if or isStudent isTeacher}}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="search-list">
+        <div style="margin-left:40%;">
+          
+          <span style="text-align:left;">
+            <em>Credits Remaining To Meet Goal: &nbsp;&nbsp;</em>
+              {{#if required_credits }}
+                {{#with required_credits }}
+                  <strong>{{required_credits}}</strong>
+                {{/with}}
+              {{/if}}
+          </span>
+          <br />
+          
+          <span style="text-align:left;">
+            <em>Due Date:&nbsp; &nbsp;</em><strong></strong>
+          </span>
+          <br />
+          
+          <span style="text-align:left;">
+            <em>Total Credits Accumulated:&nbsp; &nbsp;</em><strong>{{current_credits}}</strong>
+          </span>
+          
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        
+      {{#if certificates}}
+      <center>
+        <h2>
+          Certifications
+        </h2>
+      </center>
+        <table class="table">
+          <tbody>
+            {{#with certificates}}
+            {{#each this}}
+            <tr>
+              <th class="name">
+                <img  src="/img/icon-6.png" 
+                      alt="">
+                  &nbsp;{{name}}
+              </th>
+              <td>
+                Completed On {{date_completed}}
+              </td>
+              <td>
+                Expires {{expiry}}
+              </td>
+              
+              <td>
+                
+                <a href="#">
+                  Renew
+                </a>
+                
+                
+                <input  type="hidden" 
+                        name="id" 
+                        value="{{id}}"/>
+              </td>
+              <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
+            </tr>
+            {{/each}}
+            {{/with}}
+          </tbody>
+        </table>
+        {{/if}}
+
+        {{#if more}}
+        <div class="more">
+          <button>
+            <img  src="/img/more.png" 
+                  alt="">
+          </button>
+        </div>
+        {{/if}}
+        <br />
+        <br />
+        <br />
+        <br />
+
+        {{#if degrees}}
+        <center>
+          <h2>
+            Degrees
+          </h2>
+        </center>
+          <table class="table">
+            
+            <tbody>
+            {{#with degrees}}
+            {{#each this}}
+            
+              <tr>
+                <th class="name">
+                  <img  src="/img/icon-5.png" 
+                        alt="">
+                  &nbsp;{{name}}
+                </th>
+                
+                <td>
+                  <input  type="hidden" 
+                          name="id" 
+                          value="{{id}}"/>
+                </td>
+                
+              </tr>
+            {{/each}}
+            {{/with}}
+            </tbody>
+          </table>
+          {{/if}}
+
+          {{#if more}}
+          <div class="more">
+            <button>
+              <img  src="/img/more.png" 
+                    alt="">
+            </button>
+          </div>
+          {{/if}}
+          <br />
+          <br />
+          <br />
+
+          
+<!--
+          {{#if approved}}
+          <center>
+            <h3>
+              Approved Credits
+            </h3>
+          </center>
+          <table class="table">
+            <thead>
+              
+              <th></th>
+              
+              <th>
+                Credits
+              </th>
+              
+              <th>
+                Approved on
+              </th>
+              
+            </thead>
+            <tbody>
+              {{#with approved}}
+              {{#each this}}
+              <tr>
+                <th class="name">
+                  <img  src="/img/icon-4.png" 
+                        alt="">
+                  {{course}}
+                </th>
+                <td>
+                  {{credits}}
+                </td>
+                <td>
+                  {{date_approved}}
+                </td>
+                <td>
+-->
+                  <!--
+                  <button class="btn btn-primary js-retake-button">Restart</button>
+                  <input type="hidden" name="id" value="{{id}}"/>
+                  -->
+<!--
+                </td>
+-->
+                <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
+<!--
+              </tr>
+              {{/each}}
+              {{/with}}
+            </tbody>
+          </table>
+          {{/if}}
+
+          {{#if more}}
+          <div class="more">
+            <button>
+              <img  src="/img/more.png" 
+                    alt="">
+            </button>
+          </div>
+          {{/if}}
+-->
+
+<!-- COMPLETED COURSES -->
+          {{#if courses_completed}}
+          <center>
+            <h2>
+              Completed Courses
+            </h2>
+          </center>
+          
+          <table class="table">
+            <thead>
+              
+              <th></th>
+              
+              <th>
+                # of course
+              </th>
+              <th>
+                Credits
+              </th>
+              <th>
+                Completed on
+              </th>
+              
+            </thead>
+            
+            <tbody>
+              {{#with courses_completed}}
+              {{#each this}}
+              
+              <tr>
+                
+                <th class="name">
+                  <img  src="/img/icon-4.png" 
+                        alt="">
+                  {{name}}
+                </th>
+                  
+                <td>
+                  {{num}}
+                </td>
+                <td>
+                  {{credits}}
+                </td>
+                <td>
+                  {{date_completed}}
+                </td>
+                
+                <td>
+                  
+                  <a href="#">
+                    Restart
+                  </a>
+                  <!--
+                  <button class="btn btn-primary js-retake-button">Restart</button>
+                  <input type="hidden" name="id" value="{{id}}"/>
+                  -->
+                </td>
+                <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
+              </tr>
+              
+              {{/each}}
+              {{/with}}
+            </tbody>
+          </table>
+          {{/if}}
+
+          {{#if more}}
+          <div class="more">
+            
+            <button>
+              <img  src="/img/more.png" 
+                    alt="">
+            </button>
+            
+          </div>
+          {{/if}}
+
+<!-- Current Courses -->
+
+<!--
+{{#if current_courses}}
+          <center>
+            <h3>
+              Current Courses
+            </h3>
+          </center>
+          
+          <table class="table">
+            <thead>
+              
+              <th></th>
+              
+              <th>
+                # of course
+              </th>
+              
+              <th>
+                Credits
+              </th>
+              
+              <th>
+                Started on
+              </th>
+              
+            </thead>
+            <tbody>
+              {{#with current_courses}}
+              {{#each this}}
+              
+              <tr>
+                
+                <th class="name">
+                  <img  src="/img/icon-4.png" 
+                        alt="">
+                  {{name}}
+                </th>
+                
+                <td>
+                  {{num}}
+                </td>
+                
+                <td>
+                  {{credits}}
+                </td>
+                
+                <td>
+                  {{started_date}}
+                </td>
+                
+                <td>
+-->
+                  <!--
+                  <button class="btn btn-primary js-retake-button">Restart</button>
+                  <input type="hidden" name="id" value="{{id}}"/>
+                  -->
+
+<!--
+                </td>
+-->
+                <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
+
+<!--
+              </tr>
+              {{/each}}
+              {{/with}}
+            </tbody>
+          </table>
+          {{/if}}
+
+        {{#if more}}
+        <div class="more">
+          
+          <button>
+            <img  src="/img/more.png" 
+                  alt="">
+          </button>
+          
+        </div>
+        {{/if}}
+        <br />
+-->
+
+      </div>
+    </div>
+  </div>
+{{/if}}
+</template>

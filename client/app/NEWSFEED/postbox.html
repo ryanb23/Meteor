@@ -1,0 +1,47 @@
+
+<template name="postbox">
+  
+  <div class="post-box">
+    <form action="">
+      <div class="post-box-header">
+        <ul>
+          <li>
+            <label for="textarea">
+              <img id="post" src="/img/icon-11.png" alt="">
+              Post
+            </label>
+          </li>
+          <li>
+            <label id = "photo" for="ul">
+              <input type="file" id="ul" style="display:none;" />
+              <img src="/img/icon-2.png" />           
+              Photo 
+            </label>
+          </li>
+          <li>
+            <label id="thumbnail" for="textarea"></label>
+          </li>
+        </ul>
+        
+        <textarea name        = ""
+                  class       = "postText"
+                  id          = "textarea"
+                  style       = "color: blue;"
+                  cols        = "30" 
+                  rows        = "4" 
+                  placeholder = "Write something on this Page..." autofocus></textarea>                                    
+      </div>
+      <div class="post-box-footer">
+        <div class="row">
+          <div class="col-sm-6">
+            <input id="fileupload" type="file">
+          </div>
+          <div class="col-sm-6">
+            <input type="submit" value="Post" id="postSubmit">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</template>

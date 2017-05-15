@@ -1,0 +1,70 @@
+<template name="studentTrainingCalendar">
+<!-- studentTrainingCalendar Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="cover"></div>
+-->
+<style>
+
+.fc-event-container {
+  padding: 5px !important;
+}
+
+.fc-event {
+  padding: 5px 10px;
+  border-color: #ddd;
+  background: #fff !important;
+}
+
+.fc-content {
+  color: #444;
+}
+
+h4 {
+  color: #666;
+  font-size: 13px;
+  line-height: 18px;
+  white-space: normal;
+  margin: 0;
+  font-weight: normal;
+}
+
+h5 {
+  color: #888;
+  font-size: 12px;
+  margin-top: 5px;
+  margin: 0;
+  font-weight: normal;
+}
+
+.guest-count {
+  margin: 5px 0;
+}
+
+p[class^="type-"] {
+  margin: 0;
+}
+
+p[class="type-Corporate"] {
+  color: red;
+}
+
+p[class="type-Wedding"] {
+  color: green;
+}
+
+p[class="type-Birthday"] {
+  color: blue;
+}
+
+</style>
+
+{{#if or isStudent isTeacher}}
+    {{> viewTrainingEvent }}
+    <div id="calendar"></div>
+    
+{{/if}}
+</template>

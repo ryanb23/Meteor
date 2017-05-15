@@ -1,0 +1,99 @@
+  
+<template name="newsfeed">
+
+    <!-- single dash post -->
+  {{#each newsfeeds }}
+  
+    {{#if eq type 'article' }}
+      {{> articlePost }}
+    {{else}}
+    
+      <div id="news-item-{{_id}}" class="single-dash-post" data-id="{{owner_id}}">
+        <div class="single-dash-post-body">
+          <div class="dash-post-head">
+            <div class="dash-post-head-left">
+              <h2>{{poster}}</h2>
+            </div>
+            <div class="dash-post-head-right dropdown">
+              <button data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+                <img src="/img/arrow-1.png" alt="">
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dLabel">
+                <li><a href="#" id="news-item-delete" data-id="{{_id}}" >Delete</a></li>
+                <li><a href="#">Report</a></li>
+              </ul>                                            
+            </div>
+          </div>
+            <div class="dash-post-body">
+              <div class="dash-post-profile-left">
+                <div class="dash-post-profile">
+                  <img src="{{poster_avatar}}" alt="">
+                </div>
+              </div>
+              <div class="dash-post-content">
+                {{#if photo }}
+                  <img src="{{photo}}" >
+                {{/if}}
+                {{#if bin }}
+                  <!-- <img src="data:image/{{ext}};base64{{bin}}"> -->
+                  <img src="{{bin}}">
+                {{/if}}
+                {{#if news }}
+                  <p>{{ news }}</p>
+                {{/if}}
+              </div>
+            </div>
+            
+            <div class="dash-post-footer">
+                <button id="like" class="js-like-button" data-id="{{_id}}">
+                  <img src="/img/like.png" alt="">
+                </button>
+    
+                <button class="js-comment-button" data-id="{{_id}}">
+                  <img src="/img/comment.png" alt="">Comment
+                </button>
+    
+                <button class="push-right col-md-offset-3" style="cursor:default;">
+                  <img src="/img/likes.png" /><sup style="font-size=18px;cursor:default;"><strong><em>{{likes}}</em></strong></sup>
+                </button>
+            </div>                                    
+          </div>
+    
+          <div class="single-dash-post-comment">
+            <div class="dash-post-single-comment">
+              <div class="dash-comment-image">
+                <img src="{{cur_user_avatar}}" alt="">
+              </div>
+            
+              <div class="dash-post-single-comment-form">
+                  <textarea id = "ta-{{_id}}"
+                            data-id = "{{_id}}"
+                            style = "color: blue;"
+                            cols="30" 
+                            rows="2" 
+                            placeholder="enter a comment..."></textarea>
+              </div>
+            </div> 
+            <div class="dash-post-single-list">
+            <!-- Single Comments -->    
+            {{#if comments }}
+              {{#each comments }}
+                {{> commentInsert }}
+              {{/each}}
+            {{/if}}
+          
+          <!-- down arrow image IF there are more than 3 comments available -->
+          {{#if com_length}}
+            <center>
+              <a href="#" class="js-more" data-id="{{_id}}" >
+                <img src="/img/more.png">
+              </a>
+            </center>
+          {{/if}}
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  {{/each}}
+  
+</template>

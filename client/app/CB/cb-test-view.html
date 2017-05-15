@@ -1,0 +1,139 @@
+<template name="cbTestView">
+<!-- cbTestView Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+{{#with test}}
+<!--
+<div class = "row">
+  <div class = "col-xs-12 col-md-12 col-lg-12">
+-->
+    <div class="panel panel-primary">
+
+      <input  id    = "tot_q"
+              type  = "hidden"
+              value = "{{total_questions}}">
+
+      <div class = "panel-heading">
+        Test:&nbsp;&nbsp;
+        <strong>
+           {{test_name}}
+        </strong>
+      </div>
+
+      <div class = "panel-body">
+
+        {{#each questions}}
+          {{#if eq question_type 'tf' }}
+
+          <div class = "panel panel-default">
+            <div class = "panel-body">
+              <div  class = "form-group"
+                    id    = "q-{{question_num}}"><!-- <span class="badge"> -->
+                <span>
+                  Question:&nbsp;&nbsp;
+                  <span class = "label label-primary">
+                   {{question_num}}
+                  </span>
+                </span>
+              <br>
+              <br>
+              <span>
+                <em>
+                   {{question}}
+                </em>
+              </span>
+              <br>
+              <br>
+
+                <input  id    = "a-{{question_num}}"
+                        type  = "hidden"
+                        value = "{{correct_answer}}">
+
+                <input id     = "qt-{{question_num}}"
+                        type  = "hidden"
+                        value = "{{question_type}}">
+
+                <label class  = "radio-inline">
+                  <input  name  = "tfradio-{{question_num}}"
+                          type  = "radio"
+                          value = "true">
+                  True
+                </label>
+
+                <label class = "radio-inline">
+                  <input  name  = "tfradio-{{question_num}}"
+                          type  = "radio"
+                          value = "false">
+                  False
+                </label>
+              </div>
+            </div>
+          </div>
+           {{/if}}
+
+           {{#if eq question_type 'mc' }}
+          <div class = "panel panel-default">
+            <div class = "panel-body">
+
+              <div class = "form-group"
+                   id = "q-{{question_num}}">
+
+                <span>
+                  Question:&nbsp;&nbsp;
+                  <span class = "label label-primary">
+                    {{question_num}}
+                  </span>
+                </span>
+                <br>
+                <br>
+                <input  id    = "a-{{question_num}}"
+                        type  = "hidden"
+                        value = "{{correct_answer}}">
+
+                <input  id    = "na-{{question_num}}"
+                        type  = "hidden"
+                        value = "{{num_answers}}">
+
+                <input  id    = "qt-{{question_num}}"
+                        type  = "hidden"
+                        value = "{{question_type}}">
+
+                <span>
+                  <em>
+                    {{question}}
+                  </em>
+                </span>
+                <br>
+                <br>
+                {{#each answers}}
+                  <label class = "radio-inline">
+                    <input  name  = "mcradio-{{../question_num}}"
+                            type  = "radio"
+                            value = "{{this}}">
+                    {{this}}
+                  </label>
+                  <br>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          {{/if}}
+          {{/each}}
+
+          <div class = "panel panel-default">
+            <div class = "panel-body">
+              <!--
+              <button id = "submit-answers"
+                      class = "btn btn-primary">
+                Submit Answers
+              </button>
+            -->
+            </div>
+          </div>
+        </div>
+      </div>
+<!--
+  </div>
+</div>
+-->
+{{/with}}
+</template>

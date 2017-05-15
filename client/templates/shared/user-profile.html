@@ -1,0 +1,49 @@
+<template name="userProfile">
+
+        <div  id="profile-modal"
+              class="modal fade left"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="myModalLabel">
+          <div class="modal-dialog">
+            <div class="pop-up-area">
+              <div class="modal-header">
+                <h3 class="modal-title">
+                  Upload Profile Image:
+                </h3>
+              </div>
+              <button type="button"
+                      id="popup-close"
+                      data-dismiss="modal"
+                      aria-label="Close">
+                <strong>x</strong>
+              </button>
+              <div class="popup-body">
+                <div id="notify"></div>
+                <form id="assignCourses" class="form-horizontal">
+                  <div class="row">
+                    <div class="form-group">
+                      <div class="col-xs-10">
+                        <input type="file" id="user-avatar-upload">
+                      </div>
+                    </div>
+                  </div>
+                 <div class="row">
+                   <div class="form-group">
+                     <div class="col-xs-10">
+                       <div id="userthumb"></div>
+                     </div>
+                   </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12 text-right">
+                        <input type="submit" class="save-profile-pic" value="SAVE">
+                        <!-- <input type="submit" class="dismiss-modal" value="CANCEL"> -->
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+</template>

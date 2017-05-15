@@ -1,0 +1,227 @@
+<template name = "addEditEventModal">
+<!-- addEditEventModel Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->  
+  <div  class           = "modal fade left" 
+        id              = "add-edit-event-modal" 
+        tabindex        = "-1" 
+        role            = "dialog" 
+        aria-labelledby = "add-edit-event-modal">
+      
+  <div  class = "modal-dialog" 
+        role  = "document">
+  
+    <div class="pop-up-area eventpop">
+    <div class="event-popup-header">
+        <!-- <h2>{{modalLabel.label}} Training Event</h2> -->
+        <h2 class="event-model-title">Add a Training Event</h2>
+        <button type="button" id="popup-close" data-dismiss="modal" aria-label="Close">x</button>
+    </div> 
+  
+    <div class="popup-body">
+      <form action="">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="single-event-pop">
+<!--PARTICIPANTS-->  
+                <label  id  = "lbl_type" 
+                        for = "type">
+                  Add Attendees
+                </label>
+                
+                <select name  = "type" 
+                        class = "form-control js-states" multiple="multiple">
+              
+                    {{#each cntx}}
+                      {{#if match}}
+                        <option selected  = "{{fullName}}" 
+                                value     = "{{_id}}">
+                          {{fullName}}
+                        </option>
+                      {{else}}
+                        <option value = "{{_id}}">{{fullName}}</option>
+                      {{/if}}
+                    {{/each}}
+                  
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="single-event-loop">
+<!-- TIMEZONES -->  
+                <label for="timezone">
+                  Time Zone
+                </label>
+                <!-- selected event.timezone name-->
+                  <select name  = "timezone" 
+                          class = "form-control" data-width="100%" data-style="btn-eventpop" title="GMT">
+                    {{#each timezones}}
+                      <option></option>
+                      <optgroup label = "{{group}}">
+                        {{#each zones}}
+                            <option selected  = "{{match}}"
+                                    value     = "{{name}}">
+                              {{name}}
+                            </option>
+                        {{/each}}
+                      </optgroup>
+                    {{/each}}
+                  </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class = "row">
+            <div class="col-sm-6">
+              <div class="single-event-pop">
+              
+<!-- EVENT START -->
+
+                <label for = "start">
+                  Event Starts
+                </label>
+                
+                <input  type  = "date" 
+                        name  = "start" 
+                        class = "input-event" 
+                        value = "{{start}}">
+              </div>
+              
+              <div class="single-event-pop">
+<!-- EVENT END -->
+                <label for = "end">
+                  Event End
+                </label>
+                <!-- "{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}" -->
+                <input  id      = "datepicker"
+                        type    = "date" 
+                        name    = "end" 
+                        class   = "input-event" 
+                        value   = "{{end}}">
+              </div>
+
+<!-- EVENT TITLE --> 
+              <div class = "single-event-pop">
+                <label for = "title">
+                  Training Title
+                </label>
+                <input  type  = "text" 
+                        name  = "title" 
+                        class = "input-event" 
+                        value = "{{event.title}}">
+              </div> 
+            </div>
+            
+            <div class="col-sm-6">
+              <div class="single-event-pop">
+                
+ <!-- START TIME -->
+                <label for = "start-time">
+                  Start Time
+                </label>
+              
+                <input  type    = "time" 
+                        name    = "start-time" 
+                        class   = "input-event" 
+                        value   = "{{event.startTime}}"
+                        placeholder = "---- : ---- / ----">
+              </div> 
+              
+              <div class="single-event-pop">
+  <!-- END TIME -->
+                <label for = "end-time">
+                  Time End&nbsp;
+                </label>
+                
+                <input  type    = "time" 
+                        name    = "end-time" 
+                        class   = "input-event" 
+                        value   = "{{event.endTime}}"
+                        placeholder = "---- : ---- / ----">
+              </div>             
+                         
+              <div class="single-event-pop">
+<!-- EVENT DESCRIPTION -->
+              <label for = "description">
+                  Training Description
+                </label>
+                <input  type = "text"
+                        name = "description"
+                        class = "input-event"
+                        value = "{{event.description}}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="single-event-pop">
+<!-- EVENT SUMMARY -->
+                <label for="summary">
+                  Training Summary
+                </label>
+                <input  type="text"
+                        name="summary"
+                        class="input-event"
+                        value="{{event.summary}}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="single-event-pop">
+<!-- EVENT LOCATION -->
+            <label for="location">
+              Training Location
+            </label>
+            <input  type  = "text"
+                    name  = "location"
+                    class = "input-event"
+                    value = "{{event.location}}">
+          </div>
+        </div>
+      </div>
+    
+      
+      <div class="row">
+        <div class="col-sm-12 text-right">
+          {{#if modalType 'edit'}}
+            <button class="event-btn pull-left delete-event mob-pull-left">Delete Event</button>
+          {{/if}}
+          
+          
+		  
+		  {{#if modalType 'edit'}}
+		  <button class         = "event-btn mob-pull-left"
+                  data-dismiss  = "modal"
+                  aria-label    = "close">
+            Cancel
+          </button>		  
+		   {{else}}
+		   <button class         = "event-btn"
+                  data-dismiss  = "modal"
+                  aria-label    = "close">
+            Cancel
+          </button>
+		   {{/if}}
+          
+		   
+          {{#if modalType 'edit'}}
+          <button class = "event-btn add mob-pull-left js-event-modal-button">
+            {{modalLabel.button}} Event <span>+</span>
+          </button>
+		   {{else}}
+		   <button class = "event-btn add js-event-modal-button">
+            {{modalLabel.button}} Event <span>+</span>
+          </button>
+		   {{/if}}
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+</template>

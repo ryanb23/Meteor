@@ -1,0 +1,28 @@
+<template name="teacherGiveCredit">
+  <!-- {{title}},{{description}},{{dateEnding}}, {{studentName}} -->
+	<!-- Follow Pepole -->
+	{{#each tsData}}
+	<div class="follow-pepole-area">
+		<div class="follow-pepole-box">
+			<div class="follow-pepole-header">
+			  
+				<h2><img src="/img/icon-13.png" alt="" /><span>Did all the following people attend your internal training for: &nbsp;<strong>{{title}}</strong>?</span></h2>
+			</div>
+			<div class="follow-pepole-input">
+			  
+				<select class="js-teacher-add-students js-states form-control" multiple="multiple">
+				  {{#each ary}}
+					<option value="{{id}}" selected>{{studentName}}</option>
+					{{/each}}
+				</select>
+			</div>
+		</div>
+		<div class="follow-pepole-button">
+			<button id="teacher-credit-submit" class="con">CONFIRMATION</button>
+			<button id="teacher-credit-cancel" data-id="{{_id}}">Meeting Was Cancelled</button>
+		</div>
+	</div>
+	{{/each}}
+	<!-- Follow Pepole # -->
+ <!-- <div style="margin-top:350px;"></div> -->
+</template>

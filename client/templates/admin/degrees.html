@@ -1,0 +1,113 @@
+<template name="degrees">
+<!-- degrees Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<style>
+  #degree-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+{{#if or isAdmin isSuperAdmin}}
+<div id = "degree-cover"></div>
+  <div class = "certificate-area">
+    <div class = "certificate-container">
+        <div class = "row">
+          
+          <div class = "import-navigation">
+            <ul>
+              <li>
+                <a href = "#" id="dashboard-page">
+                  <i class = "fa fa-home"></i>
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href = "#" id = "degree-certificate-page">
+                  Degrees &amp; Certifications
+                </a>
+              </li>
+              <li style = "color:blue;text-decoration:undeline;">
+                Degrees
+              </li>
+            </ul>
+          </div>
+          <br />
+          
+          <div class = "col-sm-4">
+            <div class = "certificate-course">
+              <h2>Course :</h2>
+              <p>Choose the courses you want by dragging and dropping them to the right. If you want them completed in a specific order drop to the right of the class you want to go before it.</p>
+              
+              <div id = "certificate-search">
+                
+                <input  id          = "degree-search"
+                        type        = "text"  
+                        class       = "input-lg" 
+                        placeholder = "begin typing to search..."
+                        tabindex    = "1" 
+                        autofocus>
+                <br>    
+                <br>
+                <div id = "dojo" class="sortContainer" style="width:275px;"></div>
+
+              </div>
+            </div>
+          </div>
+          
+            <div class = "col-sm-8">
+              <div class = "certificate-body">
+                <div class = "certificate-body-head">
+                  <div class = "row">
+                    <div class = "col-lg-8">
+                      <div class = "certificate-input">
+                        
+                        <label for = "">Name Your Degree:</label>
+                        <input  id          = "enter-degree-name" 
+                                type        = "text" 
+                                placeholder = "Degree Name" 
+                                tabindex    = "2"
+                                autofocus>
+                      </div>
+                      <span id="deg-taken-name-error" 
+                            class="col-lg-offset-4" 
+                            style="font-variant:small-caps;font-weight:900;color:red;">
+                      </span>
+                        
+                    </div>
+                  </div>
+                </div>
+                <div class = "certificate-body-content sortContainer">
+                  
+                  <h2>
+                    <img src = "/img/icon-8.png" alt = "">
+                    Course Name :&nbsp;&nbsp;
+                    <span id = "dName" style="color:blue;"></span>
+                  </h2>
+                  <br><br>
+                  <div  id="degree-drop-zone" 
+                        class="d-cur" 
+                        style="padding:5px;width:275px !important;height:353px;border:1px dashed;border-radius:5px;"><!-- ul -->
+                    <!-- li class="d-cur" -->
+                    <!--
+                    <div id = "drop1" class = "sortable d-cur ui-widget-content degree-drop" style="width:260px;height:30px;border:1px dashed;" tabindex = "-1">Drop 1st in sequence</div>
+                    <div id = "drop2" class = "sortable d-cur ui-widget-content degree-drop" tabindex = "-1">Drop 2nd in sequence</div>
+                    <div id = "drop3" class = "sortable d-cur ui-widget-content degree-drop" tabindex = "-1">Drop 3rd in sequence</div>
+                    <div id = "drop4" class = "sortable d-cur ui-widget-content degree-drop" tabindex = "-1">Drop 4th in sequence</div>
+                    <div id = "drop5" class = "sortable d-cur ui-widget-content degree-drop" tabindex = "-1">Drop 5th in sequence</div>
+                    <div id = "drop6" class = "sortable d-cur ui-widget-content degree-drop" tabindex = "-1">Drop 6th in sequence</div>
+                    <div id = "drop7" class = "sortable d-cur ui-widget-content degree-drop" tabindex = "-1">Drop 7th in sequence</div>
+                    -->
+                  </div>
+                </div>
+                
+                <div class = "certificate-save">
+                  <button class     = "js-degree-save button" 
+                          type      = "button" 
+                          tabindex  = "-1">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{{/if}}
+</template>

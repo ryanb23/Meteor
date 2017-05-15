@@ -1,0 +1,61 @@
+<template name="analytics">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+<!-- adminCourses Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #assign-courses-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="assign-courses-cover"></div>
+-->
+{{#if isAdmin}}
+{{renderCharts}}
+<div class="dashboard-body-area admin" id="script-div">
+  <div class="container analytics-page">
+    <div class="row">
+      <div>
+        <input class="form-control" type="text" id="datepicker" placeholder="Enter the time"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="col-sm-4">
+          <div id="courseChart"></div>
+        </div>
+
+        <div class="col-sm-4">
+          <div id="performersChart"></div>
+        </div>
+
+        <div class="col-sm-4">
+          <div id="overdueChart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <div id="completedCreditsChart"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        {{#if Template.subscriptionsReady}}
+          {{> reactiveTable settings=tableSettings showFilter=false}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+</template>
+
+<template name="analyticsTableNameCell">
+  <div class="analyticsTableNameCell">
+    <div class="avatar-container">
+      <div class="avatar" style="background-image: url('{{avatar}}')"></div>
+    </div>
+    <div class="name-container">
+      {{fullName}}
+    </div>
+  </div>
+</template>

@@ -1,0 +1,947 @@
+/* Large Desktop Layout */
+@media only screen and (min-width:1500px){
+.main-menu ul li a {font-size: 25px;}
+.promotion-content p {font-size: 20px;line-height: 28px;}
+.signup-form p {font-size: 25px;}
+.course-title h2 {font-size: 30px;}
+.course-title p {font-size: 20px;}
+.single-course-content h2,.sponsor-title h2 {font-size: 40px;}
+.single-course-content a {font-size: 16px;}
+.single-course-content p {font-size: 20px;}
+.newsletter-title h2 span {font-size: 24px;top: -22px;}
+.newsletter form {width: 688px;min-height: 63px;}
+.newsletter form::before {right: -210px;width: 210px;height: 139px;}
+.single-pricing-title {padding: 50px 40px;}
+.single-pricing-title h2 {font-size: 65px;}
+.single-pricing-body h2 {font-size: 80px;}
+.single-pricing-body p {font-size: 38px;}
+.single-pricing-body p small {font-size: 26px;}
+.single-pricing-footer a {font-size: 30px;padding: 20px 30px;}
+.single-pricing-footer {min-height: 160px;}
+.admin-dashbord .container,.admin .container,.container {width: 1050px;}
+.profile-link {top: -10px;right: 45px;}
+.sidebar-menu-area {width: 340px;left: 0 !important;}
+.profile-text h2 {font-size: 23px;line-height: 30px;}
+.profile-text h2 span {font-size: 20px;}
+.profile-text {width: 195px;margin-top: 10px;}
+.sidebar-menu ul li a {background-size: 31px auto;font-size: 26px;padding: 20px 10px 15px 75px;}
+.dash-post-profile-left p {font-size: 17px;}
+.credit-request-footer-link button {font-size: 18px;}
+.dash-post-head-right a {font-size: 18px;}
+.search-list table tbody th,.search-list table thead th {font-size: 21px;}
+.search-list table tbody td {font-size: 19px;}
+.search-list table tbody th {padding: 15px 10px;}
+.search-box input {width: 65%;}
+.search-list table tbody td button {height: 35px;width: 35px;margin: 0 3px;text-align: center;}
+.filter-buttons button {font-size: 20px;}
+.search-box {padding: 7px 10px;width: 320px;margin-left: auto;border-radius: 15px;}
+.search-box button#close-search {margin-top: 3px;}
+.dashboard-body-area.admin .container {width: 100%;}
+.course-builder-sidebar {padding: 20px 0;width: 320px;}
+.profile-link a {margin-left: 35px;height: auto;display: block;margin-top: 30px;}
+.curse-builder-items ul li {width: 150px;min-height: 130px;font-size: 16px;} 
+.curse-builder-items ul li span.area {padding: 18px 5px;}
+/* .curse-builder-items ul li span.image {width: auto;height: auto;margin: 0 auto 20px;min-height: 48px;} -nfs this line kills d&d*/
+.curse-builder-box {min-height: 650px;} /* changed from 420px -nfs */
+.dash-post-single-comment-form {width: 87%;}
+.comment-text {width: 90%;}
+.certificate-area {padding-left: 380px;}
+.certificate-course h2 {font-size: 40px;}
+.certificate-course p {font-size: 18px;line-height: 26px;}
+.certificate-course ul li span {width: auto;}
+.certificate-course ul li {font-size: 30px;}
+.certificate-input label {margin-top: 2px;font-size: 20px;}
+.certificate-input input {width: 55%;}
+.certificate-body {min-height: 975px;}
+body.main .container {width: 1170px;}
+.dashboard-body-area .container, .dashboard-header-area .container {padding-left: 395px;}
+/* below css added by mahabub */
+.dashboard-body-area > .course-view-full{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.profile-link {    
+    top: -2px;
+}
+.page-back-home a {    
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.dashboard-header-area .dash-title{
+	 margin-top: 15px;
+}
+.show-to-mobile{
+display: none;
+}
+.hide-to-mobile{
+display: block;
+}
+
+.filter-buttons .hide-to-mobile {
+    display: inline-block;
+}
+
+.filter-buttons .show-to-mobile{
+    display: none;
+}	
+}
+@media only screen and (min-width:1920px){
+	.diamonds {
+    left: -65px;
+    top: 13px;
+}
+}
+@media only screen and (min-width:1600px){
+	.diamonds {
+    left: -65px;
+    top: 13px;
+}
+}
+/* Medium Desktop Layout */
+@media only screen and (min-width:1375px) and (max-width: 1475px){
+
+.admin-dashbord .container,.admin .container,.container {width: 765px;}
+.sidebar-menu-area {left: 0 !important;}
+body.main .container {width: 1170px;}
+/* below css added by mahabub */
+.profile-link {    
+    top: -2px;
+}
+.page-back-home a {    
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.dashboard-header-area .dash-title{
+	 margin-top: 15px;
+}
+.profile-link {    
+    top: -2px;
+}
+.page-back-home a {    
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.dashboard-header-area .dash-title{
+	 margin-top: 15px;
+}
+.diamonds {
+	top: 12px;
+}
+.show-to-mobile{
+display: none;
+}
+.hide-to-mobile{
+display: block;
+}
+
+.filter-buttons .hide-to-mobile {
+    display: inline-block;
+}
+.filter-buttons .show-to-mobile{
+    display: none;
+}
+}
+/* Medium Desktop Layout */
+@media only screen and (min-width:1200px) and (max-width: 1375px){
+.show-to-mobile{
+display: none;
+}
+.hide-to-mobile{
+display: block;
+}	
+.admin-dashbord .container,.admin .container,.container {width: 765px;}
+.sidebar-menu-area {left: 0 !important;}
+.dashboard-body-area.admin .container {width: 100%;}
+body.main .container {width: 1170px;}
+/* below css added by mahabub */
+.dashboard-body-area > .course-view-full{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.profile-link {    
+    top: -2px;
+}
+.page-back-home a {    
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.dashboard-header-area .dash-title{
+	 margin-top: 15px;
+}
+.diamonds {
+	top: 12px;
+}
+.filter-buttons .hide-to-mobile {
+    display: inline-block;
+}
+.filter-buttons .show-to-mobile{
+    display: none;
+}
+}
+/* Nexus 10 */
+@media only screen and (min-width: 768px) and (max-width: 820px) {
+	.show-to-mobile{
+display: none;
+}
+.hide-to-mobile{
+display: block;
+}
+	
+	.profile-bar {
+    margin-right: 0px;
+    margin-top: 20px;	
+	}
+	.page-back-home a {
+		padding:10px 10px;
+	}
+	.profile-link {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+.dashboard-header-area .dash-title{
+	 margin-top: 15px;
+}
+.nexus-width{
+	width: 39%;
+}
+.filter-buttons .hide-to-mobile {
+    display: inline-block;
+}
+
+.filter-buttons .show-to-mobile{
+    display: none;
+}
+}
+/* Small Desktop Layout */
+@media only screen and (min-width: 991px) and (max-width: 1200px) {
+.show-to-mobile{
+display: none;
+}
+.hide-to-mobile{
+display: block;
+}
+.signup-form h2 {font-size: 30px;margin-bottom: 10px;}
+.signup-form p {font-size: 20px;}
+.signup-form form input[type="email"] {min-width: 405px;}
+.single-course-content h2 {font-size: 20px;margin: 0 0 20px;}
+.single-course-content p {font-size: 12px;}
+.single-course-content a {font-size: 12px;}
+.newsletter form {width: 515px;}
+.newsletter form input[type="email"] {width: 378px;}
+.footer-menu ul li a {font-size: 17px;padding: 9px 16px;margin-left: 24px;}
+.footer-left p {font-size: 15px;}
+.pro-video {top: 10px;right: 49px;width: 355px;height: 234px;}
+.overview-text {padding-top: 25px;}
+.overview-text h2 {font-size: 28px;line-height: 35px;}
+.single-pricing-title h2 {font-size: 35px;}
+.single-pricing-body h2 {font-size: 40px;}
+.single-pricing-body p {font-size: 20px;}
+.single-pricing-body p small {font-size: 15px;}
+.promotions h2 {font-size: 40px;}
+.admin-dashbord .container,.admin .container,.container {width: 525px;}
+.diamond {margin: 8px 0 10px 0px;}
+.logo {padding: 0 10px;}
+.dash-post-content {width: 72%;margin-top: 10px;}
+.dash-post-single-comment-form {width: 74%;}
+.sidebar-menu-area {width: 250px;left: 0 !important;}
+.profile-image {margin: 15px;}
+.profile-text {width: 133px;margin-top: 30px;}
+.profile-text h2 {font-size: 16px;line-height: 22px;}
+.profile-text h2 span {font-size: 15px;}
+.sidebar-menu ul li a {font-size: 17px;}
+.search-bar form input[type="text"] {width: 186px;font-size: 14px;padding: 7px 20px;height: 40px;}
+.search-bar form input[type="submit"] {height: 40px;}
+.post-box-header ul li label {font-size: 18px;}
+.post-box-header textarea {font-size: 22px;}
+.credit-request-header h2 {background-size: 28px;font-size: 25px;padding-left: 45px;}
+.credit-request-header button {font-size: 20px;}
+.credit-request-body p {font-size: 22px;line-height: 27px;margin: 0 0 25px;}
+.credit-request-footer h2 {font-size: 18px;}
+.sidebar-menu {margin-top: 10px;}
+.credit-request-footer-link button {padding: 10px;}
+.dash-post-head-left h2 {margin-left: 10px;font-size: 20px;}
+.dash-post-content p {font-size: 22px;}
+.dash-post-single-list p {font-size: 20px;}
+.dash-post-single-comment-form textarea {padding: 15px 20px;}
+.dash-post-profile {border: 5px solid #C6C6C6;width: 120px;height: 120px;}
+.filter-buttons button {font-size: 10px;}
+.search-box button#search {width: 30px;margin-top: 3px;}
+.search-box input {width: 75px;padding: 5px 0;font-size: 10px;}
+.search-box button#close-search {font-size: 10px;margin-top: 3px;height: 15px;width: 15px;text-align: center;padding: 0;}
+.search-box {padding: 2px 5px;width: 100%;}
+.search-list table tbody th {font-size: 11px;}
+.search-list table tbody th img {width: 20px;margin-right: 5px;float: left;position: relative;}
+.search-list table tbody td {font-size: 11px;}
+.search-list table tbody td button {margin: 3px 3px;}
+.search-list table thead th {font-size: 10px;padding: 3px 6px;}
+.search-box.libary {width: 250px;}
+.single-import-body {float: none;width: 100%;margin-bottom: 20px;}
+.filter-buttons.studentpage button#add_students,.filter-buttons.studentpage button#import_student {min-width: 120px;font-size: 12px;}
+.filter-buttons.studentpage button#add_students span {font-size: 18px;top: 3px;left: 24px;}
+.curse-builder-box .notice h2 {font-size: 14px;padding: 10px 35px;}
+.curse-builder-box .notice {margin-left: -165px;margin-top: -20px;}
+.curse-builder-box {min-height: 600px;} /* changed from 285px -nfs */
+.dash-post-single-list .comment-text a,.dash-post-single-list .comment-text p {font-size: 15px;line-height: 25px;}
+.certificate-area {padding-left: 235px;}
+.certificate-input label {float: none;margin-bottom: 5px;margin-top: 0;margin-right: 0;}
+.certificate-input input {width: 245px;float: none;margin: 0 auto 15px;text-align: center;display: block;}
+.certificate-input {margin-top: 0;text-align: center;}
+.single-customize-title label {font-size: 14px;}
+.single-customize-title.logo-c label.image-upload {font-size: 12px;padding: 5px 6px;margin-left: 5px;}
+.color-picker input {width: 100%;margin-bottom: 15px;}
+.color-picker button {width: 236px;float: none;}
+.single-customize-title.color-c {padding-top: 40px;}
+.advance-title h2 {font-size: 20px;}
+.advance-title h3 {font-size: 15px;margin-top: 5px;}
+.advance-time-button button {font-size: 25px;padding: 3px 20px 8px;}
+.dashboard-body-area.admin .container {width: 100%;}
+.comment-text {width: 75%;}
+.list-title {margin-top: 0;}
+.list-title h2 {font-size: 25px;}
+body.main .container {width: 970px;}
+.dashboard-body-area .container, .dashboard-header-area .container {width: 100%;padding-left: 305px;padding-right: 45px;}
+.profile-bar ul li button {margin-right: 5px;}
+.certificate-course ul li {font-size: 15px;}
+/* below css added by mahabub */
+.dashboard-body-area > .course-view-full{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.profile-link {    
+    top: -2px;
+}
+.page-back-home a {    
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.dashboard-header-area .dash-title{
+	 margin-top: 15px;
+}
+.profile-bar{
+	margin-right: 0px;
+}
+.filter-buttons .hide-to-mobile{
+display:block;
+}	
+
+.filter-buttons .show-to-mobile{
+    display: none;
+}
+
+}
+/* Tablet Layout */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+.show-to-mobile{
+display: none;
+}
+.hide-to-mobile{
+display: block;
+}
+.main-menu ul li {margin-left: 30px;}
+.main-menu ul li a {font-size: 15px;}
+.slider-text h2 {font-size: 20px;}
+.slider-text p {font-size: 13px;line-height: 16px;}
+.slider-text a {font-size: 15px;line-height: 16px;}
+.promotion-content h2 {font-size: 20px;}
+.promotion-content p {font-size: 13px;line-height: 18px;}
+.promotion-content a {margin-top: 40px;font-size: 15px;}
+.signup-area {padding: 70px 0;}
+.signup-form h2 {font-size: 26px;margin: 0 0 10px;}
+.signup-form p {font-size: 17px;}
+.signup-form form input[type="email"] {font-size: 20px;min-width: 340px;height: 50px;}
+.signup-form form input[type="submit"], .signup-form form a {font-size: 16px;height: 50px;padding: 10px 20px;}
+.signup-form form a {top: -3px;}
+.signup-form form {margin-top: 50px;}
+.course-title p {font-size: 11px;}
+.padding-30 {padding: 20px;}
+.single-course-content h2 {font-size: 15px;margin: 0 0 10px;}
+.course-content {min-height: 115px;}
+.single-course-content p {font-size: 10px;}
+.single-course-content a {padding: 5px 10px;font-size: 10px;margin-top: 7px;}
+.curse-link a {font-size: 12px;}
+.newsletter-title h2 {font-size: 25px;}
+.newsletter-title h2 span {font-size: 15px;}
+.newsletter form {width: 367px;min-height: 42px;}
+.newsletter form input[type="email"] {font-size: 15px;height: 40px;width: 230px;padding: 10px 20px;}
+.newsletter form input[type="submit"] {height: 40px;width: 135px;font-size: 15px;}
+.footer-left p {font-size: 12px;}
+.footer-left ul.footer-link li a {font-size: 14px;line-height: 14px;}
+.footer-menu ul li a {font-size: 12px;padding: 10px 20px;margin-left: 4px;}
+.pro-video {top: 5px;right: 36px;width: 270px;height: 175px;}
+.logo a img, .footer-logo a img {width: 70px;}
+.logo a span.text,.footer-logo a span.text {font-size: 21px;line-height: 20px;margin-top: 10px;}
+.logo a span.text span,.footer-logo a span.text span {font-size: 16px;}
+.banner-text h2 {font-size: 40px;}
+.banner-text p {font-size: 14px;line-height: 25px;}
+.banner-text h3 a,.banner-text h3 {font-size: 20px;}
+.overview-text h2 {font-size: 23px;line-height: 30px;margin: 20px 0;}
+.overview-text p {font-size: 15px;line-height: 23px;}
+.overview-text {padding-top: 20px;}
+.overview-thumbnail::before {width: 250px;height: 70px;bottom: -50px;margin-left: -125px;background-size: 100%;}
+.overview-course-text h2 {font-size: 48px;}
+.overview-course-text a {margin: 85px 0 0px;}
+.single-pricing-title h2 {font-size: 25px;}
+.single-pricing-body h2 {font-size: 25px;}
+.single-pricing-body p {font-size: 17px;}
+.single-pricing-body p small {font-size: 14px;}
+.single-pricing-footer p {font-size: 13px;}
+.single-pricing-footer a {font-size: 15px;}
+.promotions h2 {font-size: 32px;}
+.sing-up-title p {font-size: 30px;}
+.sing-up form input {min-width: 310px;}
+.sing-up form input[type="submit"] {min-width: 350px;}
+.admin-dashbord .container, .admin .container, .container {width: 100%;}
+.logo {padding: 0 10px;}
+.dash-post-content {width: 372px;}
+.dash-post-single-comment-form {width: 423px;}
+.profile-image {margin-right: 15px;}
+.profile-text {width: 133px;margin-top: 20px;}
+.profile-text h2 {font-size: 16px;line-height: 22px;}
+.profile-text h2 span {font-size: 15px;}
+.sidebar-menu ul li a {font-size: 13px;background-size: 17px;padding-top: 10px;}
+.search-bar form input[type="text"] {width: 293px;font-size: 14px;padding: 7px 20px;height: 40px;}
+.search-bar form input[type="submit"] {height: 40px;}
+.post-box-header ul li label {font-size: 18px;}
+.post-box-header textarea {font-size: 22px;}
+.credit-request-header h2 {background-size: 28px;font-size: 25px;padding-left: 45px;}
+.credit-request-header button {font-size: 20px;}
+.credit-request-body p {font-size: 22px;line-height: 27px;margin: 0 0 25px;}
+.credit-request-footer h2 {font-size: 18px;}
+.sidebar-menu {margin-top: 10px;}
+.credit-request-footer-link button {padding: 10px;}
+.dash-post-head-left h2 {margin: 0 0 15px 40px;font-size: 20px;}
+.dash-post-content p {font-size: 22px;}
+.dash-post-single-list p {font-size: 20px;}
+.profile-bar ul {text-align: left;}
+.dash-post-single-comment-form textarea {padding: 15px 20px;}
+.sidebar-menu-area {width: 235px;left: -235px;overflow: inherit;}
+.sidebar-menu-area .buttons button {display: block;}
+.profile-bar ul li button {margin-right: 15px;}
+.feedback-form {display: none;}
+.filter-buttons {text-align: left;margin-bottom: 13px;}
+.search-box input {width: 68%;}
+.search-box button#close-search {margin-top: 2px;}
+.search-box.libary {width: 250px;}
+.single-import-body {float: none;width: 100%;margin-bottom: 20px;}
+.filter-buttons.studentpage button#add_students,.filter-buttons.studentpage button#import_student {min-width: 120px;font-size: 12px;}
+.filter-buttons.studentpage button#add_students span {font-size: 18px;top: 3px;left: 24px;}
+.filter-buttons.studentpage {text-align: left;}
+.filter-buttons.studentpage button {text-align: center;}
+.curse-builder-box .notice h2 {font-size: 14px;padding: 10px 35px;}
+.curse-builder-box .notice {margin-left: -165px;margin-top: -20px;}
+.curse-builder-box {min-height: 285px;}
+.dash-post-single-list .comment-text a,.dash-post-single-list .comment-text p {font-size: 20px;line-height: 25px;}
+.admin-dashbord .logo a img,.admin-dashbord .footer-logo a img,.admin .logo a img,.admin .footer-logo a img {width: auto;}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active,.ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight,.ui-state-hover,.ui-state-default,.ui-widget-content .ui-state-default,.ui-widget-header .ui-state-default,.ui-button,html .ui-button.ui-state-disabled:hover,html .ui-button.ui-state-disabled:active {width: 25px;height: 25px;}
+.certificate-area{padding-left: 0;}
+.certificate-input input {width: 100%;margin-top: 5px;}
+.certificate-input label {margin-top: 0;}
+.certificate-input {margin-top: 0;}
+.ui-widget {font-size: 11px;}
+.certificate-input {margin-top: 0;text-align: center;}
+.certificate-input label {float: none;margin-bottom: 5px;margin-top: 0;margin-right: 0;}
+.certificate-input input {width: 245px;float: none;margin: 0 auto 15px;text-align: center;display: block;}
+.single-customize-title label {font-size: 16px;}
+.color-picker input {width: 159px;}
+body.main .container {width: 750px;}
+.dashboard-body-area .container, .dashboard-header-area .container {padding-left: 60px;padding-right: 60px;}
+.certificate-course ul li {font-size: 15px;}
+/* below css added by mahabub */
+.dashboard-body-area >.course-view-full{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.filter-buttons .hide-to-mobile{
+display:block;
+}	
+
+.filter-buttons .show-to-mobile{
+    display: none;
+}
+
+}
+/* Mobile Small Layout */
+@media only screen and (max-width: 767px) { 
+.show-to-mobile{
+display: none;
+}
+.hide-to-mobile{
+display: block;
+}
+
+
+
+.logo {overflow: hidden;}
+.logo a {float: none;display: block;width: 200px;margin: auto;padding-left: 20px;}
+.main-menu ul {text-align: center;}
+.main-menu ul li {display: block;margin-left: 0;}
+.main-menu ul li a {font-size: 15px;padding: 5px;}
+.main-menu ul li.signup {padding: 0;}
+.navbar-toggle {margin-right: 0;margin-bottom: 0;border: 1px solid #fff;float: none;position: absolute;top: 0;}
+.navbar-toggle .icon-bar {background: #fff;}
+.slider-area::before {height: 1px;top: 1px;}
+.slider-area .owl-controls .owl-nav div {width: 20px;margin-top: -10px;}
+.slider-area .owl-controls .owl-nav div.owl-prev {left: 10px;}
+.slider-area .owl-controls .owl-nav div.owl-next {right: 10px;}
+.slider-text h2 {font-size: 12px;margin: 0 0 2px;}
+.slider-text p {font-size: 9px;line-height: 10px;margin-bottom: 5px;}
+.slider-text a {font-size: 8px;line-height: 0px;padding: 8px 10px;margin-top: 0px;}
+.promotion-area {padding: 20px 0;}
+.promotion-content h2 {font-size: 18px;margin: 0 0 10px;}
+.promotion-content p {font-size: 12px;line-height: 15px;}
+.promotion-content a {margin-top: 20px;font-size: 16px;margin-bottom: 30px;}
+.video-promotion {width: 255px;margin: auto;}
+.video-buttons a {margin-top: -40px;margin-left: -40px;width: 80px;}
+.pro-video {top: 4px;right: 27px;width: 200px;height: 130px;}
+.signup-area {padding: 30px 0;}
+.signup-form h2 {font-size: 15px;margin: 0 0 10px;}
+.signup-form p {font-size: 12px;}
+.signup-form form {margin-top: 30px;}
+.signup-form form input[type="email"] {font-size: 14px;padding: 5px 15px;min-width: 150px;height: 40px;display: block;width: 100%;margin-bottom: 10px;}
+.signup-form form input[type="submit"], .signup-form form a {font-size: 18px;height: 40px;padding: 6px 15px;display: block;margin-right: 0;width: 100%;margin-bottom: 10px;}
+.course-area {padding: 25px 0 10px;}
+.course-title h2 {margin: 0 0 10px;font-size: 18px;}
+.course-area .row {margin: 0;}
+.course-area .col-sm-4, .course-area .col-sm-12 {padding: 0;}
+.course-title p {font-size: 11px;}
+.padding-30 {padding: 10px;}
+.single-course-content h2 {font-size: 16px;margin: 0 0 12px;}
+.single-course-content p {font-size: 11px;}
+.course-content {min-height: auto;}
+.single-course-content a {border-radius: 2px;padding: 5px 10px;margin-top: 0px;font-size: 10px;}
+.single-course-content h2 {font-size: 13px;margin: 0 0 10px;}
+.curse-link a {font-size: 12px;border-radius: 4px;padding: 8px 15px;margin-top: 15px;}
+.sponsor-title h2 {font-size: 20px;}
+.sponsor-title {margin-bottom: 20px;}
+.sponser-area {padding: 20px 0;}
+.sponsor-list .owl-controls .owl-nav div {margin-top: -18px;width: 15px;}
+.sponsor-list .owl-controls .owl-nav div.owl-prev {left: -10px;}
+.sponsor-list .owl-controls .owl-nav div.owl-next {right: -10px;}
+.newsletter-area {padding: 20px 0;}
+.newsletter-title h2 {font-size: 25px;}
+.newsletter-title h2 span {font-size: 15px;}
+.newsletter form input[type="email"] {font-size: 15px;height: 40px;width: 100%;float: none;padding: 10px 20px;}
+.newsletter form input[type="submit"] {height: 40px;float: none;width: 100%;font-size: 20px;}
+.newsletter form {width: auto;margin-left: 0;margin-top: 20px;}
+.footer-area {padding: 20px 0;}
+.footer-menu {margin-top: 0;}
+.footer-menu ul {list-style: none;text-align: center;display: block;float: none;padding-bottom: 10px;margin-bottom: 20px;}
+.pull-right {float: none !important;}
+.footer-menu ul li {display: inline-block;}
+.footer-menu ul li a {display: block;padding: 5px 10px;font-size: 12px;margin: 0;}
+.footer-left {text-align: center;}
+.footer-left p {font-size: 13px;margin-top: 10px;}
+.footer-left ul.footer-link li a {font-size: 13px;line-height: 13px;}
+.footer-area {overflow: hidden;}
+body.main .logo a img, .footer-logo a img {width: 55px;}
+.logo a span.text, .footer-logo a span.text {font-size: 20px;line-height: 20px;margin-top: 1px;}
+.logo a span.text span,.footer-logo a span.text span {font-size: 16px;}
+.footer-logo {width: 200px;margin: auto;text-align: left;}
+.login-page-logo {margin-bottom: 20px;padding: 0 20px;}
+.login-page {width: 230px;padding: 30px 0;}
+.login-input {width: 150px;}
+.login-details {padding: 10px;left: -20px;}
+.login-details::before {border-bottom: 15px solid #082636;border-left: 20px solid transparent;top: -15px;}
+.login-details::after {border-top: 15px solid #082636;border-left: 20px solid transparent;bottom: -15px;}
+.login-form form label {font-size: 15px;line-height: 20px;}
+.login-form form .login-input input[type="email"] {margin-bottom: 10px;}
+.login-form form .login-input input[type="password"] {margin-bottom: 5px;}
+.login-form form .login-input input {font-size: 13px;padding: 5px 10px;}
+.login-form form .login-input p a{font-size: 15px;}
+.login-button {width: 190px;}
+.login-button input[type="submit"] {font-size: 15px;margin-bottom: 20px;padding: 5px;width: 120px;}
+.login-form form .login-button label {font-size: 15px;line-height: 20px;}
+.login-footer p {font-size: 13px;line-height: 19px;}
+.banner-text h2 {font-size: 19px;margin: 0 0 15px;}
+.banner-text p {font-size: 14px;line-height: 19px;}
+.banner-text h3 {font-size: 13px;}
+.banner-text h3 a {font-size: 13px;line-height: 18px;border-radius: 5px;padding: 10px 15px;margin: 0 5px;}
+.banner-text {padding: 90px 0 20px;}
+.banner-area {height: 365px;}
+.overview-area {padding: 35px 0;}
+.overview-text {padding-top: 0;text-align: center;}
+.overview-text h2 {font-size: 20px;line-height: 25px;margin: 20px 0;}
+.overview-text p {font-size: 13px;line-height: 22px;}
+.overview-thumbnail::before {width: 250px;height: 70px;bottom: -50px;margin-left: -125px;background-size: 100%;}
+.overview-thumbnail {width: 255px;margin: auto;margin-bottom: 20px;}
+.overview-area .pull-right {float: none !important;}
+.overview-course-area {padding: 40px 0;}
+.overview-course-text h2 {font-size: 35px;line-height: 35px;}
+.overview-course-text a {margin: 45px auto 20px;display: block;width: 100px;}
+.signup-area.overview {margin-top: 30px;}
+.single-pricing-title h2 {font-size: 25px;}
+.single-pricing-body h2 {font-size: 25px;}
+.single-pricing-body p {font-size: 17px;}
+.single-pricing-body p small {font-size: 14px;}
+.single-pricing-footer p {font-size: 13px;}
+.single-pricing-footer a {font-size: 15px;}
+.promotions h2 {font-size: 20px;}
+.pricing-title h2 {font-size: 35px;}
+.pricing-title {margin: 0 0 40px;}
+.pricing-area {padding: 40px 0;}
+.promotions-area {padding: 50px 0 45px;}
+.signingup-area {padding: 70px 0 30px;}
+.sing-up-title h2 {font-size: 25px;}
+.sing-up-title p {font-size: 18px;}
+.sing-up form input {min-width: 100%;margin-bottom: 30px;}
+.sing-up form .university input {margin: 0;}
+.sing-up form h3 span {bottom: 0;left: 0;margin-bottom: 20px;display: inline-block;}
+.sing-up form input[type="submit"] {margin: 40px auto 0;font-size: 20px;min-width: 100%;}
+.promo-area {padding: 0 0 15px;}
+.profile-link {margin-top: 25px;}
+.logo {padding: 0;margin: 0;}
+.dash-post-content {width: 100%;}
+.dash-post-single-comment-form {width: 423px;}
+.logo a span.text span {font-size: 13px;}
+.logo a span.text {font-size: 16px;margin-top: 3px;line-height: 18px;}
+.logo a img {width: 150px;}
+.profile-image {margin: 15px;}
+.profile-text {width: 133px;margin-top: 32px;}
+.profile-text h2 {font-size: 16px;line-height: 22px;}
+.profile-text h2 span {font-size: 15px;}
+.sidebar-menu ul li a {font-size: 13px;background-size: 17px;padding-top: 10px;}
+.search-bar form input[type="text"] {width: 190px;font-size: 14px;padding: 7px 20px;height: 40px;}
+.search-bar form input[type="submit"] {height: 40px;width: 65px;}
+.post-box-header ul li label {font-size: 16px;}
+.post-box-header textarea {font-size: 17px;}
+.credit-request-header h2 {background-size: 20px;font-size: 19px;padding-left: 30px;}
+.credit-request-header button {font-size: 20px;line-height: 20px;}
+.credit-request-body p {font-size: 14px;line-height: 17px;margin: 0 0 25px;}
+.credit-request-footer h2 {font-size: 14px;text-align: center;margin: 0 auto 20px;padding: 0;}
+.sidebar-menu {margin-top: 10px;}
+.dashboard-body-area {padding: 30px 0;}
+.credit-request-footer-link button {padding: 10px;display: block;float: none;width: 100%;}
+.dash-post-head-left h2 {margin: 0;font-size: 20px;}
+.dash-post-content p {font-size: 14px;}
+.dash-post-single-list p {font-size: 12px;}
+.profile-bar ul {text-align: center;}
+.dash-post-single-comment-form textarea {padding: 15px 20px;}
+.sidebar-menu-area {position: relative;height: auto;width: 100%;padding: 10px 15px;left: 0 !important;overflow: hidden;}
+.logo a {display: block;width: 180px;margin: 7px auto 0;}
+.profile {width: 250px;margin: auto;}
+.search-bar form {width: 255px;margin: auto;}
+.credit-request-header {padding: 10px 15px;}
+.credit-request-footer-link {width: 100%;border-radius: 0;margin-left: auto;}
+.single-dash-post-body {padding: 20px;}
+.dash-post-list .dropdown-menu {left: -40px;min-width: 100px;}
+.dash-post-profile-left {float: none;text-align: center;margin-right: 0;}
+.dash-post-profile {margin: auto;}
+.dash-post-footer button {margin-right: 10px;font-size: 15px;}
+.dash-post-footer button img {width: 35px;}
+.dash-post-footer button#comment img {width: 26px;}
+.dash-post-footer button#like::before {height: 23px;font-size: 14px;width: 40px;left: -30px;top: 11px;}
+.dash-post-footer button#like::after {border-bottom: 10px solid #1783BB;border-left: 10px solid transparent;left: -30px;top: 1px;}
+.single-dash-post-comment {padding: 20px;}
+.dash-comment-image {border: 1px solid #C6C6C6;width: 50px;height: 50px;float: left;margin-right: 10px;}
+.dash-post-single-comment-form {width: 71%;float: right;}
+.dash-post-single-comment-form textarea {padding: 10px;font-size: 14px;height: 55px;}
+.dash-post-single-list {padding-left: 0;padding-bottom: 15px;}
+.dash-post-single-list .comment-avatar {width: 40px;height: 40px;margin-right: 10px;top: 15px;}
+.dash-post-single-list a {margin-right: 5px;}
+.feedback-form form {padding: 20px;border-radius: 10px;left: 0;top: -285px;width: 213px;}
+.feedback-form form textarea {padding: 10px;height: 100px;border-radius: 5px;}
+.feedback-form form::before {width: 65px;height: 60px;bottom: -60px;right: 55px;}
+.feedback-form form h2 {font-size: 15px;}
+.profile-bar {margin-bottom: 0;margin-right: 40%;}
+.diamond {margin: 10px 0 0 -2px;}
+.diamonds {left: 50%;top: -5px;margin-left: -105px;}
+.feedback-form {display: none;}
+.profile-link .dropdown-menu {top: 50px;margin-left: -23px;}
+.profile-link a {height: auto;}
+.dashboard-header-area .dropdown-menu a {font-size: 14px;}
+.profile-bar ul li button {margin: 0 10px;}
+.dashboard-header-area {position: relative;}
+.filter-buttons button {margin: 5px 0;display: block;width: 100%;}
+.search-box button#close-search {margin-top: 3px;}
+.search-box input {width: 60%;}
+.search-box {margin-top: 20px;width: 100%;}
+.search-list table tbody th {font-size: 25px;text-align: right;}
+.search-list table tbody th img {width: 20px;margin-right: 5px;float: none;position: relative;}
+.search-list table tbody td {font-size: 11px;text-align: right;}
+.search-list table tbody td button {margin: 3px 3px;}
+.search-list table thead th {font-size: 10px;padding: 3px 6px;}
+.table {width: 100%;max-width: inherit;}
+.pop-up-area button#popup-close {right: 20px;width: 20px;}
+.popup-body {width: 250px;margin-left: -125px;}
+.course-build .popup-body {width: 250px;margin-left: -125px;margin-top:-333px}
+.pop-up-area {min-height: 365px;margin-left: 7px;}
+.course-build .pop-up-area {min-height: 100vh;margin: 0px;position: fixed;top: 0;bottom: 0;left: 0;right: 0;}
+.course-build-popup h2 { margin: 60px 0 20px;}
+.popup-body input[type="submit"] { margin-top: 10px;}
+.modal-dialog {width: auto;}
+.search-box button#close-search {height: 24px;width: 24px;font-size: 10px;}
+.search-list table,.search-list thead,.search-list tbody,.search-list th,.search-list td,.search-list tr {display: block;}
+.search-list thead tr {position: absolute;top: -9999px;left: -9999px;}
+.search-list td {border: none;border-bottom: 1px solid #eee;position: relative;padding-left: 50%;} 
+.search-list td::before {position: absolute;top: 8px;left: 10px;width: 45%;padding-right: 10px;white-space: nowrap;text-align: left;font-style: normal;color: #37ACE9;}
+.search-list td:nth-of-type(1):before { content: "# Of course"; }
+.search-list td:nth-of-type(2):before { content: "Credits"; }
+.search-list td:nth-of-type(3):before { content: "Times Completed"; }
+.search-list.students td:nth-of-type(3):before { content: "Dated Added"; }
+.search-list.libary td:nth-of-type(3):before { content: " "; }
+.search-list td:nth-of-type(4):before { content: " "; }
+.search-list table tbody tr {padding: 10px 0;}
+.search-list {border-top: 1px solid #ADADAD;}
+.search-box.libary {width: 100%;}
+.single-import-body {float: none;width: 100%;margin-bottom: 20px;}
+.import-cv-title h2 {font-size: 30px;padding-left: 20px;margin: 0 0 10px;}
+.import-navigation {padding: 10px 20px;}
+.import-body {padding: 20px 10px;}
+.single-import-body table thead tr th,.single-import-body .bootstrap-select span {font-size: 10px;line-height: 18px;}
+.single-import-body table tbody tr td span {font-size: 20px;}
+.search-list.students table tbody th {text-align: left;}
+.filter-buttons.studentpage button#add_students span {left: 50%;margin-left: -100px;}
+.pop-up-area.students .popup-body {margin-top: -280px;}
+.pop-up-area.students {min-height: 665px;}
+.curse-builder-box .notice h2 {font-size: 14px;padding: 10px 35px;}
+.curse-builder-box {min-height: 285px;margin-top: 0;padding: 20px;}
+.curse-builder-box {min-height: 285px;}
+.curse-builder-box .notice {margin-left: 0;margin-top: -25px;left: 0;}
+.footer-page {padding: 20px 0;position: relative;text-align: center;}
+.save-button {text-align: center;margin-top: 20px;}
+.search-list.assign td::before {display: none;}
+.search-list.assign table button#assign {float: none;margin: auto;display: block;}
+.search-list.assign .pop-up-area.students .popup-body {margin-top: -270px;}
+.search-list.assign .pop-up-area.students {min-height: 565px;}
+.single-assign {margin-bottom: 20px;}
+.search-list.assign table tbody th {width: 100%;text-align: center;}
+.certificate-area {padding-top: 0;padding-left: 0;}
+.certificate-course ul li {font-size: 15px;}
+.certificate-body {border-left: 0;min-height: auto;}
+.certificate-body-head {padding: 20px;}
+.certificate-input {margin-top: 0;text-align: center;}
+.certificate-input label {float: none;margin-bottom: 5px;margin-top: 0;margin-right: 0;}
+.certificate-input input {width: 245px;float: none;text-align: center;margin: 0 auto 15px;display: block;}
+.certificate-body-content {padding: 20px;min-height: auto;}
+.certificate-body-content h2 img {margin-right: 10px;width: 50px;}
+.certificate-body-content h2 {margin: 0 0 20px;font-size: 20px;}
+.certificate-body-content ul li {margin-left: 0px !important;}
+.certificate-save {text-align: center;}
+.customize-title {margin: 0 auto 30px;}
+.customize-title h2 {font-size: 25px;}
+.single-customize-title {margin-bottom: 15px;}
+.single-customize-title label {font-size: 15px;}
+.single-customize-title.logo-c label.image-upload {font-size: 18px;}
+.image-preview {margin: auto;}
+.color-picker input {margin: 0 auto 15px;display: block;}
+.color-picker button {width: 192px;margin: auto;display: block;float: none;}
+.single-customize-title.code-c label {margin-top: 0;}
+.single-customize input[type="submit"],.advance-save input[type="submit"] {display: block;margin: auto;width: 255px;}
+.advance-title {text-align: center;}
+.advance-title h2, .advance-title h3 {font-size: 18px;}
+.credit-required {text-align: center;}
+.advance-time-input input, .advance-url input {margin: 0 auto 20px;	display: block;width: 242px;}
+.advance-time-button {text-align: center;}
+.advance-time-button button {font-size: 20px;margin: 0 3px;padding: 5px 20px 8px;}
+.promotion-content {text-align: center;}
+.dashboard-body-area .container, .dashboard-header-area .container {padding-left: 15px;padding-right: 15px;position:relative;}
+.dash-post-single-list .comment-text a,.dash-post-single-list .comment-text p {font-size: 15px;line-height: 20px;}
+.comment-text {width: 76%;}
+#fb-template{
+    font-size: 16px;
+}
+.dashboard-body-area{
+    padding-top: 0px;
+}
+.profile-link {
+    margin-top: 51px;
+}
+.profile-bar {
+    margin-top: 20px;
+}
+.padding-top-75{
+    padding-top: 10px;
+}
+}
+/* Mobile Large Layout Layout */
+@media only screen and (min-width: 480px) and (max-width: 767px) { 
+.single-course-content h2 {font-size: 18px;}
+.single-course-content p {font-size: 14px;}
+.dash-post-single-comment-form {width: 80%;}
+}
+/*
+Mahabub media query started from here ..
+*/
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+#fb-template{
+font-size: 15px;
+}
+.dashboard-body-area{
+    padding-top: 0px;
+}
+.profile-link {
+    margin-top: 51px;
+}
+.profile-bar {
+    margin-top: 20px;
+}
+#create-training-event-button{
+margin-top:10px;
+}
+.event-model-title{
+	font-size:18px;
+}
+.pop-up-area.eventpop button#popup-close {
+	margin-top:0px;
+}
+
+.show-to-mobile{
+display: block;
+}
+.hide-to-mobile{
+display: none;
+}
+.filter-buttons .hide-to-mobile{
+display:none;
+}	
+
+.filter-buttons .show-to-mobile{
+    display: block;
+}	
+
+.mob-pull-left{
+float:left;
+margin-left:0;
+}	
+.pop-up-area.eventpop button.mob-pull-left{
+	margin-left:0;
+}
+.mob-margin-btm{
+	    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#vid-0,#vid-1,#vid-2,#vid-3,#vid-4,#vid-5{
+	width:100%;
+	height:auto;
+	
+    margin-top: 25%;
+}
+
+
+#fb-template iframe{
+	width:100%;
+}
+  }
+  
+  /* ----------- iPhone 5 and 5S ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+	  
+	  
+
+.filter-buttons .hide-to-mobile{
+display:none;
+}	
+
+.filter-buttons .show-to-mobile{
+    display: block;
+}	
+
+#create-training-event-button{
+margin-top:10px;
+}	
+#fb-template{
+    font-size: 15px;
+}
+.dashboard-body-area{
+    padding-top: 0px;
+}
+.profile-link {
+    margin-top: 40px;
+}
+.profile-bar {
+    margin-top: 20px;
+}
+.page-back-home a {
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #fff;
+    padding: 5px 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #fff;
+}
+.diamonds {
+    left: 50%;
+    top: -5px;
+    margin-left: -83px;
+}
+.footer-filter h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 16px;
+    margin-top: 15px;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    display: inline-block;
+}    
+.save-button button {
+    color: #5f5f5f;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    border: 1px solid #fff;
+    padding: 6px 14px;
+    background: url(/img/bg-7.png) repeat-x scroll 0 0 / auto 100%;
+    font-size: 16px;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+.padding-top-75{
+    padding-top: 10px;
+}
+.curse-builder-box{
+    padding: 0px;
+}
+.event-model-title{
+	font-size:21px;
+}
+.pop-up-area.eventpop button#popup-close {
+	margin-top:0px;
+}
+.comment-text{
+	margin-top:5px;
+}
+.dash-post-single-list .comment-avatar {
+	top:0px;
+}
+.show-to-mobile{
+display: block;
+}
+.hide-to-mobile{
+display: none;
+}
+.mob-pull-left{
+float:left;
+margin-left:0;
+}	
+.pop-up-area.eventpop button.mob-pull-left{
+	margin-left:0;
+}
+.mob-margin-btm{
+	    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#vid-0,#vid-1,#vid-2,#vid-3,#vid-4,#vid-5{
+	width:100%;
+	height:auto;
+	
+    margin-top: 25%;
+}
+
+#fb-template iframe{
+	width:100%;
+}
+
+}

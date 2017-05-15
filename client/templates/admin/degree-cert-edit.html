@@ -1,0 +1,138 @@
+<template name="degreeCertEdit">
+<style>
+  .degree-drop {
+    text-align:     center;
+    vertical-align: middle;
+    line-height:    50px;
+    height:         50px;
+  }
+</style>
+  <div class = "dashboard-body-area admin">
+    <div class = "container">
+      <div class = "row">
+        
+        <div class = "col-md-12 col-lg-12">
+          <div class = "import-navigation">
+            <ul>
+                <li>
+                  <a href = "#" id = "dashboard-page">
+                    <i class = "fa fa-home"></i>
+                    Dashboard
+                  </a>
+                </li>
+                
+                <li>
+                  <a href = "#" id = "degree-certificate-page">
+                    Degrees &amp; Certifications
+                  </a>
+                </li>
+                
+                <li style = "color:blue;text-decoration:undeline;">
+                  Edit
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <br />
+    
+      <div class = "row">
+        <div class = "col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
+          
+          {{#with vitals}}
+          
+          <h2>
+            Editing: <input id="edit-degree-cert-name" style = "color:blue;" value="{{title}}">
+          </h2>
+          
+          <input  id        = "num"
+                  type      = "hidden" 
+                  data-num  = "{{count}}">
+          
+          {{/with}}
+        </div>
+      
+        <div class="col-md-3 col-lg-3">
+          
+          <button id    = "degree-cert-save-edit" 
+                  class = "btn btn-lg btn-success">
+            SAVE EDIT
+          </button>
+        </div>
+      
+      </div>
+      <hr>
+      <br><br>
+      
+<!-- body -->
+
+      <div class = "row">
+        <div class = "col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2">
+ 
+<!-- CURRENT COURSES -->
+        
+          <h3 style = "height:38px;">
+            Current Courses
+          </h3>
+          
+          <div id="dc-current-courses" class = "sortContainer" style="width:260px;">
+  
+            {{#each data}}
+            
+            <div  id      = "{{id}}" 
+                  class   = "sortable degree-drop d-cur ui-widget-content"
+                  data-di = "{{_id}}" 
+                  data-dc = "{{credits}}">
+                
+                {{name}}
+            </div>
+            
+            {{/each}}
+<!--            
+            <div  id    = "drop1" 
+                  class = "degree-drop ui-widget-content d-cur"
+                  style = "color:green;border:2px solid green">
+              Drop New Course Here
+            </div>
+-->        
+          </div>
+          
+          <small>
+            <strong>
+              Drag/Drop to re-arrange sequence
+            </strong>
+          </small> 
+        </div>
+        
+<!-- /CURRENT COURSES -->
+
+        <div class = "col-md-4 col-col-lg-4">
+
+<!-- DRAGE NEW COURSES FROM HERE -->
+
+          <small>
+            <strong>
+              Drag new courses from here
+            </strong>
+          </small>
+          
+          <div class = "certificate-search">
+            
+            <input  id          = "cert-search" 
+                    type        = "text" 
+                    class       = "input-lg"
+                    placeholder = "begin typing to search..."
+                    tabindex    = "1" 
+                    autofocus>
+          
+            <div id = "dc-course-list" class="sortContainer" style="position:absolute;"></div>
+            
+        </div>
+        
+<!-- /DRAGE NEW COURSES HERE -->
+
+      </div>
+    </div>
+  </div>
+</div>
+</template>

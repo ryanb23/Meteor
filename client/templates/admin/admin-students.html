@@ -1,0 +1,444 @@
+<template name="adminStudents">
+<!-- adminStudents Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #students-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="students-cover"></div>
+-->
+{{#if isAdmin}}
+<div class="dashboard-body-area admin">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+
+  <div class="row">
+    <div class="col-sm-12"><!-- 8 -->
+      <div class="import-navigation">
+          <ul>
+              <li><a href="#" id="dashboard-page"><i class="fa fa-home"></i>Dashboard</a></li>
+              <li style="color:blue;text-decoration:undeline;">Students</li>
+          </ul>
+      </div>
+      <br />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="filter-buttons studentpage">
+        
+        <button class       = "js-add-student"
+                type        = "button"
+                id          = "add_students"
+                data-toggle = "modal"
+                data-target = "#addStudentModal">
+          <span>+</span>
+          Add Student
+        </button>
+        
+        <button id    = "import_student" 
+                class = "js-import-students-csv">
+          Import Students CSV
+        </button>
+        
+        
+<!-- ADD STUDENT MODAL -->    
+<div  class           = "modal fade left" 
+      id              = "addStudentModal" 
+      tabindex        = "-1" 
+      role            = "dialog" 
+      aria-labelledby = "myModalLabel">
+  
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      
+      <button type          = "button" 
+              id            = "popup-close" 
+              data-dismiss  = "modal" 
+              aria-label    = "Close">x</button>
+      <br><br>
+      <center><h2 style="color:white;" >ADD STUDENT</h2></center>
+      <div class="popup-body">
+        <br><br>
+        <form action="">
+          <div class="row">
+            
+            <div class="col-sm-6">
+              
+              <input  class       = "js-fn input-lg mob-margin-btm" 
+                      type        = "text" 
+                      placeholder = "First Name"
+                      style       = "width:100%;">
+            </div>
+            
+            <div class="col-sm-6">
+			
+                <input  class       = "js-ln input-lg mob-margin-btm" 
+                        type        = "text" 
+                        placeholder = "Last Name"
+                        style       = "width: 100%;">
+            </div>
+            
+          </div>
+          
+          
+          <div class="row">
+            
+            <div class="col-sm-6">
+			
+                <input  class       = "js-email input-lg mob-margin-btm" 
+                        type        = "text" 
+                        placeholder = "Email"
+                        style       = "width: 100%;">
+            </div>
+            
+            <div class="col-sm-6">
+			
+              <select id    = "sel1"  
+                      class = "form-control input-lg mob-margin-btm">
+                
+                <option value = "student">Student</option>
+                <option value = "teacher">Teacher</option>
+                <option value = "admin" >Admin</option>
+                
+              </select>
+            </div>
+ <!--         
+            <div class="col-sm-6">
+
+              <select class="js-dept form-control input-lg">
+                <option></option>
+                {{#with departments}}
+                {{#each this}}
+                <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+                {{/with}}
+              </select>
+                
+            </div>
+ -->           
+          </div>
+         
+          <br>
+<!--         
+          <div class="row">
+            <br>
+            <div class="col-sm-6">
+              
+              <select id    = "sel1"  
+                      class = "form-control input-lg">
+                
+                <option value = "student">Student</option>
+                <option value = "teacher">Teacher</option>
+                <option value = "admin" >Admin</option>
+                
+              </select>
+              
+              
+              <select id          = "sel1"  
+                      class       = "js-role form-control" 
+                      data-style  = "btn-sss"></select>
+              
+            </div>
+          </div>
+-->
+          <div class="row">
+            <br><br>
+            <div class="col-sm-12 text-right">
+              <input  class   = "js-add-student-submit mob-margin-btm" 
+                      type    = "submit" 
+                      value   = "SAVE">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>                                         
+  </div>
+</div>
+<!-- /ADD STUDENT MODAL -->
+
+
+      </div><!-- filter buttons -->
+    </div>
+    
+    <div class="col-sm-4">
+        <div class="search-box">
+            <form action="">
+             
+              <div class="col-sm-2">
+              
+                <!-- <img src="/img/search-1.png" alt=""> -->
+              
+              </div>
+              
+              <!-- <div class="col-sm-9"> -->
+                <!-- <input type="text" placeholder="Search Material"> -->
+                <select id="search-students" style="">
+                  <option></option>
+                  {{#with students}}
+                  {{#each this}}
+                  <option value="{{_id}}">{{fullName}}</option>
+                  {{/each}}
+                  {{/with}}
+                </select>
+              <!-- </div> -->
+                <!--<button id="close-search">X</button>-->
+            </form>
+        </div>
+    </div>
+    
+  </div>
+
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="search-list students">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th># Of courses</th>
+                      <th>Credits</th>
+                      <th>Dated Added</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each students }}
+                    <tr id      = "{{_id}}">
+                      <th class = "name">
+                        <span>
+                          <img src = "{{avatar}}" alt="">
+                        </span>
+                        <a  class   = "js-student" 
+                            data-id = "{{_id}}" 
+                            href    = "#">
+                          {{fname}} {{lname}}
+                        </a>
+                      </th>
+                      {{#if compl_courses_cnt }}
+                        <td>{{ compl_courses_cnt }}</td>
+                      {{else}}
+                        <td></td>
+                      {{/if}}
+                      {{#if current_credits}}
+                        <td>{{ current_credits }}</td>
+                      {{else}}
+                        <td></td>
+                      {{/if}}
+                      <td>{{created_at}}</td>
+                      <td>
+                        <button class       = "js-edit-student"
+                                data-id     = "{{_id}}"
+                                data-toggle = "modal"
+                                data-target = "#editStudentModal"
+                                id          = "edit">
+                          
+                          <img src = "/img/edit.png" alt="">
+                        </button>
+                        {{#if isCurrentUser _id}}
+                        <button class       = "js-delete-student"
+                                data-id     = "{{_id}}"
+                                data-toggle = "modal"
+                                data-target = "#deleteStudentModal"
+                                id          = "delete"
+                                style       = "opacity:.5;filter:alpha(opacity=50);"
+                                disabled>
+                          
+                          <img src = "/img/delete.png" alt="">
+                        </button>
+                        {{else}}
+                        <button class       = "js-delete-student"
+                                data-id     = "{{_id}}"
+                                data-toggle = "modal"
+                                data-target = "#deleteStudentModal"
+                                id          = "delete">
+                          
+                          <img src = "/img/delete.png" alt="">
+                        </button>
+                        {{/if}}
+                      </td>
+                    </tr>
+
+                    {{/each}}
+                  </tbody>
+                </table>
+                <div class = "more">
+                  <button><img src = "/img/more.png" alt=""></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- EDIT STUDENT MODAL -->
+<div  class           = "modal fade left" 
+      id              = "editStudentModal" 
+      tabindex        = "-1" 
+      role            = "dialog" 
+      aria-labelledby = "myModalLabel">
+  
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      
+      <button type          = "button" 
+              id            = "popup-close" 
+              data-dismiss  = "modal" 
+              aria-label    = "Close">x</button>
+      <br><br>
+      
+      <center><h2 style="color:white;">EDIT STUDENT</h2></center>
+      
+      <div class="popup-body">
+        
+        <input type="hidden" id="edit-student-modal-id">
+        
+        <br><br>
+        <form action="">
+          <div class="row">
+            <div class="col-sm-6">
+              <br>
+                                <input  class       = "js-fn form-control input-lg" 
+                                        type        = "text" 
+                                        placeholder = "" 
+                                        style       = "width:100%;" readonly/>
+            </div>
+            <br>
+            <div class="col-sm-6">
+                                <input  class       = "js-ln form-control input-lg" 
+                                        type        = "text" 
+                                        placeholder = "" 
+                                        style       = "width:100%;" readonly/>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <br>
+            <div class="col-sm-6">
+                                <input  class       = "js-email form-control input-lg" 
+                                        type        = "text" 
+                                        placeholder = "" 
+                                        style       = "width:100%;"/>
+            </div>
+            
+            
+            <div class="col-sm-6">
+              
+              <select name  = "js-dept" 
+                      class = "js-dept form-control input-lg">
+              <!--
+               <option></option>
+               
+                  {{#with departments}}
+                  {{#each this}}
+                  <option value="{{_id}}">{{name}}</option>
+                  {{/each}}
+                  {{/with}}
+              -->
+              </select>
+                   
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <br>
+            <div class="col-sm-6">
+              
+              <select class = "js-role form-control input-lg" 
+                      name  = "js-role"></select>
+
+            </div>
+          </div>
+          <div class="row">
+            <br><br><br><br>
+            
+            <div class="col-sm-12 text-right">
+              
+              <input  class = "js-edit-student-submit" 
+                      type  = "submit" 
+                      value="SUBMIT">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>                                         
+  </div>
+</div><!-- /EDIT STUDENT MODAL -->
+
+
+
+
+<!-- DELETE STUDENT MODAL -->
+<div  class           = "modal fade left" 
+      id              = "deleteStudentModal" 
+      tabindex        = "-1" 
+      role            = "dialog" 
+      aria-labelledby = "myModalLabel">
+  
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      
+      <button type          = "button" 
+              id            = "popup-close" 
+              data-dismiss  = "modal" 
+              aria-label    = "Close">x</button>
+      <br><br>
+      
+      <center><h2 style="color:white;">DELETE STUDENT</h2></center>
+      
+      <div class="popup-body">
+        <br><br>
+        <form action="">
+          
+          <div class="row">
+            <div class="col-sm-12">
+              <br>
+                <strong style = "font-size:1.5em;">
+                  Are you sure you want to delete this student?
+                </strong>
+            </div>
+          </div>
+          <br>
+          
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+              <center>
+                <div class = "name">
+                  <span>
+                    <img id = "stdimg" src="">
+                  </span>
+                </div>
+                
+                <span id    = "fnln" 
+                      style = "color:white;font-size:2em;">
+                </span>
+                
+              </center>
+            </div>
+            <div class="col-sm-2"></div>
+          </div>
+          
+
+          <div class="row">
+            <br><br><br>
+            
+            <div class="col-sm-12 text-right">
+              
+              <input  class = "js-delete-student-submit" 
+                      type  = "submit" 
+                      value = "SUBMIT">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>                                         
+  </div>
+</div><!-- /DELETE STUDENT MODAL -->
+{{/if}}
+</template>

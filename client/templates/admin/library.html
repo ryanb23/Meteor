@@ -1,0 +1,239 @@
+<template name="library">
+<!-- library Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<style>
+  #library-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="library-cover"></div>
+{{#if or isAdmin isSuperAdmin}}
+<div class="dashboard-body-area admin">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="import-navigation">
+                    <ul>
+                    {{#if isSuperAdmin}}
+                      <li>
+                        <a href="#" id ="dashboard-page"><i class="fa fa-home"></i>
+                          dashboard
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" id= " library-page">
+                          Library
+                        </a>
+                      </li>
+                      {{else}}
+                      <li>
+                        <a href="#" id = "dashboard-page"><i class="fa fa-home"></i>
+                          Dashboard
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" id = "courses-page">
+                          Courses
+                        </a>
+                      </li>
+                      <li style = "color:blue;text-decoration:undeline;">
+                        Add From Library
+                      </li>
+                      {{/if}}
+                    </ul>
+              </div>
+              <br />
+
+              <div class = "filter-buttons">
+
+                <button class = "js-library-course-builder">Build Course</button>
+
+                <!-- <button class="js-add-course-from-lib">
+                        Add From Library
+                        </button> -->
+
+                <button class       = "js-load-scorm"
+                        type        = "button"
+                        id          = "import-button"
+                        data-toggle = "modal"
+                        data-target = "#myModal">
+                        Import Course
+                </button>
+
+                <div class = "col-sm-4 col-sm-offset-8">
+                  <select id = "search-courses"
+                          data-placeholder="Search Courses"
+                          style = "width:auto;">
+                    <option></option>
+
+                    {{#with courses}}
+                      {{#each this}}
+
+                        <option value="{{_id}}">{{name}}</option>
+
+                      {{/each}}
+                    {{/with}}
+
+                  </select>
+                </div>
+
+              <!-- modal -->
+              <div class="search-list assign">
+                <div  class           = "modal fade left"
+                      id              = "myModal"
+                      tabindex        = "-1"
+                      role            = "dialog"
+                      aria-labelledby = "myModalLabel">
+
+                  <div class="modal-dialog">
+                    <div class="pop-up-area students">
+                      <button type          = "button"
+                              id            = "popup-close"
+                              data-dismiss  = "modal"
+                              aria-label    = "Close">x</button>
+                      <div class="popup-body">
+                        <br>
+                        <h2>Import Scorm Course</h2>
+                        <br><br><br>
+                        <form action = "">
+                          <div class = "row">
+                            <div class = "col-sm-8 col-sm-offset-2">
+
+                              <input  id    = ""
+                                      type  = "file">
+
+                            </div>
+                          </div><!-- row -->
+                          <br><br><br>
+                          <div class = "row">
+                            <div class = "col-sm-12 text-right">
+
+                              <input  type  = "submit"
+                                      value = "SUBMIT">
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <!-- modal -->
+
+
+<!-- /Modal ADD COURSE -->
+
+<div class = "search-list assign">
+<div  class           = "modal fade left"
+      id              = "lib-add-course-modal"
+      tabindex        = "-1"
+      role            = "dialog"
+      aria-labelledby = "myModalLabel">
+
+  <div class = "modal-dialog">
+    <div class = "pop-up-area students">
+      <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
+              aria-label    = "Close">x</button>
+      <div class = "popup-body">
+      <br>
+      <h2>ADD COURSE:</h2>
+      <br>
+        <form action = "">
+          <div class = "row">
+            <div class = "col-sm-12">
+
+                <span class = "js-add-course-text"
+                      style = "margin-top:0px; color:white;font-size:36px;">
+
+                </span>
+
+            </div>
+          </div><!-- row -->
+          <br><br>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+
+              <input  class = "js-lib-cancel"
+                      type  = "submit"
+                      value = "CANCEL">
+
+              <input  class   = "js-lib-add"
+                      type    = "submit"
+                      value   = "SUBMIT">
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- /ADD COURSE modal -->
+
+              </div><!-- filter buttons -->
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="search-list libary">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th># Of course</th>
+                      <th>Credits</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#with courses}}
+                    {{#each this}}
+                    <tr id = "{{_id}}">
+                      <th class = "name">
+                        <img src = "{{icon}}" alt="">
+                        <a  id = "{{course_id}}"
+                              href = "/admin/dashboard/course-viewer/{{uid}}/?course={{_id}}">
+                            {{name}}
+                          </a>
+                      </th>
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        {{credits}}
+                      </td>
+                      <td>
+                        <button id        = "add"
+                                data-id   = "{{_id}}"
+                                data-name = "{{name}}">
+
+                          <img src = "/img/add.png" alt="">
+                        </button>
+                      </td>
+                    </tr>
+                    {{/each}}
+                    {{/with}}
+                  </tbody>
+                </table>
+                <div class = "more">
+                  <button>
+                    <img src = "/img/more.png" alt="">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+</template>

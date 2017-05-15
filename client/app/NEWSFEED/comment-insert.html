@@ -1,0 +1,20 @@
+
+<template name="commentInsert">
+  {{#if ../comments}}
+    <div id="{{_id}}" class="dash-post-single-comment-details">
+      <div class="comment-avatar">
+        <img src="{{poster_avatar}}" alt="">
+      </div>
+        
+      <div class="comment-text">
+        <a href="#">
+          {{poster_name}}
+        </a>
+        <p>
+          {{comment}}
+        </p>
+      </div>
+    </div><!-- Single Comments #-->
+  {{/if}}
+</template>
+

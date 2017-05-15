@@ -1,0 +1,51 @@
+<template name = "adminCreditRequests">
+<!-- adminCreditRequests Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+{{#if isAdmin}}
+  {{#each requests}}
+    <!-- <div class = "dashboard-body-area"> -->
+      <!-- <div class = "container"> -->
+        <div class = "row">
+          <div class = "col-sm-11 col-md-11 col-lg-11">
+            <!-- Credit Request -->
+            <div class = "credit-request">
+              <div class = "credit-request-header">
+                <h2>Credit Request</h2>
+                <!-- <button id = "cancel">x</button> -->
+              </div>
+              <div class = "credit-request-body">
+                <p>{{poster}} has requested credit for: {{option}}.</p>
+                <p>
+                  <span>Student Comments :</span>
+                  {{content}}
+                </p>
+              </div>
+              <div class = "credit-request-footer">
+                <h2>Attached File :
+                  <span>
+                    <a href="#" data-id="{{_id}}" id="view-request-doc">
+                      {{filename}}
+                    </a>
+                  </span>
+                </h2>
+                <div class = "credit-request-footer-link">
+                  <button class   = "disapprove"
+                          data-id = "{{_id}}">Disapprove</button>
+                  <button class = "approve"
+                          data-id = "{{_id}}"
+                          data-student = "{{owner_id}}"
+                          data-option = "{{option}}"
+                          type  = "button">Approve</button>
+                </div>
+              </div>
+            </div>
+            <!-- Credit Request # -->
+            <!-- MODAL -->
+            <!-- modal -->
+          </div>
+        </div>
+     <!-- </div> -->
+    <!-- </div> -->
+  {{/each}}
+{{/if}}
+</template>

@@ -1,0 +1,71 @@
+<template name = "login">
+<!-- login Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+    <div class = "login-page-area">
+      <div class = "container">
+        <div class = "row">
+          <div class = "col-sm-12">
+            <div class = "login-page">
+              <div class = "login-page-logo">
+                <a href="#">
+                  <img  src = "/img/login-page-logo.png" 
+                        alt = "">
+                </a>
+              </div>
+              <div class = "login-form">
+                <form action = "">
+                  <div class = "login-details">
+                    <div class = "login-input">
+                        <label for = "email">
+                          Account Email
+                        </label>
+                        <input  id    = "email" 
+                                type  = "email" 
+                                style = "color: white;" 
+                                autofocus>
+                        <label for = "password">
+                          Password
+                        </label>
+                        <input  id    = "password" 
+                                type  = "password" 
+                                style = "color: white;">
+                        <p>
+                          <a href="#">
+                            Forgot Password?
+                          </a>
+                        </p>
+                    </div>
+                  </div>
+                  <div class = "login-button">
+                    <p>
+                      <label for = "checkbox">
+                        <input id = "checkbox" type = "checkbox">
+                          Remember Me
+                      </label>
+                    </p>
+                    <input  type  = "submit" 
+                            value = "LOG IN">
+                  </div>
+                </form>
+              </div>
+              <div class="login-footer">
+                  <!-- <p>No Account? No Problem!</p>
+                  <p><a href="/signup">Sign up</a> for free for 14 days!</p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <script>
+    
+    $(document).ready(function(){
+      $(this).scrollTop(0);
+      
+      $('.login-page-logo').click(function(){
+        var loc = location.protocol + "//" + location.hostname;
+        window.location.href = loc;
+      });
+    });
+  </script>
+</template>

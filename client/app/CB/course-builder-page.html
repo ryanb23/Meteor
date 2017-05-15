@@ -1,0 +1,597 @@
+<template name = "courseBuilderPage">
+<!-- courseBuilderPage Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<style>
+  #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="cover"></div>
+<input id="cb-current"  type="hidden">
+<div class="dashboard-body-area">
+	<div class="sidebar-menu-area course-builder-sidebar">
+		<div class="buttons">
+			<button id="open">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<button id="close">
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+		<div class="page-back-home">
+			<a id="course-builder-page-back" style="cursor:pointer;">
+			  <i class="fa fa-long-arrow-left"></i>{{cbNavBack}}</a>
+			<h2>Drag &amp; Drop</h2>
+		</div>
+    <input id="p" type="hidden" data-p="1" data-t="1">
+    <!-- COURSE BUILDER ITEMS -->
+    <div class = "curse-builder-items">
+      <ul>
+        <li tabindex = "-1">
+          <img  src       = "/img/title.png"
+                class     = "cb-img-title draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "title">
+        </li>
+        <li tabindex = "-1">
+          <img  src       = "/img/text.png"
+                class     = "cb-img-text draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "text">
+        </li>
+        <li tabindex = "-1">
+          <img  src       = "/img/images.png"
+                class     = "cb-img-image draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "g-image">
+        </li>
+        <li tabindex = "-1">
+          <img  src       = "/img/videos.png"
+                class     = "cb-img-video draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "video">
+        </li>
+        <li tabindex = "-1">
+          <img  src       = "/img/pdf.png"
+                class     = "cb-img-pdf draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "pdf">
+        </li>
+        <li tabindex = "-1">
+          <img  src       = "/img/ppt.png"
+                class     = "cb-img-ppt draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "powerpoint">
+        </li>
+        <li tabindex = "-1">
+          <img  src       = "/img/scorm.png"
+                class     = "cb-img-scorm draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "scorm">
+        </li>
+        <li tabindex = "-1">
+          <img  src       = "/img/test.png"
+                class     = "cb-img-test draggable ui-widget-content"
+                style     = "cursor:move;"
+                data-type = "test">
+        </li>
+      </ul>
+    </div>
+  </div><!-- sidebar-menu-area course-builder-sidebar -->
+  <div class="container">
+    {{> userProfile }}
+<!-- CB-TITLE-TOOLBAR -->
+  <div id = "cb-title-toolbar">
+    <div  class = "btn-group"
+          style = "margin-top: -40px;">
+      <button type  = "button"
+              class ="js-title-bold-button btn btn-primary">
+        Bold
+      </button>
+      <button type  = "button"
+              class = "js-title-italic-button btn btn-primary">
+        Italic
+      </button>
+      <button type  = "button"
+              class = "js-title-underline-button btn btn-primary">
+        Underline
+      </button>
+      <button type  = "button"
+              class = "js-title-delete-button btn btn-danger">
+        Delete
+      </button>
+      <button type = "button"
+              class = "js-title-edit-button btn btn-success">
+        Edit
+      </button>
+    </div>
+    <div  class = "pull-right"
+          style = "display:inline-block;margin-bottom:1em;margin-top: -40px;">
+      <div style = "display:inline-block;">
+        <p>
+          <label for = "fnt">
+            Font Size:
+          </label>
+          <input  id    = "fnt"
+                  type  = "text"
+                  style = "border:0; color:#f6931f; font-weight:bold;"
+                  value = "18"
+                  readonly>
+        </p>
+        <div style = "width:50%;">
+          <input  class   = "js-title-font-size"
+                  type    = "range"
+                  min     = "10"
+                  max     = "48"
+                  value   = "16"
+                  step    = "2">
+        </div>
+      </div>
+      <div style = "display:inline-block;">
+        <p style = "display:inline-block">
+          <label for = "top">
+            Opacity:
+          </label>
+          <input  id    = "top"
+                  type  = "text"
+                  style = "border:0; color:#f6931f; font-weight:bold;"
+                  value = "1"
+                  readonly>
+        </p>
+        <div style = "width:50%;">
+          <input  class = "js-title-opacity"
+                  type  = "range"
+                  min   = "0"
+                  max   = "1"
+                  value = "1"
+                  step  = ".1">
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- CB-TITLE-TOOLBAR -->
+<!-- CB-MEDIA-TOOLBAR -->
+  <div id="cb-media-toolbar">
+    <div  class = "btn-group"
+          style = "margin-top: -40px;">
+      <button type  = "button"
+              class = "js-media-delete-button btn btn-danger">
+        Delete
+      </button>
+    </div>
+    <div style = "display:inline-block;">
+      <p style = "display:inline-block">
+        <label for = "opm">
+          Opacity:
+        </label>
+        <input  id    = "opm"
+                type  = "text"
+                style = "border:0; color:#f6931f; font-weight:bold;"
+                readonly>
+      </p>
+      <div style = "width:50%;">
+        <input  class = "js-media-opacity"
+                type  = "range"
+                min   = "0"
+                max   = "1"
+                value = "1"
+                step  = ".1" />
+      </div>
+    </div>
+  </div>
+<!-- CB-MEDIA-TOOLBAR -->
+<!-- CB-TEXT-TOOLBAR -->
+  <div id="cb-text-toolbar">
+    <div class="btn-group" style= "margin-top: -40px;">
+      <button type="button"
+              class="js-cb-text-edit btn btn-primary">
+        EDIT
+      </button>
+      <button id="cb-editor-save-text" class="btn btn-success">
+        SAVE
+      </button>
+      <button type="button"
+              class="js-cb-text-delete btn btn-danger">
+        DELETE
+      </button>
+      <span>Click the top of editor to bring up save button</span>
+    </div>
+  </div>
+<!-- CB-TEXT-TOOLBAR -->
+<!-- TEXT EDITOR -->
+  <div class="col-md-offset-2 col-md-8 col-md-offset-2" style="top:0px;">
+    <div class="row">
+      <div id="editor1"></div>
+    </div>
+  </div>
+<!-- /TEXT EDITOR -->
+<!-- CB-VIDEO-TOOLBAR -->
+  <div id="cb-video-toolbar">
+    <div  class = "btn-group"
+          style = "margin-top: -40px;">
+      <button type  = "button"
+              class = "js-video-delete-button btn btn-danger">
+        Delete
+      </button>
+    </div>
+  </div>
+<!-- CB-TOOLBAR-VIDEO -->
+    {{> cbCanvas }}
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div  id="test_v" style="padding: 30px;margin: 0 auto;">
+          {{> cbTestView}}
+    </div>
+  </div>
+</div>
+  </div><!-- container -->
+<!-- IMAGE MODAL -->
+<div  class="modal fade left"
+      id="add-image"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel">
+  <div class="modal-dialog">
+    <div class="pop-up-area">
+      <button type="button"
+              id="popup-close"
+              data-dismiss="modal"
+              aria-label="Close">x</button>
+      <div class="popup-body" style="top: 35%;">
+      <h3 style="color:white;">ADD IMAGE:</h3>
+        <form action="">
+          <div class="row">
+            <div class="col-sm-4">
+              <span style="margin-left: 50px;">
+                <br>
+                <em>
+                  <strong>
+                    UPLOAD IMAGE:
+                  </strong>
+                </em>
+              </span>
+            </div>
+            <div class="col-sm-7">
+              <input  type            = "file"
+                      id              = "course-builder-image"
+                      data-subfolder  = "img" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <!--
+              <div class="image-preview">
+                <img  id="preview-image"
+                      src=""
+                      max-width="188"
+                      height="auto">
+              </div>
+              -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              {{#each files}}
+                <div class="progress">
+                  <div  class         = "progress-bar progress-bar-success"
+                        role          = "progressbar"
+                        aria-valuenow = "{{percent_uploaded}}"
+                        aria-valuemin = "0"
+                        aria-valuemax = "100"
+                        style="width:100%;">
+                    {{percent_uploaded}}% Complete
+                  </div>
+                </div>
+	            {{/each}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <input  id    = "cb-image-save"
+                      type  = "submit"
+                      value = "SUBMIT">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /IMAGE modal -->
+<!-- PDF MODAL -->
+<div  class = "search-list assign modal fade left"
+      id = "add-pdf"
+      tabindex = "-1"
+      role = "dialog"
+      aria-labelledby = "myModalLabel">
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      <button type="button"
+              id="popup-close"
+              data-dismiss="modal"
+              aria-label="Close">x</button>
+      <div class = "popup-body">
+      <br>
+      <h2>ADD PDF:</h2>
+      <br><br><br>
+        <form action="">
+          <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input  type            = "file"
+                      id              = "course-builder-pdf"
+                      data-subfolder  = "pdf" >
+            </div>
+          </div><!-- row -->
+          <br><br><br>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <input  id    = "cb-pdf-save"
+                      type  = "submit"
+                      value = "SUBMIT">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /PDF modal -->
+<!-- POWERPOINT MODAL -->
+<div  class="search-list assign modal fade left"
+      id = "add-powerpoint"
+      tabindex = "-1"
+      role = "dialog"
+      aria-labelledby = "myModalLabel">
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
+              aria-label    = "Close">x</button>
+      <div class = "popup-body">
+        <br>
+        <!-- <h2>ADD POWERPOINT:</h2> -->
+        <h2>I BLEW SOME STUFF UP! FIXING</h2>
+        <br><br><br>
+        <form action="">
+          <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input  type            = "file"
+                      id              = "course-builder-powerpoint"
+                      data-subfolder  = "powerpoint" />
+            </div>
+          </div><!-- row -->
+          <br><br><br>
+          <div class = "row">
+            <div class = "col-sm-12 text-right">
+              <input  id    = "cb-powerpoint-save"
+                      type  = "submit"
+                      value = "SUBMIT" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /POWERPOINT modal -->
+<!-- SCORM MODAL -->
+<div  class           = "search-list assign modal fade left"
+      id              = "add-scorm"
+      tabindex        = "-1"
+      role            = "dialog"
+      aria-labelledby = "myModalLabel">
+  <div class = "modal-dialog">
+    <div class = "pop-up-area students">
+      <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
+              aria-label    = "Close">x</button>
+      <div  class = "popup-body" >
+      <br>
+        <h2>ADD SCORM:</h2>
+        <br><br><br>
+        <form action = "">
+          <div class = "row">
+            <div class = "col-sm-8 col-sm-offset-2">
+              <input  type            = "file"
+                      id              = "course-builder-scorm"
+                      data-subfolder  = "scorm">
+            </div>
+          </div><!-- row -->
+          <br><br><br>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <input  id    = "cb-scorm-save"
+                      type  = "submit"
+                      value = "SUBMIT">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /SCORM modal -->
+<!-- TEST MODAL -->
+<div  class = "modal fade left"
+      id              = "add-test"
+      tabindex        = "-1"
+      role            = "dialog"
+      aria-labelledby = "myModalLabel">
+  <div class = "modal-dialog">
+    <div class = "pop-up-area">
+      <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
+              aria-label = "Close">x</button>
+      <div  class = "popup-body"></div>
+    </div>
+  </div>
+</div>
+<!-- /TEST modal -->
+<!--                                     INTRO MODAL         -->
+<div class="filter-buttons">
+  <!-- <button type="button" id="import-button" data-toggle="modal" data-target="#intro-modal">Build Course</button> -->
+    <div  class="modal fade left course-build"
+          id="intro-modal"
+          tabindex="-1"
+          role="dialog"
+          data-keyboard = "false"
+          data-backdrop = "static"
+          aria-labelledby="myModalLabel">
+      <div class="modal-dialog">
+        <div class="pop-up-area">
+          <!-- <button type="button" id="popup-close" data-dismiss="modal" aria-label="Close">x</button> -->
+          <button type="button" class="cb-popup-close" id="cb-intro-modal-cancel" aria-label="Cancel">x</button>
+          <div class="popup-body ">
+            <form action="">
+              <div class="course-build-popup">
+                <div class="row hide-to-mobile">
+              	  <div class="col-sm-12">
+              		  <h2>Course Information</h2>
+              	  </div>
+                </div>
+				  <div class="row show-to-mobile">
+              	  <div class="col-sm-6">
+              		  <div class="course-single-input">
+					    <h2>* Course Builder is not available on mobile devices *</h2>
+					  </div>
+					  
+				  </div>
+				  </div>
+                <div class="row hide-to-mobile">
+              	  <div class="col-sm-6">
+              		  <div class="course-single-input">
+              			  <label for="course-builder-name">* Please choose course name:</label>
+              			  <input  id      = "course-builder-name"
+                              class   = "form-control"
+                              type    = "text"
+                        placeholder = "name" >
+              		  </div>
+              		  <div class="course-single-input">
+              			  <label for="course-builder-credits">* How many credits is this course worth?</label>
+              			  <input  id          = "course-builder-credits"
+              			          class       = "form-control"
+                              type        = "number"
+                              min         = "0"
+                              max         = "120"
+                              step        = "1"
+                              placeholder = "Credits"/>
+              		  </div>
+              	  </div>
+              	  <div class="col-sm-6">
+              		  <div class="course-single-input">
+              			  <label for="tags">Keywords:</label><p style="display:inline;">&nbsp;&nbsp;&nbsp;Press [ENTER] after each</p>
+              			  <select id    = "tags"
+              			          class = "js-states form-control"
+              			          multiple></select>
+              		  </div>
+              		  <div class="course-single-input percentage">
+              			  <label for="course-builder-percent">Passing percentage for test:</label>
+              			  <input  id      = "course-builder-percent"
+                              type    = "number"
+                              min     = "0"
+                              max     = "100"
+                              step    = "1"
+                              class   = "margin-zero"
+                              placeholder = "Percentage">
+              			  <p>Leave blank if you want completion to indicate passing.</p>
+                      <input  id    = "cb-initial-dialog"
+                              type  = "submit"
+                              value = "SAVE">
+              		  </div>
+              	  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- /INTRO modal -->
+<!-- CONFIRM MODAL -->
+<div  class="modal fade left"
+      id = "cb-leave-confirm"
+      tabindex = "-1"
+      role = "dialog"
+      aria-labelledby = "myModalLabel">
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      <!-- <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
+              aria-label    = "Close">x</button> -->
+      <div class = "popup-body">
+        <br>
+        <h2>CONFIRM ACTION:</h2>
+        <form action="">
+          <div class="row">
+            <div class="col-sm-12" > <!-- col-sm-offset-1 -->
+              <p style="color:white;font-size:2em;">
+                By leaving, the course will not be created and changes will not be saved.
+              </p>
+            </div>
+          </div><!-- row -->
+          <br><br><br>
+          <div class = "row">
+            <div class = "col-sm-12 text-right">
+              <input  id    = "cb-leave-yes"
+                      type  = "submit"
+                      value = "Leave" />
+              <input  id    = "cb-leave-no"
+                      type  = "submit"
+                      value = "Stay" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /CONFIRM modal -->
+</div><!-- dashboard-body-area -->
+<div class="dashboard-body-area footer-page" style="position:fixed;bottom:0;">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="footer-filter">
+          <h2>Page {{page}}/{{total}}
+<!--
+            <button class = "up">
+              <i class = "fa fa-arrow-up"></i>
+            </button>
+            <button class = "down">
+              <i class = "fa fa-arrow-down"></i>
+            </button>
+-->
+          </h2>
+        </div><!-- footer-filter -->
+      </div><!-- col-sm-3 -->
+      <div class="col-sm-3">
+        <div class="save-button">
+          <button id="cb-prev-btn">
+           <i class="fa fa-backward" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Prev
+          </button>
+        </div>
+      </div>
+      <div class= "col-sm-3">
+        <div class="save-button">
+          <button id="cb-next-btn">
+            Next&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-forward" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class = "col-sm-3">
+        <div class = "save-button">
+          <button id = "cb-save">
+            Save Course
+          </button>
+        </div>
+      </div>
+    </div><!-- row -->
+  </div><!-- container -->
+</div><!-- dashboard-body-areaa footer-page -->
+</template>

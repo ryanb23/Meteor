@@ -1,0 +1,261 @@
+<template name="courses">
+<!-- courses Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #courses-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="courses-cover"></div>
+-->
+{{#if isAdmin }}
+<div class="dashboard-body-area admin">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12"><!-- 8 -->
+              <div class="import-navigation">
+                  <ul>
+                      <li>
+                        <a href="#" id="dashboard-page"><i class="fa fa-home"></i>Dashboard</a>
+                      </li>
+                      <li style="color:blue;text-decoration:undeline;">
+                        Courses
+                      </li>
+                  </ul>
+              </div>
+              <br />
+              <div class="filter-buttons">
+                <div class="col-sm-8">
+                  <button class="js-course-builder hide-to-mobile">Build Course</button>
+				  <button type="button" class="show-to-mobile" data-toggle="modal" data-target="#nocourseModal">Build Course</button> 
+                  <button class="js-add-course-from-library">Add From Library</button>
+                  <button class       = "js-load-scorm"
+                          type        = "button"
+                          id          = "import-button"
+                          data-toggle = "modal"
+                          data-target = "#myModal">
+                    Import Course
+                  </button>
+				  
+				  
+                </div>
+                <div class="col-sm-4">
+                    <select id    = "search-courses"
+                            style = "width:100%;">
+                        <option></option>
+                        {{#with courses}}
+                          {{#each this}}
+                            {{!-- #if public --}}
+                              <option value="{{_id}}">{{name}}</option>
+                            {{!-- /if --}}
+                          {{/each}}
+                        {{/with}}
+                    </select>
+                  </div>
+              </div><!-- filter buttons -->
+                <div  class           = "modal fade left"
+                      id              = "myModal"
+                      tabindex        = "-1"
+                      role            = "dialog"
+                      aria-labelledby = "myModalLabel">
+                  <div class = "modal-dialog">
+                    <div class = "pop-up-area">
+                      <button type          = "button"
+                              id            = "popup-close"
+                              data-dismiss  = "modal"
+                              aria-label    = "Close">x</button>
+                      <div class = "popup-body">
+                        <form action = "">
+                          <div class = "row">
+                            <div class = "col-sm-4">
+                              <label for = "fileup">Import Scorm Course</label>
+                            </div>
+                            <div class = "col-sm-7">
+                              <!-- <input class = "hidden" id = "fileup" type = "file"> -->
+                              <!-- <span id = "filename">No File Chosen</span> -->
+                              <input type = "file">
+                            </div>
+                          </div>
+                          <div class = "row">
+                            <div class = "col-sm-12 text-right">
+                              <input type = "submit" value = "SUBMIT">
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- modal -->
+                <div  class           = "modal fade left"
+                      id              = "adminCourseModal"
+                      tabindex        = "-1"
+                      role            = "dialog"
+                      aria-labelledby = "myModalLabel">
+                  <div class = "modal-dialog">
+                    <div class = "pop-up-area">
+                      <button type          = "button"
+                              id            = "popup-close"
+                              data-dismiss  = "modal"
+                              aria-label    = "Close">x</button>
+                      <div class = "popup-body">
+                        <form action = "">
+                          <div class = "row">
+                            <div class = "col-sm-4">
+                              <span style = "margin-left: 50px;">
+                                <em>
+                                  <strong>Course Name</strong>
+                                </em>
+                              </span>
+                            </div>
+                            <div class = "col-sm-7">
+                              <input  type        = "text"
+                                      id          = "course-name"
+                                      placeholder = "Course Name"
+                                      value       = "{{name}}" />
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <span style="margin-left:50px;">
+                                <em>
+                                  <strong>Credits</strong>
+                                </em>
+                              </span>
+                            </div>
+                            <div class="col-sm-7">
+                              <input  type        = "text"
+                                      id          = "course-credits"
+                                      placeholder = "Number of Credits"
+                                      value       = "{{credits}}" />
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12 text-right">
+                              <input type="submit" value="SUBMIT">
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- modal -->
+            </div><!-- col-sm-8 -->
+          </div><!-- row -->
+          <div class="row">
+            <div class="col-sm-12">
+                              <!-- <div class="search-box"> -->
+                <div class="col-sm-4 col-sm-offset-8">
+                  <form action="">
+                    <!--
+                    <button id="search" type="search"><img src="/img/search-1.png" alt=""></button>
+                    <input id="search-courses" type="text" style="color:blue;" placeholder="Search Material">
+                    <button id="close-search">X</button>
+                    -->
+                  </form>
+                </div>
+              <div class="search-list">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th># Of Course</th>
+                      <th>Credits</th>
+                      <th>Times Completed</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#with courses}}
+                    {{#each this}}
+                      <tr>
+                        <th class = "name js-click-course"
+                            id = "{{_id}}"
+                            style = "cursor: pointer"
+                            data-href = "/admin/dashboard/course-viewer/{{uid}}/?course={{_id}}">
+                          <img src = "{{icon}}" alt="">
+                          <a  id = "{{course_id}}">
+                            {{#if isArchived}}
+                              <del>{{name}}</del>
+                              <span class="label label-primary">
+                                &nbsp;&nbsp;archived
+                              </span>
+                            {{else}}
+                              {{name}}
+                            {{/if}}
+                          </a>
+                        </th>
+                        <td>1 course</td>
+                        <td>{{credits}}</td>
+                        <td>{{times_completed}}</td>
+                        <td>
+                          <button id        = "edit"
+                                  class     = "js-edit-course"
+                                  data-id   = "{{_id}}"
+                                  data-name = "{{name}}">
+                            <img src="/img/edit.png" alt="">
+                          </button>
+                          {{#if isArchived}}
+                            <button id        = "delete"
+                                    class     = "js-unarchive-course"
+                                    data-id   = "{{_id}}"
+                                    data-name = "{{name}}">
+                              <img src = "/img/Unarchive.png" alt = "">
+                            </button>
+                          {{else}}
+                            <button id        = "delete"
+                                    class     = "js-archive-course"
+                                    data-id   = "{{_id}}"
+                                    data-name = "{{name}}">
+                              <img src = "/img/Archive.png" alt="">
+                            </button>
+                          {{/if}}
+                        </td>
+                      </tr>
+                    {{/each}}
+                 {{/with}}
+                  </tbody>
+                </table>
+                <!-- test condition for MORE -->
+                <!-- <div class="more">
+                  <button>
+                    <img src="/img/more.png" alt="">
+                  </button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+
+<!-- modal -->
+                <div  class           = "modal fade left"
+                      id              = "nocourseModal"
+                      tabindex        = "-1"
+                      role            = "dialog"
+                      aria-labelledby = "myModalLabel">
+                  <div class = "modal-dialog">
+                    <div class = "pop-up-area">
+                      <button type          = "button"
+                              id            = "popup-close"
+                              data-dismiss  = "modal"
+                              aria-label    = "Close">x</button>
+                      <div class = "popup-body">
+                        <form action = "">
+						 <div class="row show-to-mobile">
+						  <div class="col-sm-6">
+							  <div class="course-single-input">
+								<h2>* Course Builder is not available on mobile devices *</h2>
+							  </div>
+							  
+						  </div>
+						  </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- modal -->
+</template>

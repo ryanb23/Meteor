@@ -1,0 +1,260 @@
+<template name="importCV">
+<!-- importCV Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<style>
+  #csv-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="csv-cover"></div>
+{{#if isAdmin}}
+<div class="dashboard-body-area admin">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="import-cv-title">
+        <h2>Import CSV</h2>
+      </div>
+
+      <div class="import-navigation">
+          <ul>
+              <li><a href="#" id="dashboard-page"><i class="fa fa-home"></i>Dashboard</a></li>
+              <li><a href="#" id="students-page">Students</a></li>
+              <li style="color:blue;text-decoration:undeline;">Import CSV</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="import-body">
+        <div style="position:fixed;width:55%;z-index:15;display:none;" id="alerts">
+          <div class="alert alert-success alert-dismissable">
+            <!--
+            <button type="button" 
+                    class="close"
+                    data-dismiss="alert" 
+                    aria-hidden="true"> 
+              <strong>X</strong>
+            </button>
+            -->
+            <p style="color:#006400;font-size:1.2em;">
+                  The expected format of CSV files is a header line, follwed by individual data lines. For example, a header line might be:
+                  <br><br><strong><em>first_name,last_name,email</em></strong><br><br>
+                  with or without quotes (if you use quotes, make sure there are NO SPACES before or after the word in quotes. Spaces between two words is OK. So,<br><br>
+                  <strong><em>"first name"</em></strong> is Ok, <strong><em>" first name"</em></strong>, for example, is not.
+                  <br><br> The next line would begin the data, each item on its own line. Example:
+                  <br><br><strong><em>John,Smith,john@example.com</em></strong><br><br>
+                  either quoted or not. Each line following would be constructed the same way.
+            </p>
+          </div>
+        </div>
+        <label class="import" for="csv" style="border:1px solid green;border-radius:10px;margin-right:5px;">
+          <input type="file"  id="csv"  style="margin-top:10px;margin-bottom:10px;margin-left:15px;height:auto;width:auto"/>
+        </label>
+
+        <button id="csv-help-btn" class="pull-right btn btn-success"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i>
+        &nbsp;&nbsp;Toggle HELP&nbsp;&nbsp;<i class="fa fa-question-circle fa-lg" aria-hidden="true"></i></button>
+        <div class="import-body-list">
+          <div class="single-import-body">
+            <table>
+              <thead>
+                <tr>
+                    <th class="one">Field</th>
+                    <th class="two"></th>
+                    <th class="three">CSV Column</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                      <td>
+                          <select class="selectpicker p0">
+                              <option value="f">First Name</option>
+                              <option value="l">Last Name</option>
+                              <option value="e">Email</option>
+                              <option value="d">Department</option>
+                              <option value="c">User Class</option>
+                          </select>
+                      </td>
+                      <td>
+                          <span>=</span>
+                      </td>
+                      <td>{{names.col0}}</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <select class="selectpicker p1">
+                              <option value="f">First Name</option>
+                              <option value="l">Last Name</option>
+                              <option value="e">Email</option>
+                              <option value="d">Department</option>
+                              <option value="c">User Class</option>
+                          </select>
+                      </td>
+                      <td>
+                          <span>=</span>
+                      </td>
+                      <td>{{names.col1}}</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <select class="selectpicker p2">
+                              <option value="f">First Name</option>
+                              <option value="l">Last Name</option>
+                              <option value="e">Email</option>
+                              <option value="d">Department</option>
+                              <option value="c">User Class</option>
+                          </select>
+                      </td>
+                      <td>
+                          <span>=</span>
+                      </td>
+                      <td>{{names.col2}}</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <select class="selectpicker p3">
+                              <option value="f">First Name</option>
+                              <option value="l">Last Name</option>
+                              <option value="e">Email</option>
+                              <option value="d">Department</option>
+                              <option value="c">User Class</option>
+                          </select>
+                      </td>
+                      <td>
+                          <span>=</span>
+                      </td>
+                      <td>{{names.col3}}</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <select class="selectpicker p4">
+                              <option value="f">First Name</option>
+                              <option value="l">Last Name</option>
+                              <option value="e">Email</option>
+                              <option value="d">Department</option>
+                              <option value="c">User Class</option>
+                          </select>
+                      </td>
+                      <td>
+                          <span>=</span>
+                      </td>
+                      <td>{{names.col4}}</td>
+                  </tr>
+
+              </tbody>
+          </table>
+      </div>
+      <div class="single-import-body">
+        <table>
+          <thead>
+              <tr>
+                  <th>SAMPLE CSV</th>
+                  <th>SAMPLE CSV</th>
+                  <th>SAMPLE CSV</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <!-- row 0 -->
+                <td>{{td.row0.col0}}</td><!-- col 0 -->
+                <td>{{td.row1.col0}}</td><!-- col 1 -->
+                <td>{{td.row2.col0}}</td><!-- col 2 -->
+
+            </tr>
+            <tr>
+                <!-- row 2 -->
+                <td>{{td.row0.col1}}</td><!-- col 0 -->
+                <td>{{td.row1.col1}}</td><!-- col 1 -->
+                <td>{{td.row2.col1}}</td><!-- col 2 -->
+            </tr>
+            <tr>
+                <!-- row 3 -->
+                <td>{{td.row0.col2}}</td><!-- col 0 -->
+                <td>{{td.row1.col2}}</td><!-- col 1 -->
+                <td>{{td.row2.col2}}</td><!-- col 2 -->
+            </tr>
+            <tr>
+                <!-- row 4 -->
+                <td>{{td.row0.col3}}</td><!-- col 0 -->
+                <td>{{td.row1.col3}}</td><!-- col 1 -->
+                <td>{{td.row2.col3}}</td><!-- col 2 -->
+            </tr>
+            <tr>
+                <!-- row 5 -->
+                <td>{{td.row0.col4}}</td><!-- col 0 -->
+                <td>{{td.row1.col4}}</td><!-- col 1 -->
+                <td>{{td.row2.col4}}</td><!-- col 2 -->
+            </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="import-student">
+          <button class="js-import-students-from-csv">Import Students</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  </div>
+  
+<!-- CONFIRM MODAL -->
+<div class="search-list assign">
+<div  class="modal fade left"
+      id = "cv-student-import-confirm"
+      tabindex = "-1"
+      role = "dialog"
+      aria-labelledby = "myModalLabel">
+
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      
+      <!-- <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
+              aria-label    = "Close">x</button> -->
+
+      <div class = "popup-body">
+        <br>
+        <h2>STUDENT IMPORT COMPLETE:</h2>
+        
+        <form action="">
+          <div class="row">
+            <div class="col-sm-12" > <!-- col-sm-offset-1 -->
+              <p style="color:white;font-size:2em;">
+                Your files have been successfully imported..
+              </p>
+            </div>
+          </div><!-- row -->
+          <br><br><br>
+          <div class = "row">
+            <div class = "col-sm-12 text-right">
+
+              <input  id    = "cv-leave-yes"
+                      type  = "submit"
+                      value = "Leave" />
+              <!--
+              <input  id    = "cb-leave-no"
+                      type  = "submit"
+                      value = "Stay" />
+              -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- /CONFIRM MODAL -->
+  
+{{/if}}
+</template>

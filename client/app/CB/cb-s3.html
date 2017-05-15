@@ -1,0 +1,20 @@
+<template name="cbS3">
+<!-- cbS3 Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> --> 
+	<input type = "file" class = "file_bag" data-subfolder="pdf">
+	
+	<button class = "upload">Upload</button>
+
+	{{#each files}}
+    <div class="progress">
+      <div  class         = "progress-bar progress-bar-success" 
+            role          = "progressbar" 
+            aria-valuenow = "{{percent_uploaded}}"
+            aria-valuemin = "0" 
+            aria-valuemax = "100" 
+            style="width:70%">
+        {{percent_uploaded}}% Complete
+      </div>
+    </div>
+	{{/each}}
+</template>

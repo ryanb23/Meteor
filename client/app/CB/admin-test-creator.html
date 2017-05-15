@@ -1,0 +1,279 @@
+<template name="adminTestCreator">
+<!-- adminTestCreator Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="cover"></div>
+-->
+{{#if or isTeacher isAdmin}}
+        <br>
+        <div class = "col-sm-12 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+          <div class = "row">
+            
+            <header>
+                <br><br><br><br>
+                <div class = " col-sm-4 col-md-4 col-lg-4">
+                  <h1 style = "display:inline-block;border-radius:5px;">
+                    Test Creator
+                    <input type = "hidden" name = "qnum" value = "1">
+                  </h1>
+                </div>
+                <div class = "col-sm-3 col-md-3 col-lg-3">
+                  <button class = "btn btn-danger btn-lg js-test-cancel" 
+                          style = "display:inline-block;">
+                    CANCEL TEST
+                  </button>
+                </div>
+                <div class = "col-sm-3 col-md-3 col-lg-3">
+                  <button class = "btn btn-success btn-lg js-test-complete push-right" 
+                          style = "display:inline-block;">
+                    SAVE TEST
+                  </button>
+                </div>
+            </header>
+          </div><!-- row -->
+          
+          
+          <section>
+
+
+              <article>
+                <div class = "input-group">
+<!-- TEST NAME -->
+                  <span class = "input-group-addon">Test Name&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  
+                  <input  type        = "text"
+                          id          = "test-name"
+                          class       = "form-control input-lg"
+                          placeholder = "enter test name..."
+                          style       = "width:70%;"/>
+                </div>
+  
+                <br>
+  
+<!-- QUESTION TEXT -->
+                <div class = "input-group">
+                  <span class = "input-group-addon">
+                    Question <span id = "q_num" class = "badge">1</span>
+                  </span>
+  
+                  <input  type        = "text"
+                          id          = "question"
+                          class       = "form-control input-lg"
+                          placeholder = "enter question... "
+                          style       = "width:70%;">
+                </div>
+              </article>
+              
+              <br><br>
+            
+              <article>
+<!-- SELECT ANSWER TYPE -->
+                <div class = "row">
+                  <div class = "col-xs-4 col-md-4 col-lg-4">
+                    <h3 style = "text-decoration: underline;">ANSWER TYPE</h3>
+      
+                    <div class = "btn-group" role = "group" aria-label = "...">
+      
+                      <button id    = "tf"
+                              type  = "button"
+                              class = "btn btn-info">
+                        True/False
+                      </button>
+      
+                      <button id    = "mc"
+                              type  = "button"
+                              class = "btn btn-warning">
+                        Multiple Choice
+                      </button>
+                    </div><!-- btn-group -->
+                  </div><!-- col-4 -->
+                  
+                  <div class = "col-xs-6 col-md-6 col-lg-6">
+                    <h3 style = "text-decoration:underline;">Navigate Saved Questions</h3>
+                    <div  class       = "btn-group"
+                          role        = "group" 
+                          aria-label  = "...">
+                      
+                      <div style = "margin-left:60px;">
+                        
+                        <button id    = "t-btn-prev"
+                                type  = "button"
+                                class = "btn btn-primary">
+                          <i class = "fa fa-chevron-left fa-lg" aria-hidden = "true"></i>&nbsp;&nbsp;Prev
+                        </button>
+                        <button id    = "t-btn-next"
+                                type  = "button"
+                                class = "btn btn-primary">
+                          Next&nbsp;&nbsp;<i class = "fa fa-chevron-right fa-lg" aria-hidden = "true"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div><!-- col-6 -->
+                </div><!-- row -->
+              </article>
+            
+              <br><br><br>
+            
+              <article class = "col-sm-12 col-md-10 col-lg-10">
+<!-- TRUE/FALSE ANSWERS -->
+                <div class = "row">
+                  <div id = "ans-tf" class = "hide">
+                    <p>Answer:</p>
+  
+                    <div class = "form-group">
+    
+                      <label class = "radio-inline">
+    
+                        <input  id    = "t"
+                                class = "js-tf"
+                                type  = "radio"
+                                name  = "optradio"
+                                value = "true">
+                        True
+                      </label>
+    
+                      <label class = "radio-inline">
+    
+                        <input  id    = "f"
+                                class = "js-tf"
+                                type  = "radio"
+                                name  = "optradio"
+                                value = "false">
+                        False
+                      </label>
+    
+                      <br /><br />
+    
+                      <button class = "btn btn-primary" id = "tf-submit">
+                        Add Question/Answer
+                      </button>
+                      <button class = "btn btn-success" id = "tf-edit">
+                        Save Any Edits
+                      </button>
+    
+                    </div><!-- form-group -->
+                  </div><!-- ans_tf -->
+                </div><!-- row -->
+              </article>
+          
+              <article class = "col-sm-12 col-md-10 col-lg-10">
+<!-- MULTIPLE CHOICE ANSWERS -->
+                <div  id    = "ans-mc" 
+                      class = "hide form-group">
+                  <div class = "row">
+                    
+                      <p>Answer:</p>
+                      <div>
+                        <label class="">A
+                          <input  id          = "A"
+                                  type        = "text"
+                                  class       = "form-control"
+                                  placeholder = "enter answer...">
+                        </label>
+      
+                        <label class="">B
+                          <input  id          = "B"
+                                  type        = "text"
+                                  class       = "form-control"
+                                  placeholder = "enter answer...">
+                        </label>
+      
+                        <label class="">C
+                          <input  id          = "C"
+                                  type        = "text"
+                                  class       = "form-control"
+                                  placeholder = "enter answer...">
+                        </label>
+      
+                        <button id = "plus">
+                          <i class = "fa fa-plus fa-lg" aria-hidden = "true"></i>
+                        </button>
+                      </div>
+                    </div><!-- row -->
+                
+                    <br /><br /><br />
+                  
+                  <div class = "row">
+                      <div class = "col-sm-5 col-md-5 col-lg-5">
+                         
+                        <label for = "correct_ans">Correct Answer
+                          <select class = "form-control"
+                                  id    = "correct_ans">
+                              <option>Please Select</option>
+                              <option value="A">A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </select>
+                        </label>
+                      </div><!-- col -->
+                         
+                      <div class = "col-sm-5 col-md-5 col-lg-5">
+                        <button id    = "mc-submit" 
+                                class = "btn btn-primary" 
+                                style = "margin-top: 1.5em;">
+                          Add Question/Answer
+                        </button>
+                        
+                        <button id    = "mc-edit" 
+                                class = "btn btn-success" 
+                                style = "margin-top: 1.5em;">
+                          Save Any Edits
+                        </button>
+                        <br><br><br>
+                      </div><!-- col -->
+                    </div><!-- row -->
+                  </div><!-- ans_mc -->
+              </article>
+          
+              <br><br><br>
+              
+              <article class = "col-sm-12 col-md-10 col-lg-10">
+<!-- HELP -->
+                <div class = "row">
+                  
+                    <button class = "js-show-test-help btn btn-default"
+                            type  = "button">
+                      <i class = "fa fa-question" aria-hidden = "true"></i>
+                      <span></span>
+                      Show Help
+                    </button>
+                    
+                    <div  class = 'test-help-contents' 
+                          style = "display:none;">
+                      <p>
+                        <h4>INSTRUCTIONS</h4>
+                        <strong>[STEP-1]</strong><br>
+                        Enter a <em>Test Name</em> and press <strong>[TAB]</strong><br>
+                        <strong>[STEP-2]</strong><br>
+                        Enter your <em>First Question's</em> Text<br>
+                        <strong>[STEP-3]</strong><br>
+                        Click either the <strong>[True/False]</strong> or <strong>[Multiple Choice]</strong> button, depending on your intended question type<br>
+                        <em>For TRUE/FALSE</em> select what the correct answer for your question is by clicking either the <strong>[TRUE]</strong> or <strong>[FALSE]</strong> radio button, then click the <strong>[Add Question/Answer]</strong> button to add the question and answer to your test<br>
+                        <em>For MULTIPLE CHOICE</em> enter the possible answers in each answer input box.  If you only have two possible answers, just enter two.  If you have more than three possible answers, click the <strong>[+]</strong> button to add each additional answer.  When you have finished entering all possible answers, click the <strong>[Add Question/Answer]</strong> button to add the question and answers to your test.<br>
+                        For <em>Each additional</em> test question, follow steps 1-3.<br>
+                        When you are done creating your test, click the green <strong>[Save Test]</strong> button.<br><br>
+                        To go over your questions/answers, and/or to edit them:
+                        Click either the <strong>[PREV]</strong> or <strong>[NEXT]</strong> button to view your previously entered questions and answers.  If you want to edit the currently displayed question/answer(s), do so, and then click the green <strong>[Save Any Edits]</strong> button to save the changes.
+                      </p>
+                    </div>
+                  </div>
+              </article>
+            
+            </section>
+
+            <br><br>
+
+            <footer>
+              <!--
+              <p>
+                &copy; 2016 Collective Innovation
+              </p>
+              -->
+            </footer>
+        </div>
+{{/if}}
+
+</template>

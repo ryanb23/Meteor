@@ -1,0 +1,242 @@
+<template name="degreeCertificate">
+<!-- degreeCertificate Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #degree-cert-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="degree-cert-cover"></div>
+-->
+{{#if or isAdmin isSuperAdmin}}
+        <div class="dashboard-body-area admin">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+              <div class="import-navigation">
+                  <ul>
+                      <li><a href="#" id="dashboard-page"><i class="fa fa-home"></i>Dashboard</a></li>
+                      <li style="color:blue;text-decoration:undeline;">Degrees &amp; Certifications</li>
+                  </ul>
+              </div>
+              <br />
+
+              <div class="row">
+                  <div class="col-sm-8">
+                      <div class="filter-buttons">
+                          <button class="js-degree">
+                            <span>+</span>
+                            Add Degree
+                          </button>
+                          <button class="js-certificate">
+                            <span>+</span>
+                            Add Certification
+                            </button>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <!-- <div class="search-box"> -->
+                      <div>
+                          <form action="">
+                            <select data-placeholder  = "Search Certs & Degrees..."  
+                                    id                = "search-cert-deg">
+                              <option></option>
+                              {{#with list}}
+                                {{#each this}}
+                                
+                              <option value="{{_id}}">{{name}}</option>
+                              
+                                {{/each}}
+                              {{/with}}
+                            </select>
+                              <!-- <button id="search" type="search"><img src="/img/search-1.png" alt=""></button>
+                              <input type="text" placeholder="Search Material">
+                              <button id="close-search">X</button> -->
+                          </form>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="search-list">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th># Of Courses</th>
+                                      <th>Credits</th>
+                                      <th>Times Completed</th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {{#with list}}
+                                  {{#each this}}
+                                  <tr id="{{_id}}">
+                                    
+                                      <th class="name">
+                                        <img src="{{icon}}" alt="">
+                                        {{name}}
+                                      </th>
+                                      
+                                      <td>{{num}}</td>
+                                      
+                                      <td>
+                                        {{credits}}
+                                      </td>
+                                      
+                                      <td>
+                                        {{times_completed}}
+                                      </td>
+                                      
+                                      <td>
+                                        <button id        = "edit" 
+                                                data-id   = "{{_id}}" 
+                                                data-name = "{{name}}" 
+                                                data-type = "{{type}}" 
+                                                class     = "js-edit">
+                                            <img src="/img/edit.png" alt="">
+                                        </button>
+                                          
+                                        <button id        = "delete" 
+                                                data-id   = "{{_id}}" 
+                                                data-name = "{{name}}" 
+                                                data-type = "{{type}}" 
+                                                class     = "js-delete">
+                                            <img src="/img/delete.png" alt="">
+                                        </button>
+                                          
+                                      </td>
+                                  </tr>
+                                  {{/each}}
+                                  {{/with}}
+                              </tbody>
+                          </table>
+                          <div class="more">
+                              <button>
+                                <img src="/img/more.png" alt="">
+                              </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+{{/if}}
+
+
+<!-- EDIT MODAL -->
+<div class="search-list assign">
+<div  class = "modal fade left"
+      id = "edit-degree-cert"
+      tabindex = "-1"
+      role = "dialog"
+      aria-labelledby = "myModalLabel">
+
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      <button type="button"
+              id="popup-close"
+              data-dismiss="modal"
+              aria-label="Close">x</button>
+      <div class = "popup-body">
+      <br>
+      <h2>Edit <!-- degree/cert --></h2>
+      <br><br><br>
+        <form action="">
+          <div class="row">
+            <div class="col-sm-6">
+              
+              <input  class       = "js-name" 
+                      type        = "text" 
+                      placeholder = "{{db.name}}" />
+
+            </div>
+            <div class="col-sm-6">
+              
+              <input  class       = "js-credits" 
+                      type        = "text" 
+                      placeholder = "{{db.credits}}">
+              
+            </div>
+          </div><!-- row -->
+          
+          <br><br><br>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+
+              <input  id    = "edit-cancel"
+                      type  = "submit"
+                      value = "CANCEL">
+                      
+                      
+              <input  id    = "cb-pdf-save"
+                      type  = "submit"
+                      value = "SUBMIT">
+                      
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- /EDIT modal -->
+
+
+<!-- DELETE modal -->
+
+<div class="search-list assign">
+<div  class = "modal fade left"
+      id = "delete-degree-cert"
+      tabindex = "-1"
+      role = "dialog"
+      aria-labelledby = "myModalLabel">
+
+  <div class="modal-dialog">
+    <div class="pop-up-area students">
+      <button type="button"
+              id="popup-close"
+              data-dismiss="modal"
+              aria-label="Close">x</button>
+      <div class = "popup-body">
+      <br>
+      <h2>Delete <span id="degree-cert-delete-type"></span></h2>
+      <br>
+        <form action="">
+          <div class="row">
+            <div class="col-sm-10 col-sm-offset-2">
+              <p style="font-size:24px;">
+              Are you sure you want to delete this?
+                <span id="degree-cert-delete-text" style="color:white;"> + nm + </span>
+              </p>
+              <input type="hidden" id="delete-dta" data-id="">
+            </div>
+          </div><!-- row -->
+          
+          <br>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+
+              <input  id    = "degree-cert-delete-cancel"
+                      type  = "submit"
+                      value = "CANCEL">
+                      
+                      
+              <input  id    = "degree-cert-delete-submit"
+                      type  = "submit"
+                      value = "DELETE">
+                      
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- /DELETE modal -->
+</template>

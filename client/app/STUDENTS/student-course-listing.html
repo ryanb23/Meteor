@@ -1,0 +1,172 @@
+<template name="studentCourseListing">
+<!-- studentCourseListing Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="cover"></div>
+-->
+{{#if or isStudent isTeacher}}
+  <div class = "row">
+    <div class = "col-sm-12">
+      <div class = "search-list">
+        <h3 style = "text-align:center;">
+          Available Courses
+        </h3>
+
+        {{#if isTeacher}}
+        <form>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <button class="js-teacher-cb btn btn-lg btn-primary hide-to-mobile">
+                Build Course
+              </button>
+			  <button type="button" class="show-to-mobile btn btn-lg btn-primary" data-toggle="modal" data-target="#nocourseModal">Build Course</button> 
+            </div>
+          </div>
+        </form>
+        {{/if}}
+        
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th># Of course</th>
+              <th>Credits</th>
+              <th>Completed</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#with courses}}
+              {{#each this}}
+                {{#unless dontShow}}
+                  <tr id = "{{_id}}">
+                    <th class = "name">
+                      <img  src = "/img/icon-4.png" 
+                            alt = "">
+                      {{#if completed}}
+                        <span style = "text-decoration: line-through;">
+                          {{name}}
+                        </span>
+                      {{/if}}
+                      {{#if assigned}}
+                          {{name}}
+                          <span class="label label-primary" style="margin-left:15px;">assigned</span>
+                      {{else}}
+                        {{name}}
+                      {{/if}}
+                    </th>
+                    <td>
+                      1 course
+                      <input  type  = "hidden" 
+                              name  = "id" 
+                              value = "{{id}}"/>
+                    </td>
+                    <td>
+                      {{credits}}
+                    </td>
+                    {{#if completed }}
+                    <td>
+                      <span class       = "glyphicon glyphicon-ok" 
+                            aria-hidden = "true"></span>
+                    </td>
+                    {{else}}
+                    <td></td>
+                    {{/if}}
+                    <td>
+                      <a  id        = "course-button" 
+                          data-bid  = "{{built_id}}" 
+                          data-id   = "{{_id}}"
+                          href      = "#">
+                        {{buttonText}}
+                      </a>
+                      <!--
+                      <button id="" type="button" class="btn btn-info">{{buttonText}}</button>
+                      <button id="edit">
+                        <img src="/student/img/edit.png" alt="">
+                      </button>
+                      <button id="delete">
+                        <img src="/student/img/delete.png" alt="">
+                      </button>
+                      -->
+                    </td>
+                  </tr>
+                {{/unless}}
+              {{/each}}
+            {{/with}}
+          </tbody>
+        </table>
+        <div class="more">
+          <button>
+            <img  src = "/img/more.png" 
+                  alt="">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class = "modal fade" id = "myModal" role = "dialog">
+    <div class = "modal-dialog">
+    
+      <!-- Modal content-->
+      <div class = "modal-content">
+        <div class = "modal-header">
+          <button type          = "button" 
+                  class         = "close" 
+                  data-dismiss  = "modal">
+            &times;
+          </button>
+          <h4 class="modal-title">
+            Assign Course
+          </h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            CONTENT
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type          = "button" 
+                  class         = "btn btn-default" 
+                  data-dismiss  = "modal">
+            Close
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  {{/if}}
+  
+<!-- modal -->
+                <div  class           = "modal fade left"
+                      id              = "nocourseModal"
+                      tabindex        = "-1"
+                      role            = "dialog"
+                      aria-labelledby = "myModalLabel">
+                  <div class = "modal-dialog">
+                    <div class = "pop-up-area">
+                      <button type          = "button"
+                              id            = "popup-close"
+                              data-dismiss  = "modal"
+                              aria-label    = "Close">x</button>
+                      <div class = "popup-body">
+                        <form action = "">
+						 <div class="row show-to-mobile">
+						  <div class="col-sm-6">
+							  <div class="course-single-input">
+								<h2>* Course Builder is not available on mobile devices *</h2>
+							  </div>
+							  
+						  </div>
+						  </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- modal -->
+</template>

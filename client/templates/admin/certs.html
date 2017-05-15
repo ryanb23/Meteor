@@ -1,0 +1,124 @@
+<template name="certs">
+<!-- certs Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #certificate-cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+-->
+<div id="certificate-cover"></div>
+{{#if or isAdmin isSuperAdmin}}
+  <div class="certificate-area">
+    <div class="certificate-container">
+      <div class="row">
+
+        <div class="import-navigation">
+            <ul>
+              <li>
+                <a href="#" id="dashboard-page">
+                  <i class="fa fa-home">
+                  </i>Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" id="degree-certificate-page">
+                  Degrees &amp; Certifications
+                </a>
+              </li>
+              <li style="color:blue;text-decoration:undeline;">
+                Certificates
+              </li>
+            </ul>
+        </div>
+        <br />
+
+          <div class="col-sm-4">
+            <div class="certificate-course">
+              <h2>Course :</h2>
+              <p>Choose the courses you want by dragging and dropping them to the right. If you want them completed in a specific order drop to the right of the class you want to go before it.</p>
+              
+              <div id="certificate-search">
+
+                <input  id          = "cert-search" 
+                        type        = "text" 
+                        class       = "input-lg"
+                        placeholder = "begin typing to search..."
+                        tabindex    = "1" 
+                        autofocus>
+                <br>
+                <br>
+                <div id="cojo" class="sortContainer" style="width:275px;"></div>
+
+              </div>
+            </div>
+          </div>
+
+        <div class="col-sm-8">
+          <div class="certificate-body">
+            <div class="certificate-body-head">
+              <div class="row">
+                <div class="col-lg-7">
+                  <div class="certificate-input">
+                    
+                    <label for="">Name Your Certification:</label>
+                    <input  id          = "enter-certificate-name" 
+                            type        = "text" 
+                            style       = "color:blue;" 
+                            placeholder = "Certificate Name" 
+                            tabindex    = "2"
+                            autofocus>
+                    
+                  </div>
+                  <span id="cert-taken-name-error" 
+                        class="col-lg-offset-5" 
+                        style="font-variant:small-caps;font-weight:900;color:red;">
+                  </span>
+                </div>
+                <div class="col-lg-5">
+                  <div class="certificate-date">
+                    <h2>Expiration Date :</h2>
+                    <input id="enter-expiration-date" type="date" tabindex="3">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="certificate-body-content sortContainer">
+              
+              <h2>
+                <img src="/img/icon-8.png" alt="">
+                Course Name :&nbsp;&nbsp;
+                <span id="cName" style="color:blue;"></span>
+              </h2>
+              <br><br>
+              <div  id="certificate-drop-zone"
+                    class="d-cur"
+                    style="padding:5px;width:275px !important;height:353px;border:1px dashed;border-radius:5px;"><!-- ul -->
+              <!--
+              <ul>
+                <li id="drop1" class="d-cur" tabindex="-1">Drop 1st in sequence</li>
+                <li id="drop2" class="d-cur" tabindex="-1">Drop 2nd in sequence</li>
+                <li id="drop3" class="d-cur" tabindex="-1">Drop 3rd in sequence</li>
+                <li id="drop4" class="d-cur" tabindex="-1">Drop 4th in sequence</li>
+                <li id="drop5" class="d-cur" tabindex="-1">Drop 5th in sequence</li>
+                <li id="drop6" class="d-cur" tabindex="-1">Drop 6th in sequence</li>
+                <li id="drop7" class="d-cur" tabindex="-1">Drop 7th in sequence</li>
+              </ul>
+              -->
+              </div>
+            </div>
+            
+            <div class="certificate-save">
+              <button class     = "js-certificate-save button" 
+                      type      = "button" 
+                      tabindex  = "-1">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+</template>

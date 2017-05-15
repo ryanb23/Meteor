@@ -1,0 +1,180 @@
+<template name="studentRecord">
+<!-- studentRecord Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<style>
+  #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="cover"></div>
+{{#if isAdmin}}
+<div class="dashboard-body-area admin">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="import-navigation">
+                <ul>
+                    <li><a href="#" id="dashboard-page"><i class="fa fa-home"></i>Dashboard</a></li>
+                    <li><a href="#" id="students-page">Students</a></li>
+                    <li style="color:blue;text-decoration:undeline;">Student Record</li>
+                </ul>
+            </div>
+            <br />
+            <div class="search-list">
+              <div style="margin-left:40%;">
+                <p>
+                  <em>Student:&nbsp;&nbsp;</em><span style="text-align:left;"><strong>{{uname}}</strong></span>
+                </p>
+                <span style="text-align:left;">
+                  <em>Credits Remaining To Meet Goal: &nbsp;&nbsp;</em>
+                  {{#if required_credits }}
+                  {{#with required_credits }}
+                  <strong>{{required_credits}}</strong>
+                  {{/with}}
+                  {{/if}}
+                </span><br />
+                <span style="text-align:left;"><em>Due Date:</em></span><br />
+                <span style="text-align:left;"><em>Total Credits Accumulated:&nbsp; &nbsp;</em><strong>{{current_credits}}</strong></span>
+              </div>
+              <br />
+
+            {{#if certificates}}
+            <center><h3>Certifications</h3></center>
+              <table class="table">
+                <tbody>
+                  {{#with certificates}}
+                  {{#each this}}
+                  <tr>
+                    <th style="width:30%;"><img src={{icon}} alt="">&nbsp;{{name}}</th>
+                    <td>Completed On {{date_completed}}</td>
+                    <td>Expires {{expiry}}</td>
+                    <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
+                  </tr>
+                  {{/each}}
+                  {{/with}}
+                </tbody>
+              </table>
+              {{#if more}}
+              <div class="more">
+                <button><img src="/img/more.png" alt=""></button>
+              </div>
+              {{/if}}
+              <br />
+            {{/if}}
+
+            {{#if degrees}}
+              <center><h3>Degrees</h3></center>
+                <table class="table">
+                  <tbody>
+                  {{#with degrees}}
+                  {{#each this}}
+                    <tr>
+                      <th style="width:30%;"><img src="{{icon}}" alt="">&nbsp;{{name}}</th>
+                      <td><input type="hidden" name="id" value="{{id}}"/></td>
+                    </tr>
+                  {{/each}}
+                  {{/with}}
+                  </tbody>
+                </table>
+                {{#if more}}
+                <div class="more">
+                  <button><img src="/img/more.png" alt=""></button>
+                </div>
+                {{/if}}
+                <br />
+            {{/if}}
+
+            {{#if completed_courses}}
+                <center><h3>Completed Courses</h3></center>
+                <table class="table">
+                  <thead>
+                    <th></th>
+                    <th># of course</th>
+                    <th>credits</th>
+                    <th>completed on</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+
+                    {{#each completed_courses}}
+                    <tr>
+                      <th style="width:30%;"><img src="{{icon}}" alt="">{{name}}</th>
+                      <td>{{or num 1}}</td>
+                      <td>{{credits}}</td>
+                      <td>{{date_completed}}</td>
+                      <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                    </tr>
+                    {{/each}}
+
+                  </tbody>
+                </table>
+            {{/if}}
+
+            {{#if approved_courses}}
+                <center><h3>Approved Courses</h3></center>
+                <table class="table">
+                  <thead>
+                    <th></th>
+                    <th># of course</th>
+                    <th>credits</th>
+                    <th>completed on</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+
+                    {{#each approved_courses}}
+                    <tr>
+                      <th style="width:30%;"><img src="{{icon}}" alt="">{{course}}</th>
+                      <td>- n/a -</td>
+                      <td>{{credits}}</td>
+                      <td>{{date}}</td>
+                      <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                    </tr>
+                    {{/each}}
+
+                  </tbody>
+                </table>
+            {{/if}}
+
+            {{#if current_courses}}
+                <center><h3>Current Courses</h3></center>
+                <table class="table">
+                  <thead>
+                    <th></th>
+                    <th># of course</th>
+                    <th>Credits</th>
+                    <th>Started On</th>
+                    <th>Due Date</th>
+                  </thead>
+                  <tbody>
+
+                    {{#each current_courses}}
+                    <tr>
+                      <th style="width:30%;"><img src="{{icon}}" alt="">{{name}}</th>
+                      <td>{{or num 1}}</td>
+                      <td>{{credits}}</td>
+                      <td>{{date_started}}</td>
+                      <td>{{date_due}}</td>
+                      <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
+                    </tr>
+                    {{/each}}
+
+                  </tbody>
+                </table>
+                {{#if more}}
+                <div class="more">
+                  <button><img src="/img/more.png" alt=""></button>
+                </div>
+                {{/if}}
+            {{/if}}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+</template>

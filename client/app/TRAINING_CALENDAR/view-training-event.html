@@ -1,0 +1,122 @@
+<template name="viewTrainingEvent">
+<!-- Nicholas Sardo nsardo@aol.com -->
+<!-- (c)2016-2017 Collective Innovations -->
+<!-- START MODAL -->
+<div  class = "search-list assign">
+  <div  id              = "student-training-modal" 
+        class           = "modal fade left" 
+        tabindex        = "-1" 
+        role            = "dialog" 
+        aria-labelledby = "myModalLabel"
+        style           = "cursor:pointer;">
+    
+      <div class = "modal-dialog">
+        <div class = "pop-up-area students">
+          <button type          = "button" 
+                  id            = "popup-close" 
+                  data-dismiss  = "modal" 
+                  aria-label    = "Close">x</button>
+                  
+          <div class = "popup-body">
+            <h2>Training Event:</h2>
+            <form action = "">
+              <div class = "row">
+                
+                <div class = "col-sm-6">
+                  <div class = "single-assign">
+                    <div class = "assign-body">
+                      
+                      <label style  = "color:white;margin-bottom: -20px;" 
+                              class = "form-control">
+                        Event Title
+                      </label>
+                      <input  type  = "text" 
+                              name  = "event-title" 
+                              class = "form-control">
+ 
+                    </div>
+                  </div>
+                </div>
+                <div class = "col-sm-6">
+                  <div class = "single-assign">
+                    <div class = "assign-body">
+
+                    <label  style = "color:white;margin-bottom: -20px;" 
+                            class = "form-control">
+                      Location
+                    </label>
+                    <input  type  = "text" 
+                            name  = "event-location" 
+                            class = "form-control">
+                      
+                    </div>
+                  </div>
+                </div>
+              </div><!-- row -->
+              
+              <div class = "row">
+                <div class = "col-sm-12">
+                  <div class = "single-assign">
+                    <div class = "assign-body">
+                      <label  style   = "color:white;margin-bottom: -20px;margin-top:20px;" 
+                              class   ="form-control">
+                        Description
+                      </label>
+                      <input  type  = "text" 
+                              name  = "event-description" 
+                              class = "form-control">
+                    </div>
+                  </div>
+                </div>
+              </div><!-- row -->
+              
+              <div class = "row">
+                <div class = "col-sm-6">
+                  <div class = "single-assign">
+                    <div class = "assign-body">
+                      
+                      <label  style = "color:white;margin-bottom: -20px;margin-top:20px;" 
+                              class = "form-control">
+                        Start Date
+                      </label>
+                      <input  type  = "text" 
+                              name  = "event-start" 
+                              class = "form-control"> 
+
+                    </div>
+                  </div>
+                </div>
+                <div class = "col-sm-6">
+                  <div class = "single-assign">
+                    <div class = "assign-body">
+
+                      <label  style = "color:white;margin-bottom: -20px;margin-top:20px;" 
+                              class = "form-control">
+                        Start Time
+                      </label>
+                      <input  type  = "text" 
+                              name  = "event-start-time" 
+                              class = "form-control">
+                    
+                    </div>
+                  </div>
+                </div>
+               </div><!-- row -->
+              
+              <div class = "row">
+                <div class = "col-sm-12 text-right">
+                  
+                  <input  id    =  "student-event-ok"
+                          type  = "submit"
+                          class = "add-course" 
+                          value = "OK">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>                                         
+      </div>
+    </div>
+  </div>
+  <!-- END MODAL -->  
+</template>

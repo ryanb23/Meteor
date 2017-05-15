@@ -1,0 +1,100 @@
+<!-- super-admin
+nsardo <nsardo@aol.com>
+(c) 2016-2017 collective innovation
+-->
+<template name="superAdmin">
+{{#if isSuperAdmin}}
+<style>
+  input[type="text"]:disabled {
+    background: #F0F8FF;
+    color:black;
+    font-weight:bold;
+}
+</style>
+<div class="dashboard-body-area admin">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+      
+        <h1>SELECT USER ID</h1>
+      
+        <select id="sa-user" class="form-control input-lg">
+        
+          {{#each users}}
+          <option data-id="{{_id}}">{{fullName}}</option>
+          {{/each}}
+      
+        </select>
+        
+        <hr>
+      </div>
+    </div>
+    <br>
+    
+    <div class="row">
+      <div class="col-sm-3">
+        <button id    = "curate-article"
+                class = "btn btn-lg btn-info">
+          Curate an Article
+        </button>
+      </div>
+      <div class="col-sm-9">
+        <input  name        = "curated-link"
+                type        = "text" 
+                class       = "form-control input-lg"
+                placeholder = "paste in url...">
+      </div>
+    </div>
+    <br>
+    
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" style="background: #FFFFFF">
+            <input id="freeze-account" type="checkbox">
+          </span>
+          <input  type="text"
+                  class="form-control" 
+                  value="Freeze Account"
+                  disabled>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" style="background: #FFFFFF">
+            <input id="number-users-allowed" type="number" style="width:75px;">
+          </span>
+          <input  type="text"
+                  class="form-control" 
+                  value="Number of Users Allowed" disabled>
+        </div>
+      </div>
+    </div>   
+    <br>
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <div class="input-group">
+          <span class="input-group-addon input-lg" style="background: #FFFFFF">
+            <input id="account-expiration" type="date">
+          </span>
+          <input  type="text"
+                  class="form-control input-lg" 
+                  value="Expire Date" disabled>
+        </div>
+      </div>
+    </div> 
+    <br>
+    <hr>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-4 col-lg-8 col-lg-offset-4">
+        <button id="sa-save" class="btn btn-lg btn-success">SAVE</button>
+      </div>
+    </div>
+   
+  </div>
+</div>
+{{/if}}
+</template>

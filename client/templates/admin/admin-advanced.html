@@ -1,0 +1,86 @@
+<template name="adminAdvanced">
+<!-- adminAdvanced Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+<!--
+<style>
+  #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+</style>
+<div id="cover"></div>
+-->
+{{#if or isAdmin isSuperAdmin}}
+  <div class = "dashboard-body-area">
+    <div class = "container">
+      <div class = "row">
+        <div class = "col-sm-12">
+          <div class = "advance-page">
+            <h2>Advanced</h2>
+
+            <form action = "">
+              <div class = "row">
+                <div class = "col-sm-7">
+                  <div class = "advance-title credit">
+                    <h2>Turn on credit requirements?</h2>
+                  </div>
+                </div>
+                                    
+                <div class = "col-sm-5">
+                  <div class = "credit-required">
+                    <div class = "single-credit-required">
+                      <label id = "credit-on" for="yes_credit">
+                        <img src = "/img/on.png" alt="">
+                      </label>
+                    </div>  
+                    <div class="single-credit-required">
+                      <label id="credit-off" for="no_credit">
+                        <img src="/img/off.png" alt="">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                                  
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="advance-title">
+                    <h2>How many credits do you require to be completed for each student? </h2>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="advance-time-input">
+                    <input class="js-credits-required" type="number" value="145">
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="advance-time-button">
+                    <button data-value="quarterly" type="button">Quarterly</button>
+                    <button data-value="yearly"    type="button">Yearly</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="advance-title">
+                    <h3>To use your own URL for your Corporate University.</h3>
+                  </div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="advance-url">
+                    <input class="js-priv-url" type="url">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="advance-save">
+                    <input class="js-advanced-save" type="submit" value="SAVE">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+</template>

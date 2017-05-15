@@ -1,0 +1,207 @@
+<template name = "pricing">
+<!-- pricing Template -->
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+  <div class="banner-area pricing">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="banner-text">
+            <h2>
+              Pricing
+            </h2>
+            <p>
+              14-day free trial, no credit card required.
+            </p>
+            <h3>
+              <a target="_blank" href="https://calendly.com/collectiveuniversity/collective-university-demo">
+                Request Tour
+              </a>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="pricing-title">
+              <h2>
+                All Plans
+              </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="single-pricing">
+            <div class="single-pricing-title">
+              <h2>
+                Small Business
+              </h2>
+            </div>
+            <div class="single-pricing-body">
+              <h2>
+                50 Students
+              </h2>
+              <p>
+                <span>
+                  $8 Per Student / Month
+                </span>
+              </p>
+              <p>
+                $400 month
+              </p>
+              <p>
+                $4000 Per Year
+                <small>
+                  (18% Discount)
+                </small>
+              </p>
+            </div>
+            <div class="single-pricing-footer">
+            
+              <a  target="_blank" href="https://calendly.com/collectiveuniversity/collective-university-demo">
+                Request a Tour
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="single-pricing growing">
+            <div class="single-pricing-title">
+              <h2>
+                Growing Business
+              </h2>
+            </div>
+            <div class="single-pricing-body">
+              <h2>
+                200 Students
+              </h2>
+              <p>
+                <span>
+                  $7 Per Student / Month
+                </span>
+              </p>
+              <p>
+                $1400 month
+              </p>
+              <p>
+                $14000 Per Year
+                <small>
+                  (18% Discount)
+                </small>
+              </p>
+            </div>
+            <div class="single-pricing-footer">
+             
+              <a  target="_blank" href="https://calendly.com/collectiveuniversity/collective-university-demo">
+                Request a Tour
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="single-pricing enterprise">
+            <div class="single-pricing-title">
+              <h2>
+                Enterprise
+              </h2>
+            </div>
+            <div class="single-pricing-body">
+              <h2>
+                1000 Students
+              </h2>
+              <p>
+                <span>
+                  $6 Per Student / Month
+                </span>
+              </p>
+              <p>
+                $6000 month
+              </p>
+              <p>
+                $60000 Per Year
+                <small>
+                  (18% Discount)
+                </small>
+              </p>
+            </div>
+            <div class="single-pricing-footer">
+              
+              <a  target="_blank" href="https://calendly.com/collectiveuniversity/collective-university-demo">
+                Request a Tour
+              </a>
+              <p>
+                Additional Students only $5/month
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="promotions-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="promotions">
+            <h2>
+              Need help getting started? We're here for you.
+            </h2>
+            <a href="#">
+              CONTACT US
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newsletter-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="newsletter-title">
+            <h2>
+              Newsletter
+              <span>
+                Subscribe
+              </span>
+            </h2>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <div class="newsletter">
+            <form action="">
+              
+              <input  type        = "email"
+                      placeholder = "Enter Your Email...."
+                      style       = "color: DarkBlue">
+                      
+              <input  type  = "submit" 
+                      value = "Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    
+    $(document).ready(function(){
+      $('#pricing').addClass("active").siblings().removeClass('active');
+      $(this).scrollTop(0);
+      
+      $('.logo').click(function(){
+        var loc = location.protocol + "//" + location.hostname;
+        window.location.href = loc;
+      });
+    });
+  </script>
+</template>
