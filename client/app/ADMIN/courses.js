@@ -20,6 +20,7 @@ Template.courses.onCreated(function(){
     Meteor.subscribe('tests');
   });
   
+
   /********************************************************
    * BOOTSTRAP3-DIALOG
    *******************************************************/
@@ -39,6 +40,9 @@ Template.courses.onCreated(function(){
         allowClear: true,
         placeholder: 'Search Courses...'
       });
+	  $( '.select2-container' ).css("width","100%");
+	  //$(".select2-container--default .select2-selection--single .select2-selection__rendered").css("line-height","41px");
+	  //$(".select2-container--default .select2-selection--single .select2-selection__arrow b").css("top","70%");
     });
     //console.log('Courses:: chosen,jquery.min.js loaded...');
   }).fail( function(jqxhr, settings, exception ) {
@@ -101,9 +105,8 @@ Template.courses.events({
     let idx = $( e.currentTarget ).val();
     $( 'tr').css( 'border', '' );
     $( 'tr' ).css( 'background-color', '' );
-    $( 'tr#' + idx ).css( 'border','1px solid' ).css(  'background-color','PaleTurquoise' );
-						  
-	  var domToScroll= $( e.currentTarget ).val();
+	$( 'tr#' + idx ).css( 'border','1px solid' ).css(  'background-color','PaleTurquoise' );
+	 var domToScroll= $( e.currentTarget ).val();
 	  var currentOffset=$("#"+domToScroll).offset();
 	  var scrolltotop=currentOffset.top;
 	  //console.log(currentOffset.top);
@@ -113,15 +116,14 @@ Template.courses.events({
       }, 'fast');
 	  $(".name").css({'background-color':'transparent','border':'0px solid'} );
 	  $("#"+domToScroll).css({'background-color':'PaleTurquoise','border':'1px solid'} );
-	  
-        /*                                      
+
+	
+    /*$( 'tr#' + idx ).css( 'border',
+                          '1px solid' ).css(  'background-color',
+                                              'PaleTurquoise' );
     $( 'html, body' ).animate({
       scrollTop: $( 'tr#' + $( e.currentTarget ).val() ).offset().top + 'px'
-      }, 'fast');
-	  */
-	  
-	 // var offset= $( 'tr#' + $( e.currentTarget ).val() ).offset();
-	  //console.log("offset:"+offset.top);
+      }, 'fast');*/
 //-------------------------------------------------------------------
   },
   /********************************************************

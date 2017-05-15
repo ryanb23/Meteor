@@ -18,16 +18,16 @@
         {{#if isTeacher}}
         <form>
           <div class="form-group">
-            <div class="col-sm-4 col-md-2">
+			 <div class="col-sm-4 col-md-2">
               <button class="js-teacher-cb btn btn-lg btn-primary hide-to-mobile">
                 Build Course
               </button>
-			  <button type="button" class="show-to-mobile btn btn-lg btn-primary" data-toggle="modal" data-target="#nocourseModal">Build Course</button> 
+			  <button type="button" class="show-to-mobile btn btn-lg btn-primary" data-toggle="modal" data-target="#nocourseModal">Build Course</button>
             </div>
           </div>
         </form>
         {{/if}}
-        
+
         <table class="table">
           <thead>
             <tr>
@@ -44,7 +44,7 @@
                 {{#unless dontShow}}
                   <tr id = "{{_id}}">
                     <th class = "name">
-                      <img  src = "/img/icon-4.png" 
+                      <img  src = "/img/icon-4.png"
                             alt = "">
                       {{#if completed}}
                         <span style = "text-decoration: line-through;">
@@ -60,8 +60,8 @@
                     </th>
                     <td>
                       1 course
-                      <input  type  = "hidden" 
-                              name  = "id" 
+                      <input  type  = "hidden"
+                              name  = "id"
                               value = "{{id}}"/>
                     </td>
                     <td>
@@ -69,15 +69,15 @@
                     </td>
                     {{#if completed }}
                     <td>
-                      <span class       = "glyphicon glyphicon-ok" 
+                      <span class       = "glyphicon glyphicon-ok"
                             aria-hidden = "true"></span>
                     </td>
                     {{else}}
                     <td></td>
                     {{/if}}
                     <td>
-                      <a  id        = "course-button" 
-                          data-bid  = "{{built_id}}" 
+                      <a  id        = "course-button"
+                          data-bid  = "{{built_id}}"
                           data-id   = "{{_id}}"
                           href      = "#">
                         {{buttonText}}
@@ -100,23 +100,23 @@
         </table>
         <div class="more">
           <button>
-            <img  src = "/img/more.png" 
+            <img  src = "/img/more.png"
                   alt="">
           </button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <!-- Modal -->
   <div class = "modal fade" id = "myModal" role = "dialog">
     <div class = "modal-dialog">
-    
+
       <!-- Modal content-->
       <div class = "modal-content">
         <div class = "modal-header">
-          <button type          = "button" 
-                  class         = "close" 
+          <button type          = "button"
+                  class         = "close"
                   data-dismiss  = "modal">
             &times;
           </button>
@@ -130,18 +130,18 @@
           </p>
         </div>
         <div class="modal-footer">
-          <button type          = "button" 
-                  class         = "btn btn-default" 
+          <button type          = "button"
+                  class         = "btn btn-default"
                   data-dismiss  = "modal">
             Close
           </button>
         </div>
       </div>
-      
+
     </div>
   </div>
   {{/if}}
-  
+
 <!-- modal -->
                 <div  class           = "modal fade left"
                       id              = "nocourseModal"
@@ -161,7 +161,7 @@
 							  <div class="course-single-input">
 								<h2>* Course Builder is not available on mobile devices *</h2>
 							  </div>
-							  
+
 						  </div>
 						  </div>
                         </form>

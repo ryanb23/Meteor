@@ -31,7 +31,6 @@ Template.studentCourseListing.onCreated(function() {
     Meteor.subscribe('courses');
     Meteor.subscribe('students');
   });
-  
 });
 
 
@@ -56,14 +55,13 @@ Template.studentCourseListing.helpers({
   courses() {
     try {
     //GET LIST OF THIS STUDENTS COMPLETED COURSES
-    
-      let st_courses_completed = Students.find( { _id: FlowRouter.current().params._id },
-                                                { courses_completed:1 }).fetch()[0];
-    
+
+    let st_courses_completed = Students.findOne(FlowRouter.current().params._id);
+
     if ( st_courses_completed && st_courses_completed.courses_completed ) {
       var st_courses_completedl = st_courses_completed.courses_completed.length;
       for ( let i = 0; i < st_courses_completedl; i++ ) {
-        Template.instance().cor_com.push( st_courses_completed.courses_completed[i]._id );
+        Template.instance().cor_com.push( st_courses_completed.courses_completed[i].link_id );
       }
     }
 
@@ -75,7 +73,7 @@ Template.studentCourseListing.helpers({
     if ( st_current_courses && st_current_courses.current_courses ) {
       var st_current_coursesl = st_current_courses.current_courses.length;
       for ( let i = 0; i < st_current_coursesl; i++ ) {
-        Template.instance().cur_cor.push( st_current_courses.current_courses[i]._id );
+        Template.instance().cur_cor.push( st_current_courses.current_courses[i].link_id );
       }
     }
 
@@ -88,21 +86,21 @@ Template.studentCourseListing.helpers({
       var st_assigned_coursesl = st_assigned_courses.assigned_courses.length;
 
       for ( let i = 0; i < st_assigned_coursesl; i++ ) {
-        Template.instance().ass_cor.push( st_assigned_courses.assigned_courses[i].id );
+        Template.instance().ass_cor.push( st_assigned_courses.assigned_courses[i].link_id );
       }
     }
 
     /* moment(c[i].due_date).format('MM/DD/YYYY'); */
 
-    
+
       //GET LIST OF ALL AVAILABLE COURSES FOR THIS COMPANY THAT CAN BE TAKEN
       //let o   = Courses.find({ company_id:Meteor.user().profile.company_id }).fetch();
       Template.instance().o = Courses.find({ company_id: Meteor.user().profile.company_id }).fetch();
-      
+
       //COUNT HOW MANY PRE-LOOP
       //let ocl = o.length;
       let ocl = Template.instance().o.length;
-      
+
       //LOOP OVER ALL COURSES
       for ( let i = 0; i < ocl; i++ ) {
         //IF THIS STUDENT HAS ALREADY COMPLETED THIS COURSE
@@ -117,10 +115,10 @@ Template.studentCourseListing.helpers({
           Template.instance().o[i].assigned = true;
         }
       }
-    
+
       //FULL LIST OF AVAILABLE COURSES
       if ( Template.instance().o ) {
-        
+
         //PRE-CALC COUNT
         let ocl = Template.instance().o.length;
         for ( let i = 0; i < ocl; i++ ) {
@@ -151,16 +149,16 @@ Template.studentCourseListing.helpers({
                           ! Template.instance().o[i].approved) {
               //DON'T SHOW IT
               Template.instance().o[i].dontShow = true;
-              
+
             } else if ( (Template.instance().o[i].isArchived )) {
-              
+
               Template.instance().o[i].dontShow = true;
 
             //OTHERWISE, THIS COURSE IS AVAILABLE TO BE TAKEN
             } else {
               //SHOW IT
               Template.instance().o[i].buttonText = 'begin';
-              
+
             }
           }
         }
@@ -168,8 +166,8 @@ Template.studentCourseListing.helpers({
       Template.instance().o = _.sortBy( Template.instance().o, 'assigned' );
 
       return Template.instance().o;
-      
-      
+
+
     } catch(e) {
       return;
     }
@@ -191,11 +189,11 @@ Template.studentCourseListing.events = {
 
       let //builder   = $( e.currentTarget ).data( 'bid' )
           cid       = $( e.currentTarget ).data( 'id' );
-      
+
       Meteor.setTimeout(function(){
         Meteor.call( 'updateCurrentCourses', cid );
       }, 300);
-      
+
       //FlowRouter.go( '/teacher/dashboard/course-view/' + Meteor.userId() + `/?course=${course}`);
       let queryParams = { course: `${cid}` };
       let params      = { _id: Meteor.userId() };
@@ -218,5 +216,5 @@ Template.studentCourseListing.events = {
       FlowRouter.go( `/teacher/dashboard/course-builder/${Meteor.userId()}/?rtn=courses` );
     }
   },
-  
+
 }

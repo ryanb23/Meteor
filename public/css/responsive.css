@@ -77,9 +77,9 @@ display: none;
 display: block;
 }
 
-.filter-buttons .hide-to-mobile {
-    display: inline-block;
-}
+.filter-buttons .hide-to-mobile{
+ display: inline-block;
+}	
 
 .filter-buttons .show-to-mobile{
     display: none;
@@ -134,9 +134,10 @@ display: none;
 display: block;
 }
 
-.filter-buttons .hide-to-mobile {
-    display: inline-block;
-}
+.filter-buttons .hide-to-mobile{
+ display: inline-block;
+}	
+
 .filter-buttons .show-to-mobile{
     display: none;
 }
@@ -171,9 +172,10 @@ body.main .container {width: 1170px;}
 .diamonds {
 	top: 12px;
 }
-.filter-buttons .hide-to-mobile {
-    display: inline-block;
-}
+.filter-buttons .hide-to-mobile{
+ display: inline-block;
+}	
+
 .filter-buttons .show-to-mobile{
     display: none;
 }
@@ -205,9 +207,9 @@ display: block;
 .nexus-width{
 	width: 39%;
 }
-.filter-buttons .hide-to-mobile {
-    display: inline-block;
-}
+.filter-buttons .hide-to-mobile{
+ display: inline-block;
+}	
 
 .filter-buttons .show-to-mobile{
     display: none;
@@ -322,7 +324,7 @@ body.main .container {width: 970px;}
 	margin-right: 0px;
 }
 .filter-buttons .hide-to-mobile{
-display:block;
+ display: inline-block;
 }	
 
 .filter-buttons .show-to-mobile{
@@ -454,7 +456,7 @@ body.main .container {width: 750px;}
 }
 
 .filter-buttons .hide-to-mobile{
-display:block;
+ display: inline-block;
 }	
 
 .filter-buttons .show-to-mobile{
@@ -806,18 +808,6 @@ display:none;
     display: block;
 }	
 
-.mob-pull-left{
-float:left;
-margin-left:0;
-}	
-.pop-up-area.eventpop button.mob-pull-left{
-	margin-left:0;
-}
-.mob-margin-btm{
-	    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
 #vid-0,#vid-1,#vid-2,#vid-3,#vid-4,#vid-5{
 	width:100%;
 	height:auto;
@@ -825,10 +815,23 @@ margin-left:0;
     margin-top: 25%;
 }
 
-
 #fb-template iframe{
 	width:100%;
 }
+
+.mob-margin-btm{
+	    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.mob-pull-left{
+float:left;
+margin-left:0;
+}	
+.pop-up-area.eventpop button.mob-pull-left{
+	margin-left:0;
+}
+
   }
   
   /* ----------- iPhone 5 and 5S ----------- */
@@ -838,8 +841,6 @@ margin-left:0;
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2) {
 	  
-	  
-
 .filter-buttons .hide-to-mobile{
 display:none;
 }	
@@ -921,17 +922,6 @@ display: block;
 .hide-to-mobile{
 display: none;
 }
-.mob-pull-left{
-float:left;
-margin-left:0;
-}	
-.pop-up-area.eventpop button.mob-pull-left{
-	margin-left:0;
-}
-.mob-margin-btm{
-	    margin-bottom: 20px;
-    margin-top: 20px;
-}
 
 #vid-0,#vid-1,#vid-2,#vid-3,#vid-4,#vid-5{
 	width:100%;
@@ -944,4 +934,23 @@ margin-left:0;
 	width:100%;
 }
 
+.mob-margin-btm{
+	    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.js-dept{
+	    height: 46px;
+    padding: 10px 16px;
+}
+select.js-dept{
+	    height: 46px;
+    padding: 10px 16px;
+}
+.mob-pull-left{
+float:left;
+margin-left:0;
+}	
+.pop-up-area.eventpop button.mob-pull-left{
+	margin-left:0;
+}
 }

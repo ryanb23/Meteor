@@ -142,7 +142,7 @@ Template.courseBuilderLayout.events({
 
   'click #cb-leave-btn'( e, t ) {
     e.preventDefault()
-
+    t. $( '#cb-leave-yes' ).click();
     t. $( '#cb-page-leave-warning' ).modal('hide');
 
     if (FlowRouter.getRouteName() == 'admin-test-creator' &&

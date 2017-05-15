@@ -78,19 +78,21 @@ export function cbPDFSave(  e,
 		          
 			        //delete result._id;
 			        pdf   = result.secure_url;
-
-            	pdf_id =	Pdfs.insert({
-              				          loaded:           result.loaded,
-              				          percent_uploaded: result.percent_uploaded,
-              				          relative_url:     result.relative_url,
-              				          secure_url:       result.secure_url,
-              				          status:           result.status,
-              				          total:            result.total,
-              				          uploader:         result.uploader,
-              				          url:              result.url,
-              				          file:             result.file,
-              				          created_at:       moment().format()
-            			       });
+              console.log(result)
+              let fileType = 'pdf';
+            	pdf_id =	Meteor.call('addFileData',
+                                fileType,
+              				          result.loaded,
+              				          result.percent_uploaded,
+              				          result.relative_url,
+              				          result.secure_url,
+              				          result.status,
+              				          result.total,
+              				          result.uploader,
+              				          result.url,
+              				          result.file,
+              				          moment().format()
+            			       );
 
             $( '#cb-video-toolbar' ).show();
             t.$( '#cb-current' ).val( `pdf-${master_num}` );
@@ -108,13 +110,15 @@ export function cbPDFSave(  e,
                     type:     'pdf',
                     url:      obj,
                     s3:       pdf,
-                    pdf_lnk:  pdf_id
+                    file_lnk:  pdf_id
               });
            
             pdf = null;
-                     			       
+           
+            S3.collection.remove({});           			       
   	       }//callback
 	);//S3.upload()
+
 
   $( '#cb-title-toolbar' ).hide();
   $( '#cb-text-toolbar'  ).hide();

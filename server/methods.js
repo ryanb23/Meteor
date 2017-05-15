@@ -13,14 +13,273 @@ import { Students }     from '../both/collections/api/students.js';
 import { Newsfeeds }    from '../both/collections/api/newsfeeds.js';
 import { Comments }     from '../both/collections/api/comments.js';
 import { Companies }    from '../both/collections/api/companies.js';
+import { Departments }    from '../both/collections/api/departments.js';
 import { BuiltCourses } from '../both/collections/api/built-courses.js';
 import { Events }       from '../both/collections/api/events.js';
 import { Scorms }       from '../both/collections/api/scorms.js';
 import { Courses }      from '../both/collections/api/courses.js';
+import { Images }      from '../both/collections/api/images.js';
+import { Pdfs }      from '../both/collections/api/pdfs.js';
+import { PowerPoints }      from '../both/collections/api/powerpoints.js';
+import { Diplomas }      from '../both/collections/api/diplomas.js';
+import { Certifications }      from '../both/collections/api/certifications.js';
 
+const defaultImage = 'data:image/png;base64,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';
 
 Meteor.methods({
-  
+  'students.approveCourse'({ studentId, totalCredits, option, credits }) {
+    Students.update({ _id: studentId}, {
+      $set: { current_credits: totalCredits },
+      $inc: { compl_courses_cnt: 1 },
+      $push: { approved_courses: { course: option, credits, date: new Date() }},
+    });
+  },
+
+  'students.assignCourse'({ studentId, course }) {
+    Students.update({ _id: studentId}, { $push: { assigned_courses: course } });
+  },
+
+  'addDiplomaCertificate'(documenttype,
+                          courseName,
+                          ids,
+                          creditsTotal,
+                          idslength,
+                          icon,
+                          companyId,
+                          type,
+                          timesCompleted,
+                          createdAt,
+                          expDate) {
+    let documentCollection;
+    if(documenttype === 'cert') documentCollection = Certifications;
+    else if(documenttype === 'degree') documentCollection = Diplomas;
+    else return null;
+    let data = {
+      name: courseName,
+      courses: ids,
+      credits: creditsTotal,
+      num: idslength,
+      icon: icon,
+      company_id: companyId,
+      type: type,
+      times_completed: timesCompleted,
+      created_at: createdAt,
+      expiry_date: expDate,
+    };
+    if(expDate) data.expiry_date = expDate;
+    let id = documentCollection.insert(data);
+    return id;
+  },
+
+  'addFileData'(  filetype,
+                  loaded,
+                  percentUploaded,
+                  relativeUrl,
+                  secureUrl,
+                  status,
+                  total,
+                  uploader,
+                  url,
+                  file,
+                  createdAt) {
+    if(!filetype) return null;
+    let fileCollection;
+    if(filetype === 'img') fileCollection = Images;
+    else if(filetype === 'pdf') fileCollection = Pdfs;
+    else if(filetype === 'powerpoint') fileCollection = PowerPoints;
+    else if(filetype === 'scorm') fileCollection = Scorms;
+    else return null;
+    let id = fileCollection.insert({
+      loaded: loaded,
+      percent_uploaded: percentUploaded,
+      relative_url: relativeUrl,
+      secure_url: secureUrl,
+      status: status,
+      total: total,
+      uploader: uploader,
+      url: url,
+      file: file,
+      created_at: createdAt,
+    });
+    return id;
+  },
+
+  'users.add'({ fname, lname, email, departmentId, role, company, trial = false }) {
+    const existingDepartment = Departments.findOne(departmentId);
+    const existingDepartmentByName = Departments.findOne({ name: departmentId, company_id: company._id });
+    let department;
+    if (existingDepartment) {
+      department = existingDepartment._id;
+    } else if (departmentId && existingDepartmentByName) {
+      department = existingDepartmentByName._id;
+    } else {
+      department = Departments.insert({
+        name: departmentId,
+        company_id: company._id,
+      });
+    }
+    const password = generateRandomPassword();
+    let trialStarted  = '';
+    let uid = Accounts.createUser({
+      email,
+      password,
+      roles: { [role]: true },
+      username: email,
+      profile: {
+        avatar: defaultImage,
+        company_id: company._id,
+      },
+    });
+    if (trial) {
+      trialStarted = new Date;
+    }
+    return Students.insert({
+      _id: uid,
+      avatar: defaultImage,
+      fname,
+      lname,
+      fullName: `${fname} ${lname}`,
+      email,
+      uname: email,
+      department,
+      company: company.name,
+      company_id: company._id,
+      role,
+      current_credits: 0,
+      required_credits: 0,
+      compl_courses_cnt: 0,
+      degrees: [],
+      certifications: [],
+      courses_completed: [],
+      current_courses: [],
+      password,
+      current_trainings: [],
+      compl_trainings: [],
+      articles_read: [],
+      trialStarted,
+      created_at: new Date(),
+    });
+  },
+
+  'users.update'({ studentId, email, role, departmentId }) {
+    const existingUser = Meteor.users.findOne(studentId);
+    const existingDepartment = Departments.findOne(departmentId);
+    const existingDepartmentByName = Departments.findOne({ name: departmentId, company_id: existingUser.profile.company_id });
+    let department;
+    if (existingDepartment) {
+      department = existingDepartment._id;
+    } else if (departmentId && existingDepartmentByName) {
+      department = existingDepartmentByName._id;
+    } else {
+      department = Departments.insert({
+        name: departmentId,
+        company_id: existingUser.profile.company_id,
+      });
+    }
+    if (existingUser.emails[0].address !== email && Accounts.findUserByEmail(email)) {
+      throw new Error('Email is already registered');
+    }
+    if (email !== existingUser.emails[0].address) {
+      Accounts.addEmail(studentId, email, false);
+      // Accounts.sendVerificationEmail(studentId, email);
+
+      // const newUser = Meteor.users.findOne(userId);
+      Accounts.emailTemplates.siteName = 'CollectiveUniversity';
+      Accounts.emailTemplates.from = 'CollectiveUniversity <admin@CollectiveUniversity.com>';
+      Accounts.emailTemplates.verifyEmail = {
+        subject() {
+          return '[CollectiveUniversity] Verify Your Email Address';
+        },
+        text(user, url) {
+          const student = Students.findOne(user._id);
+          const name = user.username.split(' ')[0];
+          const supportEmail = 'support@collectiveUniversity.com';
+          const urlWithoutHash = url.replace('#/', '');
+          const emailBody = `Hello ${name},\n\nYour email for Collective University has been changed by admin, to verify it please click here and sign-on: ${urlWithoutHash}\n\n Here are your credentials:\nUsername(email) : ${email}\nPassword: ${student.password}\n\n If you should have any questions, please feel free to contact our support team: ${supportEmail}.\n\nSincerely,\n\nThe Collective U Team`;
+          return emailBody;
+        }
+      };
+      Accounts.sendVerificationEmail(studentId, email);
+    }
+    Meteor.users.update({ _id: studentId }, { $set: { roles: { [role]: true } } });
+    return Students.update({ _id: studentId }, { $set: { role, department, updated_at: new Date() } });
+  },
+
+  'users.updateEmail'(_id, email) {
+    return Students.update({ _id }, { $set: { email, uname: email, updated_at: new Date() } });
+  },
+
+  'users.sendSignupVerificationEmail'(userId) {
+    const newUser = Meteor.users.findOne(userId);
+    Accounts.emailTemplates.siteName = 'CollectiveUniversity';
+    Accounts.emailTemplates.from = 'CollectiveUniversity <admin@CollectiveUniversity.com>';
+    Accounts.emailTemplates.verifyEmail = {
+      subject() {
+        return '[CollectiveUniversity] Verify Your Email Address';
+      },
+      text(user, url) {
+        const student = Students.findOne(user._id);
+        const email = user.emails[0].address;
+        const name = user.username.split(' ')[0];
+        const supportEmail = 'support@collectiveUniversity.com';
+        const urlWithoutHash = url.replace('#/', '');
+        const emailBody = `Hello ${name},\n\nThanks for signing up for Collective University, to begin setting up your platform please click here and sign-on: ${urlWithoutHash}\n\n Here are your credentials:\nUsername(email) : ${email}\nPassword: ${student.password}\n\n If you should have any questions, please feel free to contact our support team: ${supportEmail}.\n\nSincerely,\n\nThe Collective U Team`;
+        return emailBody;
+      }
+    };
+    return Accounts.sendVerificationEmail(newUser._id, newUser.emails[0].address);
+  },
+
+  'users.getAdminByCompanyId'(companId) {
+    return Meteor.users.findOne({
+      'roles.admin': true,
+      'profile.company_id': companId,
+    });
+  },
+
+  'users.getSUperAdminByEmail'(email) {
+    return Meteor.users.findOne({ 'emails.0.address': email, 'roles.superadmin': true });
+  },
+
+  'users.remove'(id) {
+    Meteor.users.remove(id);
+    return Students.remove(id);
+  },
+
+  'courses.restart'(index) {
+    const student = Students.findOne(Meteor.userId());
+    const courses_completed = student.courses_completed;
+    const course = courses_completed[index];
+    if (!course) {
+      throw new Error('No course found');
+    } else {
+      const newCompleted = _.reject(courses_completed, (course, i) => {
+        return i === index;
+      });
+      return Students.update(student._id, {
+        $set: {
+          courses_completed: newCompleted,
+        },
+        $push: {
+          current_courses: { link_id: course.link_id },
+        },
+        $inc: {
+          current_credits: -course.credits,
+        },
+      });
+    }
+  },
+
+  'certifications.update'(id, updateObj) {
+    updateObj.edited_at = new Date();
+    return Certifications.update({ _id: id }, { $set: updateObj});
+  },
+
+  'diplomas.update'(id, updateObj) {
+    updateObj.edited_at = new Date();
+    return Diplomas.update({ _id: id }, { $set: updateObj });
+  },
+
    /*
    * CREATE USER
    * POST http://scorm.academy-smart.org.ua/users/createUser
@@ -48,8 +307,8 @@ Meteor.methods({
                   }
     });
   },
-  
-  
+
+
   /*
    * UPLOAD COURSE
    *    POST http://scorm.academy-smart.org.ua/player/uploadCourse
@@ -58,11 +317,11 @@ Meteor.methods({
    * AND attach files
    */
   'scormUploadCourse': function( company_id ) {
-    
+
    //200413
       let stats = fs.statSync("/home/ubuntu/workspace/NewQuizScorm.zip")
         , fileSizeInBytes = stats["size"];
-        
+
       console.log( fileSizeInBytes );
       /*
       rest.post('http://scorm.academy-smart.org.ua/player/uploadCourse', {
@@ -73,33 +332,33 @@ Meteor.methods({
                               null,
                               fileSizeInBytes,
                               null,
-                              'application/zip') 
+                              'application/zip')
         }
       }).on('complete', function(data){
         console.log( data );
       })
       */
           //fs.createReadStream( '/home/ubuntu/workspace/NewQuizScorm.zip' );
-      
+
       //'http://scorm.academy-smart.org.ua/player/uploadCourse'
-      
+
       /*
       .end( ( response ) => {
-  
+
           console.log( '-------------------------------------------');
           //fs.writeFile('/home/ubuntu/workspace/log.txt', JSON.stringify(res), (err) => {
             //if (err) throw err;
             //console.log('saved.');
           //})
-        
+
           console.dir( response.headers );
           console.dir( response.body    );
           console.log( '--------------------------------------------');
       });
       */
   },
-  
- 
+
+
    /*
    * DELETE COURSE
    * DELETE http://scorm.academy-smart.org.ua/player/deleteCourse
@@ -127,13 +386,13 @@ Meteor.methods({
                     }
     });
    },
- 
-  
+
+
   /*
    * get URL of  course for student (requires username pass  and course_id)
    *    http://scorm.academy-smart.org.ua/player/get
    *      POST BODY
-   *        { “user”: "demo_user", “pass”: "1", “course”: "1" } 
+   *        { “user”: "demo_user", “pass”: "1", “course”: "1" }
    *      RETURNS full url to play a course
    *
    * RESPONSE.DATA:
@@ -142,7 +401,7 @@ Meteor.methods({
    * RESPONSE.DATA:
    *                { action: 'success',
    *                  url: 'http://scorm.academy-smart.org.ua/player/play/77f5f5f7fa13850ad5bf36aab77a3a83' }
-   *                  
+   *
    *  USER: *NAME*, PASS: 'unencrypted', COURSE: NUMERIC                  XXX
    */
    'scormGetCoursePlayURL': function( user, pass, course ) {
@@ -153,13 +412,13 @@ Meteor.methods({
                       "user": `${user}`, "pass": `${pass}`, "course": `${course}`
                     }
                   });
-      return resp.data.url;      
+      return resp.data.url;
      } catch(e) {
-       
+
        return e.reason;
-       
+
      }
-     
+
                 /* ASYNC
                 ,function( error, response ){
                   if( error ){
@@ -183,13 +442,13 @@ Meteor.methods({
                    console.log( '------------------------------------------------------------------');
                    //return response.data.url;
                   }
-                  
+
     });
     */
    },
-   
-   
-   
+
+
+
   /*
    * GET STATUS OF COURSE
    * GET http://scorm.academy-smart.org.ua/player/courseStatus/<company_id>/<user_id>   xxx
@@ -211,8 +470,8 @@ Meteor.methods({
                   }
     });
    },
-   
-   
+
+
   /*
    * NO INPUTS OUTPUT - ALL LOADED COURSES
    * GET http://scorm.academy-smart.org.ua/player/listAllCourses          xxx
@@ -234,8 +493,8 @@ Meteor.methods({
                   }
     });
    },
-   
-   
+
+
 
   /*
    * - LIST ALL STARTED COURSES BY USER
@@ -265,8 +524,8 @@ Meteor.methods({
                   }
     });
    },
-   
-   
+
+
   /*
    * LIST ALL COMPLETED COURSES BY USER
    * GET http://scorm.academy-smart.org.ua/player/coursesCompleted/<company_id>/<user_id>
@@ -289,8 +548,8 @@ Meteor.methods({
                   }
     });
    },
-   
-   
+
+
   /*
    * LIST ALL COURSES BY COMPANY
    * GET http://scorm.academy-smart.org.ua/player/listCompanyCourses/<company_id>
@@ -313,8 +572,8 @@ Meteor.methods({
                   }
     });
    },
-   
-   
+
+
   /*
    * LIST ALL COURSES BY USER (COMPLETED/CURRENT)
    * GET http://scorm.academy-smart.org.ua/player/listStudentCourses/<company_id>/<user_id>
@@ -337,12 +596,12 @@ Meteor.methods({
                   }
       });
    },
-   
-   
+
+
   /*
    * SCORM METRIC OF STUDENT OF SPECIFIED COURSE
    * GET http://scorm.academy-smart.org.ua/player/courseMetric/<company_id>/<user_id>/<course_id>/<scorm metric>
-   * 
+   *
    */
    'scormStudentMetric': function( company_id, user_id, course_id, scorm_metric ) {
      HTTP.get( `http://scorm.academy-smart.org.ua/player/courseMetric/${company_id}/${user_id}/${course_id}/${scorm_metric}`,
@@ -361,50 +620,51 @@ Meteor.methods({
                   }
     });
    },
-   
-  
-  
-  'upsertCompany': function( company_id, freq, req_cred ) {
 
-    return Companies.update(  { _id: company_id }, 
-                              { $set:
-                                { 
-                                  required_credits: req_cred, 
-                                  frequency: freq 
-                                } 
-                              }
-                           );    
+   'students.turnCreditsOff': company_id => {
+     return Students.update({ company_id }, { $set: { creditsRequired: false }}, { multi: true });
+   },
+
+  'companies.turnCreditsOff': _id => {
+    return Companies.update({ _id }, { $set: { creditsRequired: false }});
   },
-//-----------------------------------------------------------------------------
 
+  'upsertCompany': (company_id, freq, req_cred) => {
+    return Companies.update({ _id: company_id }, {
+      $set: {
+        creditsRequired: true,
+        required_credits: req_cred,
+        frequency: freq,
+      },
+    });
+  },
 
-  'upsertCredits': function( company_id, cr ) {
-    
-    return Students.upsert( { company_id: company_id }, 
-                            { $set:
-                              { 
-                                required_credits: cr
-                              }
-                            }, 
-                            { multi: true }
-                          );
+  'upsertCredits': (company_id, cr, freq = 'quarterly') => {
+    return Students.upsert( { company_id}, {
+      $set: {
+        required_credits: cr,
+        frequency: freq,
+        creditsRequired: true,
+      },
+    }, { multi: true });
   },
 //-----------------------------------------------------------------------------
 
 
   'insertCompanyReturnId': function( name, backgroundColor ) {
-    
-    return Companies.insert( { 
-                                name:             name, 
-                                backgroundColor:  backgroundColor, 
-                                logo:   "data:image/png;base64,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"           
-                              } 
+
+    return Companies.insert( {
+                                name:             name,
+                                backgroundColor:  backgroundColor,
+                                logo:   "data:image/png;base64,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"
+                              }
                            );
   },
  //-----------------------------------------------------------------------------
 
 
-  'saveBuiltCourse': function( 
+  'saveBuiltCourse': function(
+                               bc_id,
                                cname, /* course name    */
                                c_id,  /* company_id     */
                                role,  /* role of author */
@@ -413,8 +673,10 @@ Meteor.methods({
                                passing_percent,
                                icon,
                                pages, /* object containing course */
-                               uname
-                              ) 
+                               uname,
+                               creator_id,
+                               pageNum
+                              )
   {
     check( cname,           String );
     check( c_id,            String );
@@ -425,43 +687,121 @@ Meteor.methods({
     check( icon,            String );
     check( pages,           [Object] );
     check( uname,           String );
-    
-     Newsfeeds.insert({
-                 owner_id:        Meteor.userId(),
-                  poster:         uname,
-                  poster_avatar:  Meteor.user().profile.avatar,
-                  type:           "new-course",
-                  private:        false,
-                  news:           `A New Course has been added: ${cname}`,
-                  comment_limit:  3,
-                  company_id:     c_id,
-                  likes:          0,
-                  date:           new Date()       
-    });   
-    
-    return BuiltCourses.insert({
-                  cname:            cname,
-                  company_id:       c_id,
-                  creator_type:     role,
-                  credits:          credits,
-                  keywords:         keywords,
-                  passing_percent:  passing_percent,
-                  icon:             icon,
-                  pages:            pages,
-                  created_at:       new Date()
-    });
+    check( pageNum,         Number );
+
+    if(bc_id){
+      Newsfeeds.insert({
+                   owner_id:        Meteor.userId(),
+                    poster:         uname,
+                    poster_avatar:  Meteor.user().profile.avatar,
+                    type:           "course-change",
+                    private:        false,
+                    news:           `A New Course has been changed: ${cname}`,
+                    comment_limit:  3,
+                    company_id:     c_id,
+                    likes:          0,
+                    date:           new Date()
+      }
+      );
+      BuiltCourses.update({_id:bc_id}, { $set:{
+                    cname:            cname,
+                    company_id:       c_id,
+                    creator_type:     role,
+                    credits:          credits,
+                    keywords:         keywords,
+                    passing_percent:  passing_percent,
+                    icon:             icon,
+                    pages:            pages,
+                    page_num:         pageNum,
+                    created_at:       new Date()}},
+                    function( error, result )
+                      {
+                          if( error ) {
+                            console.log ( error );
+                          } else {
+                            console.log( 'result is ' + result );
+                            //Session.set("data", result)
+                            Courses.update({_id:bc_id},{$set:{
+                              credits:          credits,
+                              name:             cname,
+                              passing_percent:  passing_percent,
+                              company_id:       [c_id],
+                              times_completed:  0,
+                              icon:             icon,
+                              public:           false,
+                              creator_type:     role,
+                              creator_id:       creator_id,
+                              created_at:       new Date(),
+                              approved:         true,
+                              type:             'course',
+                              isArchived:       false
+                            }});
+                          }
+      });
+    }
+    else{
+      Newsfeeds.insert({
+                   owner_id:        Meteor.userId(),
+                    poster:         uname,
+                    poster_avatar:  Meteor.user().profile.avatar,
+                    type:           "new-course",
+                    private:        false,
+                    news:           `A New Course has been added: ${cname}`,
+                    comment_limit:  3,
+                    company_id:     c_id,
+                    likes:          0,
+                    date:           new Date()
+
+      });
+      BuiltCourses.insert({
+                    cname:            cname,
+                    company_id:       c_id,
+                    creator_type:     role,
+                    credits:          credits,
+                    keywords:         keywords,
+                    passing_percent:  passing_percent,
+                    icon:             icon,
+                    pages:            pages,
+                    page_num:         pageNum,
+                    created_at:       new Date()},
+                    function( error, result )
+                      {
+                          if( error ) {
+                            console.log ( error );
+                          } else {
+                            console.log( 'result is ' + result );
+                            //Session.set("data", result)
+                            Courses.insert({
+                              _id:              result,
+                              credits:          credits,
+                              name:             cname,
+                              passing_percent:  passing_percent,
+                              company_id:       [c_id],
+                              times_completed:  0,
+                              icon:             icon,
+                              public:           false,
+                              creator_type:     role,
+                              creator_id:       creator_id,
+                              created_at:       new Date(),
+                              approved:         true,
+                              type:             'course',
+                              isArchived:       false
+                            });
+                          }
+      });
+    }
   },
 //-----------------------------------------------------------------------------
-  
- 
+
+
   'saveBuiltCoursePdf': function( id, data, page ) {
-    
-    BuiltCourses.update(  { _id: id }, 
+
+    BuiltCourses.update(  { _id: id },
                           { $addToSet:
                             { pages:
-                              { 
-                                page:page, 
-                                pdf: data 
+                              {
+                                page:page,
+                                pdf: data
                               }
                             }
                           }
@@ -471,13 +811,13 @@ Meteor.methods({
 
 
   'saveBuiltCourseImage': function( id, data, page ) {
-    
-    BuiltCourses.update(  { _id: id }, 
+
+    BuiltCourses.update(  { _id: id },
                           { $addToSet:
                             { pages:
-                              { 
-                                page:   page, 
-                                image:  data 
+                              {
+                                page:   page,
+                                image:  data
                               }
                             }
                           }
@@ -486,27 +826,18 @@ Meteor.methods({
 //-----------------------------------------------------------------------------
 
 
-  'saveCompanyLogo': function( id, data ) {
-    
-    Companies.update( { _id: id }, 
-                      { $set:
-                        { 
-                          logo: data 
-                        } 
-                      }
-                    );
+  'updateDesign'(id, data) {
+    return Companies.update( { _id: id }, { $set: data });
   },
 //-----------------------------------------------------------------------------
 
-
-  
   'saveCompanyColor'( id, data ) {
-    
-    Companies.update( { _id: id }, 
+
+    Companies.update( { _id: id },
                       { $set:
-                        { 
-                          backgroundColor: data 
-                        } 
+                        {
+                          backgroundColor: data
+                        }
                       }
                     );
   },
@@ -519,28 +850,28 @@ Meteor.methods({
                       { $set:
                         {
                           poster_avatar: data
-                        } 
-                      }, 
+                        }
+                      },
                       { multi: true }
                     );
-                     
+
     Comments.update(  { poster_id: Meteor.userId() },
                       { $set:
                         {
-                          poster_avatar: data 
-                        } 
-                      }, 
-                      { multi: true } 
+                          poster_avatar: data
+                        }
+                      },
+                      { multi: true }
                    );
-                    
+
     Meteor.users.update(  { _id: Meteor.userId()},
                           { $set:
                             {
                               'profile.avatar': data
-                            } 
+                            }
                           }
                        );
-                        
+
     Students.update(  { _id: Meteor.userId() },
                       { $set:
                         {
@@ -553,24 +884,23 @@ Meteor.methods({
 
 
   'changeNewsfeedAuthorName': function( id, p ) {
-    Newsfeeds.update( { _id: id }, 
+    Newsfeeds.update( { _id: id },
                       { $set:
-                        { 
-                          poster: p 
-                        } 
+                        {
+                          poster: p
+                        }
                       },
                       { multi: true }
                     );
   },
 //-----------------------------------------------------------------------------
 
-
   'changeCommentsAuthorName': function( id, p ) {
     Comments.update(  { _id: id },
                       { $set:
-                        { 
-                          poster_name: p 
-                        } 
+                        {
+                          poster_name: p
+                        }
                       },
                       { multi: true }
                    );
@@ -578,25 +908,17 @@ Meteor.methods({
 //-----------------------------------------------------------------------------
 
 
-  'sendEmail': function (to, from, subject, text) {
+  'sendEmail'(to, from, subject, text) {
     check( [ to, from, subject, text ], [String] );
-    // Let other method calls from the same client start running,
-    // without waiting for the email sending to complete.
-
     this.unblock();
-    Email.send({
-      to:       to,
-      from:     from,
-      subject:  subject,
-      text:     text
-    });
+    Email.send({ to, from, subject, text });
   },
 //-----------------------------------------------------------------------------
 
   'sendEmailWithAttachment': function ( to, from, subject, text, attachment ) {
 
     this.unblock();
-    
+
     try {
       Email.send({
         to: to,
@@ -606,71 +928,10 @@ Meteor.methods({
         attachments: [attachment]
       });
     } catch(e) {
-      throw new Meteor.Error( '500', `${ e }` ); 
+      throw new Meteor.Error( '500', `${ e }` );
     }
-  },
-//-----------------------------------------------------------------------------  
-  
-
-  'addUser': function(  email, 
-                        password, 
-                        fname, 
-                        lname, 
-                        opt, 
-                        dept, 
-                        company, 
-                        company_id, 
-                        trial=false ) 
-  {
-    let startTrial  = '';
-    let uid = Accounts.createUser({
-      email:    email,
-      password: password,
-      roles: {
-        [opt]: true
-      },
-      username: email,
-      profile:{
-        avatar:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACOCAYAAADThPEUAAALCElEQVR4Xu2dCdB2YxnHfyiSPSWyjS2JGltMQssYu0GDFrtCSqQRIz4hyUiTfR27ZBmljRAtlimTrTIIDWUsEZpEq6/5f+7n836vZznnPOc8576uc10z73zGe+77XPf//r/n3Oe+r+t/zUXYIATeDKwFvC/9rAAsnn4WAf4LvAz8CbgXuAy4AZgZkMJcAcIcCCwKbAfsCGwCzFsSHxFrZ+DZku3cXR7EenVK1wQOBT5agUzTSfEksB/wfXdsKTGgrhNrA+AIYHPqf3rfA1yQXo8PlJgTF5d2lVhvA04Edm2AUP2IoXXYjcD1wE+B512wZ8ggukisvYHjgbe0NLla9N8BXAecCfy1JT8avW2XiKWvvHOBTzaKaLnOXwCOA04B/lWuad5Xd4VYKwHfBd6b6XQ8CuyTXpeZuljOrS4Qaw3gZkDrqpztP4Be0xfl7GRR37wTywqpevOlzdXDga8XncBcr/NMrHcBvzTwpOrHjf2B03MlTRG/vBJrwfTltVoREDK85qW0aftQhr4Vcskrsb4DfLwQAvle9CtgQ+B/+bo42DOPxNLX1dkWJ6OPz/sC51gcizdivRV4sMXNz7o5cCewbt2dTqI/b8Q6C9BfuSdTuI72uUyZJ2ItDfyxhuiE3CZwB+Dq3Jwa5Y8nYp0AfGnUgA3+/lhghjW/vRBrHkBxULnvrlfhxxnA56o0bLONF2JtmkJS2sSyqXvriGePpjpvql8vxFL4yWeaAqnlfq8CdmrZh9K390Ks3wOrlx69jQbXAlvZcPU1Lz0QSwF7zwBzWwO/oL+/AD5U8NpsLvNArA8CP88G0fod+U1KP6u/5wZ79ECsXYBLGsSo7a7vB97dthNl7++BWIel8N6yY7dyvRIxlrfibM9PD8RS3NJnrQFfwl8lv5rbn/NArB8A25SYKGuX/gNQfJkp80Csu5LGgingSzj7CqCTBVPmgVjaalC4jGdT6poESMyYB2IpjHd+M4hXc1QqN89Va9pOKw/EUqJnWVWYdtCuftdlgcerN598Sw/EUky41133HiPWT8khk2dIxTtaJ5b81+LWu0kWQAkiZsw6sd4I/NsM2tUdvRjYvXrzybe0Tqw3WftaqjjFet3rIPrWiu0n3sw6sbRx+PeJo9bODU8FDmjn1uXvap1Y0gx1L2KWplV6WluWn+J2WlgnlmKxXAqX9aGDNE0lvGvCrBOrS69CUwt468R6AyBdqS6YRHi/ZmWg1oklnKXpae6QtgJBJBX+vQrtWmnigVgvAgu0gt7kbqqn8pKWzgs9EEtp9dI38Gw3pUoZZsbogVhKpFBChWdTJrQyos2YB2KdD+xpBvHyjuosVNENT5Rv2l4LD8T6RKq81R6Kzd5Zyn7vb/YW9ffugVjaff+zxbjwgtO5m8X0Ng/E0vxIvkgyRt7sYUDqz+Z0SL0QS+EzyhjOtfJEVcJLoPeKqo3bbOeFWMJwHUDrEe3GezBTZ4PTAfdELI3tJOBAB6xSxIbUcyQmZ9K8EWvlpJpsPQZe2ycXmmRUctobsTSsHwJbG56UnwBbGPZ/luseibVcWmstZXRyVJ/6XqO+z3bbI7E0OKVLqUCTtXxD1ZFeyzqpvD6xevPy1VRI3NI8HQnIb/Pm9YmliVksZQ9L98CKfQT4mRVnh/npmVjWFvKSK1oCkBaFefNOLAmyWSkoaVLPfdBfgHdiKQBQgYAWbGPgFguOFvHRO7GEwSPAikXAaPGaPwCrtnj/2m/dBWKdB+xVO3L1dvhlDwXGp0LSBWIpnknrl1xNITHa1DUVIToKzC4QS4rDkrSWgEiOZrLyxCggu0AsYZBzXLw2RLUx6sq6Qiydv92d6cxtBtyQqW+V3eoKsQTQHZnWpFGoj75cXVmXiLVfprl5CwHK5nZlXSLWesCvM5u9mSmU2p2OapeIpXO4pzMjltxR8QN3Gl9dIpYmMUdNeGUW/S5Dwo/lUpeIpTh4SR7lNmYdlKumtSvLDeQmwc31QNpFjPv0iesKsTROPRX2bZK5FfvWAn5D4PaK7bNs1gViSQnvoDR5WU4CoOgGhc3k+HFRCTPPxFobOAX4QCVkJt/oAWB/QCJr5s0jsZRi/01AYmUWtUml1bC39cII3oglLVJNzFbG/+QfBLZNWd0mh+KJWAqP+RGgHXYP9hiwgdU4LS/E0lbC9cAqHhg1ZQxKYNWi3ly9IA/EWheQ5M87nJGqN5wbkxaFqfJ5loklsbXDAcWL6789mwoH7JRODkyM0yKxdDQjQduvOHz1DSONKqzuYqWirCViLZKA1TbCaib+bOt3UoWatBWR/Wsxd2LNB3wY2BH4WAdKmxSh4p3paEr/Zms5EkvxSdqH2gbYFFCEZdicCOh88TbgUuDKHIuB5kIsvdpEJP1ILN/ijnlb5FeM2Y8TyfRvFq/JNoglMTSd4+kMTxuA+lFlq7DxEXguPcEuaTtaYhLEWjyRp0ck7TvNPz6G0cMIBJT58+30JHto0mg1QSwJcGi3WDFGIpPELpq4z6Sxsno/rceURKKn2OWTqnlYx4SrJIeIpB+Vd1vG6gx0wG+tx6QqrW2L65rccK1CLEUQSC5aAXSSNnx7BybE4xAVVHhZEkypXaW5DLG0Ljoe+DRgSdfTIynqHpOIJUUercn+UkfnZYilc7lj67hp9JEtAqo9fS1w9LhaF0WJpS87SS4unC0k4VidCCgzW0+vI5IEVOm+ixLrAODk0r1HA+sI/DPlDehNVSomrCixclVqsT5xVvxXooc+1u4v6nARYr0TUMdFri1637jOHgJ6Yu2agipHel+ELDOAY0b2FBd0AQHtg2m/Um+woVaEWLcays0bNd74/fgIPA7oWG5ocu0oYim47llH5XDHhzV6EAKnAZ8fBsUoYmnBdnVgGQhMQ0DrrWWBvw1CZhSxzspUSCNmun0E9gHOrUosCYKt0f4YwoMMEZCMwcFViKWQYFVTj2jODGc1A5e0RNqhCrGUxHBzBgMIF/JE4L5hb7Nha6xDUzRDnsMKr9pGQOeJSnzRW+11NoxYetTpqzAsEBiEwHaDduKHEeupCOILRo1AQOo+yqwq/MTS+aA0msICgWEIqCSeuPK6KraDnlgqHKkCkmGBwCgEvgEcMv2iQcS6ANhjVI/x+0AghTIrgUbRp7NtELGUh6aqVGGBQBEEtgeuGUWspazKExZBIK5pBAHpd82xg9DvibVzyp5txIPo1CUCSu3XnpaSY2dZP2JZqPrucnaMD0rCLoo0HkisR4HljQ8y3J88Ap9Ktbf7Emsl4OHJ+xR3dICAQmgUStOXWLG+cjDDLQ1BIVaqvdiXWN8CvtCSY3Fb2wgo0WLBntDI9MX7LZlXybINvX/vJVmlSmZzfBUqoE8xzFKTCQsEqiAwO9ph6hNLIcjuahNXQSfaVEbgsF4M31Ri7Tn1c7Fy19GwywhICmnWGfNUYp0OqPB1WCBQFQFlSK8/nVjSqfRSkq0qMNFuPASUbzhL6qr3xNLCXf8z1IzHAzZav1qF7ckesSRQW1iiJtALBIYgILXs23rEUp0aSTWHBQLjIrCbpL97xDoO0KdiWCAwLgJHScO0RyzVYNly3B6jfSCQNOR37xFLmkdLByyBQA0ISE9tIxFLisjSwAoLBOpA4Ak9pEQsVZe4qY4eo49AIIUnLyBiabddu+5hgUBdCKwuYknn6It19Rj9BAJKuxexlLqjcIewQKAuBA4UsX4LvKeuHqOfQAA4ScR6MYL7ggw1I3CNiDU7ybDmzqO77iJwTxCru5Pf5Mhf+D9gO2eHwYwq7QAAAABJRU5ErkJggg==",
-        company_id: company_id
-      }
-    });
-    
-    if ( trial ) {
-      startTrial = new Date;
-    }
-    
-    Students.insert({ 
-      
-      _id:                uid,
-      avatar:             "data:image/png;base64,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",
-      fname:              fname,
-      lname:              lname,
-      fullName:           fname + ' ' + lname,
-      email:              email,
-      uname:              email,
-      department:         dept,
-      company:            company,
-      company_id:         company_id,
-      role:               opt,
-      current_credits:    0,
-      required_credits:   0,
-      compl_courses_cnt:  0,
-      degrees:            [],
-      certifications:     [],
-      courses_completed:  [],
-      current_courses:    [],
-      password:           "",
-      current_trainings:  [],
-      compl_trainings:    [],
-      articles_read:      [],
-      trialStarted:       startTrial,
-      created_at:         new Date() 
-      
-    });
   },
 //-----------------------------------------------------------------------------
-
 
   /*
    * ADD AN EVENT
@@ -695,7 +956,7 @@ Meteor.methods({
     });
 
     try {
-      
+
       /* USE METEOR.defer || applicable to send notification email */
       return Events.insert( event );
     } catch ( exception ) {
@@ -728,14 +989,14 @@ Meteor.methods({
       teacher:      String
       //courses: Match.Optional( [String] )
     });
-    
+
     try {
       return Events.update( event._id, {
         $set: event
       });
-      
+
     } catch ( exception ) {
-      
+
       throw new Meteor.Error( '500', `${ exception }` );
     }
   },
@@ -761,58 +1022,70 @@ Meteor.methods({
 
         Students.update({ _id: s[i]._id }, { $pull: {current_trainings:{link_id: event }} });
       }
-      
+
       // DELETE THE EVENT
       return Events.remove( event );
-      
+
     } catch ( exception ) {
-      
+
       throw new Meteor.Error( '500', `${ exception }` );
     }
   },
-  
-  
+
+
   /*
    * CURATED ARTICLE STUDENT UPDATE
    */
   curatedArticleStudentUpdate( linkText, linkId ) {
-    
-    Students.update({ _id: Meteor.userId() }, 
-                    { 
-                      $inc:{ current_credits: 1 }, 
+
+    Students.update({ _id: Meteor.userId() },
+                    {
+                      $inc:{ current_credits: 1 },
                       $addToSet:{ articles_read: { name: linkText, link_id: linkId } }
                     });
   },
-  
-  
+
+
   /*
    * UPDATE (STUDENT) CURRENT COURSES
    */
   updateCurrentCourses( cid ) {
 
     Students.update({ _id: Meteor.userId() },
-                    { 
+                    {
                       $push:{current_courses: {link_id: cid } }
                     });
   },
-  
-  
+
+
   /*
    * COURSE COMPLETION (STUDENT) UPDATE
    */
-  courseCompletionUpdate( name, cid, percent, credits ) {
-  
-    Students.update({ _id: Meteor.userId() },
-                    { 
-                      $pull:{ current_courses:{ link_id: cid }},
-                      $push:{ courses_completed: { name: name, link_id: cid, passing_percent: percent, credits: credits, date_completed: new Date() }},
-                      $inc:{ current_credits: Number(credits), compl_courses_cnt: 1 }
-                    });
-                    
-    Courses.update( { _id: cid },
-                    {
-                      $inc:{ times_completed: 1 }
-                    });
+  courseCompletionUpdate(name, cid, percent, credits) {
+    Students.update({ _id: Meteor.userId() }, {
+      $pull: {
+        current_courses: { link_id: cid },
+      },
+      $push: {
+        courses_completed: {
+          name: name,
+          link_id: cid,
+          passing_percent: percent,
+          credits: credits,
+          date_completed: new Date(),
+        },
+      },
+      $inc: {
+        current_credits: Number(credits),
+        compl_courses_cnt: 1,
+      },
+    });
+
+    return Courses.update({ _id: cid }, {
+      $inc: {
+        times_completed: 1,
+      },
+    });
   },
 
   /*
@@ -822,7 +1095,7 @@ Meteor.methods({
     console.log( 'in mm' );
     const fs        = require('fs');
     const { spawn } = require('child_process');
-    
+
     try {
       fs.writeFile('/home/ubuntu/workspace/public/fil.pptx', fil, function(err) {
         if ( err ) {
@@ -833,7 +1106,7 @@ Meteor.methods({
             cwd: process.env.HOME + '/workspace',
             //env: Object.assign({}, process.env, { PATH: process.env.PATH + ':/usr/local/bin' })
           });
-        
+
           uno.on( 'close', (code) => {
             console.log('----------------------------------------------------');
             console.log( `child process exited with code ${code}` );
@@ -846,5 +1119,38 @@ Meteor.methods({
       throw new Meteor.Error( '500', `${ exception }` );
     }
   },
-  
+
 });
+
+/****************************
+ * RANDOME PASSWORD GENERATOR
+ ***************************/
+function generateRandomPassword() {
+  let pw    = ''
+      // ! # $ % & * + ? ~ @
+    , punc  =  [33,35,36,37,38,42,43,63,64,126];
+  do {
+    //RETURN PUNC CHARACTER 20% OF THE TIME
+    if (  Math.floor( (Math.random() * 100) + 1) <= 20  ) {
+      let pran = Math.floor( (Math.random() * 9));		//0 - 9
+      pw += String.fromCharCode(punc[pran]);
+    } else {
+      //80% OF THE TIME RETURN EITHER UPPER OR LOWER CASE LETTER
+	    pw += returnRandomLetterAndCase();
+    }
+  } while ( pw.length != 8 ); //8 CHARACTER PASSWORDS RETURNED
+  return pw;                  //RETURN CREATED PASSWORD
+}
+
+function returnRandomLetterAndCase() {
+	let lran = Math.floor( (Math.random() * 25) ) + 97 	//LOWERCASE LETTER
+	  , uran = Math.floor( (Math.random() * 25) ) + 65	//UPPERCASE LETTER
+	  , l = '';
+	if ( Math.floor( (Math.random() * 100) + 1) <= 51  ) {
+		l = String.fromCharCode(lran);
+	} else if ( Math.floor(  (Math.random() * 100) + 1) > 52 ) {
+		l = String.fromCharCode(uran);
+	}
+	return l;
+}
+//-----------------END RANDOM PASSWORD GENERATOR-----------

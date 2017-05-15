@@ -34,7 +34,14 @@ export function render( e, t, arr, P ) {
 
     //ACTIVATE POSITIONING JQUERY FUNCTIONS RETURNED FROM CLASS
     for ( let i = 0, ilen = funcs.length; i < ilen; i++ ) {
-      eval( funcs[i] );
+      try {
+        console.log('Function: ' + funcs[i]);
+        eval(funcs[i]);
+      } catch (err) {
+        if (err instanceof SyntaxError) {
+          console.log('Function adding error: ' + err.message);
+        }
+      }
     }
 
       /***********************************************************
@@ -181,7 +188,44 @@ export function render( e, t, arr, P ) {
                           t.$( '#cb-current' ).val( `${arr[i].id}` );
                         })
                     );
-        }//else
+               $( '#cb-video-toolbar' ).show();
+        }else
+            if ( arr[i].type == 'ppt' ) {
+               eval(
+                        $( `#${arr[i].id}` ).on( "mouseup", function(){
+                          e.preventDefault();
+                          //SHOW RELATED EDITING TOOLBAR
+                          $( '#cb-text-toolbar'  ).hide();
+                          $( '#cb-title-toolbar' ).hide();
+                          $( '#cb-media-toolbar' ).hide();
+                          $( '#cb-video-toolbar' ).show();
+
+                          // MAKE THIS THE CURRENTLY SELECTED ITEM FOR TOOLBAR
+                          //R/O HIDDEN FIELD
+                          t.$( '#cb-current' ).val( `${arr[i].id}` );
+                        })
+                    );
+               $( '#cb-video-toolbar' ).show();
+        }else
+            if ( arr[i].type == 'scorm' ) {
+               eval(
+                        $( `#${arr[i].id}` ).on( "mouseup", function(){
+                          e.preventDefault();
+                          //SHOW RELATED EDITING TOOLBAR
+                          $( '#cb-text-toolbar'  ).hide();
+                          $( '#cb-title-toolbar' ).hide();
+                          $( '#cb-media-toolbar' ).hide();
+                          $( '#cb-video-toolbar' ).show();
+
+                          // MAKE THIS THE CURRENTLY SELECTED ITEM FOR TOOLBAR
+                          //R/O HIDDEN FIELD
+                          t.$( '#cb-current' ).val( `${arr[i].id}` );
+                        })
+                    );
+               $( '#cb-video-toolbar' ).show();
+        }else{
+          $( '#cb-video-toolbar' ).show();
+        }
       }//outer for
 }
 

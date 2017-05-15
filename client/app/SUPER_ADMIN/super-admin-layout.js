@@ -44,8 +44,6 @@ Template.superAdminLayout.onRendered(function(){
 
 });
 
-
-
 /*
  * HELPERS
  */

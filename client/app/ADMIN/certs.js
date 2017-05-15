@@ -24,12 +24,12 @@ let course_list       = []
  */
 Template.certs.onCreated(function(){
 
-  Tracker.autorun( () => { 
+  Tracker.autorun( () => {
     Meteor.subscribe('courses');
     Meteor.subscribe('certifications');
     Meteor.subscribe('newsfeeds');
   });
-  
+
   $( "#certificate-cover" ).show();
 
   /*
@@ -94,8 +94,7 @@ Template.certs.onRendered(function(){
      	    d.removeChild( d.lastChild );
         }
 
-        let c = Courses.find( { company_id: Meteor.user().profile.company_id },
-                              { limit: 7 }).fetch();
+        let c = Courses.find( { company_id: Meteor.user().profile.company_id }).fetch();
         return initC( d, c );
       } catch (e) {
         return;
@@ -301,18 +300,18 @@ Template.certs.events({
 //console.log( credits_total );
 //console.log( ids );
 
-    Certifications.insert({
-      name:             course_name,
-      courses:          ids,
-      credits:          credits_total,
-      num:              ids.length,
-      icon:             "/img/icon-6.png",
-      company_id:       c_id,
-      type:             "Certifications",
-      times_completed:  0,
-      expiry_date:      exp_date || "",
-      created_at:       new Date()
-    });
+    Meteor.call('addDiplomaCertificate', 'cert',
+      course_name,
+      ids,
+      credits_total,
+      ids.length,
+      "/img/icon-6.png",
+      c_id,
+      "Certifications",
+      0,
+      new Date(),
+      exp_date || ""
+    );
 
     Bert.alert( 'Certificate Created!', 'success', 'growl-top-right' );
 
@@ -429,8 +428,9 @@ function touchHandler(event) {
         false, false, false, 0, null);
 
     touch.target.dispatchEvent(simulatedEvent);
-    event.preventDefault();
+   // event.preventDefault();
 }
+
 
 function initC( d, c ) {
   let len = c.length;
@@ -464,13 +464,12 @@ function initC( d, c ) {
                          .prop('selectionEnd', 0);
 
   }
-  
-document.addEventListener("touchstart", touchHandler, true);
-document.addEventListener("touchmove", touchHandler, true);
-document.addEventListener("touchend", touchHandler, true);
-document.addEventListener("touchcancel", touchHandler, true);
-  
-  
+  document.addEventListener("touchstart", touchHandler, true);
+    document.addEventListener("touchmove", touchHandler, true);
+    document.addEventListener("touchend", touchHandler, true);
+    document.addEventListener("touchcancel", touchHandler, true);
+
+
 }
 
 /*

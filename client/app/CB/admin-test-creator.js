@@ -339,7 +339,12 @@ Template.adminTestCreator.events({
     
     //CORRECT ANSWER
     let correct_a   = t.$( '#correct_ans' ).val(); //A, B, C
-    if ( correct_a == 'Please Select' ) {
+    A = t.$( '#A' ).val();
+    B = t.$( '#B' ).val();
+    if ( ( A == '' || (!A.replace(/\s/g, '').length) ) ||
+        ( B == '' || (!B.replace(/\s/g, '').length) ) ||
+        ( correct_a == "Please Select" )) {
+
       Bert.alert('Please ensure you\'ve entered at least two alternative answers and the correct answer before saving', 'danger' );
       return;      
     }

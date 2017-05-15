@@ -25,7 +25,7 @@ import './signup.html';
     });
 //-------------------------------------------------------------------
  });
- 
+
 
 /*
  * EVENTS
@@ -35,78 +35,87 @@ Template.signup.events({
   /*
    * SUBMIT
    */
-  'submit': ( e, t ) => {
-    e.preventDefault();
-  
-    let fname       = $( '#fname' ).val().trim() // OR e.target.fname.value
-      , lname       = $( '#lname' ).val().trim()
-      , email       = $( '#email' ).val().trim()
-      , cemail      = $( '#cemail' ).val().trim()
-      , password    = $( '#password' ).val().trim()
-      , cpassword   = $( '#cpassword').val().trim()
-      , company     = $( '#company' ).val().trim()
-      , phone       = $( '#phone' ).val().trim()
-      , university  = $( '#university' ).val().trim()
-      , opt         = 'admin'
-      , dept        = 'admin'
-      , email_id
-      , company_id;
-    
+  'submit': event => {
+    event.preventDefault();
+    const fname = $('#fname').val().trim();
+    const lname = $('#lname').val().trim();
+    const email = $('#email').val().trim();
+    const cemail = $('#cemail').val().trim();
+    const password = $('#password').val().trim();
+    const cpassword = $('#cpassword').val().trim();
+    const company = $('#company').val().trim();
+    // const university = $('#university').val().trim();
 
-    
-    //EMAIL'S AND PASSORDS MUST MATCH 
-    if ( email !== cemail ) {
+    if (!company) {
+      Bert.alert("You need to enter company name", 'danger' );
+      return;
+    }
+
+    if (email !== cemail) {
       Bert.alert("Your email's do not match!", 'danger' );
       return;
     }
-    if ( password !== cpassword ) {
+    if (password !== cpassword) {
       Bert.alert('Your passwords do not match!', 'danger');
       return;
     }
-    
-    if ( ! testPassword( password ) ) {
-      Bert.alert('Please refer to tooltip for proper password formation', 'danger');
+    if (!testPassword(password)) {
+      Bert.alert('Password must be a min of 8 characters, and include at least one each of: numbers, lowercase letters, uppercase letters, and one of the characters: ! # $ % & * + ? ~', 'danger');
       return;
     }
-    
-    try { 
-      company_id = Companies.findOne({ name: company });  //don't allow duplicate companies
-      email_id   = Students.findOne({ email: email });    //don't allow duplicate emails
-      
-      if ( email_id && email_id._id ) {
+    try {
+      const existingCompany = Companies.findOne({ name: company });  //don't allow duplicate companies
+      const existingUser = Students.findOne({ email: email });    //don't allow duplicate emails
+      if (existingUser) {
         Bert.alert('That email address already exists in the system', 'danger' );
         return;
       }
-      
-      if ( company_id && company_id._id ) {
+      if (existingCompany) {
         Bert.alert('That company already exists in the system', 'danger' );
         return;
       }
-      
-      if ( ! company_id ) {
-        Meteor.call( 'insertCompanyReturnId', company, 
-                                              '#37ACE9', 
-                                              function( error, result ) 
-      {
-          company_id = result;
-          
-          Meteor.call( 'addUser', email, 
-                                  password, 
-                                  fname, 
-                                  lname, 
-                                  opt, 
-                                  dept, 
-                                  company, 
-                                  company_id, 
-                                  true );
-        });
-      }
-    } catch(e) {
-      console.log(e);
+      console.log('Will create company');
+      Meteor.call('insertCompanyReturnId', company, '#37ACE9', (error, result) => {
+        if (error) {
+          console.log('Err: ', error);
+          Bert.alert('Failed to create a company', 'danger' );
+        } else {
+          console.log('company created');
+          const newCompany = Companies.findOne(result);
+          Meteor.call('users.add', {
+            fname,
+            lname,
+            email,
+            departmentId: 'admin',
+            role: 'admin',
+            company: newCompany,
+            trial: true,
+          }, (err, userId) => {
+            if (err) {
+              console.log('Err: ', err);
+              Bert.alert('Failed to create a company', 'danger');
+            } else {
+              console.log('User added');
+              // Send Verification email
+              Meteor.call('users.sendSignupVerificationEmail', userId, err => {
+                if (err) {
+                  console.log('Err: ', err);
+                  Bert.alert('Failed to create a company', 'danger');
+                } else {
+                  console.log('Verification sent');
+                  FlowRouter.go('/post-signup');
+                }
+              })
+            }
+          });
+        }
+      });
+    } catch (e) {
+      console.log('Err: ', err);
     }
-    
 
-    FlowRouter.go( '/post-signup' );
+
+    // FlowRouter.go( '/post-signup' );
 //-------------------------------------------------------------------
   },
 });
@@ -122,14 +131,14 @@ function testPassword( pw ) {
   //ALT: /[\x21\x23-\x26\x2a\x2b\3f\x7e\x40]/.test('~')
   // ! # $ % & * + ? ~ @
   let punc = /[\x21\x23\x24\x25\x26\x2a\x2b\x3f\x7e\x40]/.test(pw);
-  
+
   //LENGTH
   let len = pw.length;
-  
+
   if ( caps && lows && nums && punc && (len >= 8) ) {
     return true;
   } else {
     return false;
   }
-    
+
 }

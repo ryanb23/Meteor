@@ -1,39 +1,36 @@
 <template name = "addEditEventModal">
 <!-- addEditEventModel Template -->
-<!-- Nicholas Sardo <nsardo@aol.com> -->  
-  <div  class           = "modal fade left" 
-        id              = "add-edit-event-modal" 
-        tabindex        = "-1" 
-        role            = "dialog" 
+<!-- Nicholas Sardo <nsardo@aol.com> -->
+  <div  class           = "modal fade left"
+        id              = "add-edit-event-modal"
+        tabindex        = "-1"
+        role            = "dialog"
         aria-labelledby = "add-edit-event-modal">
-      
-  <div  class = "modal-dialog" 
+
+  <div  class = "modal-dialog"
         role  = "document">
-  
+
     <div class="pop-up-area eventpop">
     <div class="event-popup-header">
         <!-- <h2>{{modalLabel.label}} Training Event</h2> -->
         <h2 class="event-model-title">Add a Training Event</h2>
         <button type="button" id="popup-close" data-dismiss="modal" aria-label="Close">x</button>
-    </div> 
-  
+    </div>
+
     <div class="popup-body">
       <form action="">
         <div class="row">
           <div class="col-sm-8">
             <div class="single-event-pop">
-<!--PARTICIPANTS-->  
-                <label  id  = "lbl_type" 
+<!--PARTICIPANTS-->
+                <label  id  = "lbl_type"
                         for = "type">
                   Add Attendees
                 </label>
-                
-                <select name  = "type" 
-                        class = "form-control js-states" multiple="multiple">
-              
+                <select name  = "type"  class = "form-control js-states" multiple="multiple">
                     {{#each cntx}}
                       {{#if match}}
-                        <option selected  = "{{fullName}}" 
+                        <option selected  = "{{fullName}}"
                                 value     = "{{_id}}">
                           {{fullName}}
                         </option>
@@ -41,18 +38,18 @@
                         <option value = "{{_id}}">{{fullName}}</option>
                       {{/if}}
                     {{/each}}
-                  
+
                 </select>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="single-event-loop">
-<!-- TIMEZONES -->  
+<!-- TIMEZONES -->
                 <label for="timezone">
                   Time Zone
                 </label>
                 <!-- selected event.timezone name-->
-                  <select name  = "timezone" 
+                  <select name  = "timezone"
                           class = "form-control" data-width="100%" data-style="btn-eventpop" title="GMT">
                     {{#each timezones}}
                       <option></option>
@@ -69,23 +66,23 @@
               </div>
             </div>
           </div>
-          
+
           <div class = "row">
             <div class="col-sm-6">
               <div class="single-event-pop">
-              
+
 <!-- EVENT START -->
 
                 <label for = "start">
                   Event Starts
                 </label>
-                
-                <input  type  = "date" 
-                        name  = "start" 
-                        class = "input-event" 
+
+                <input  type  = "date"
+                        name  = "start"
+                        class = "input-event"
                         value = "{{start}}">
               </div>
-              
+
               <div class="single-event-pop">
 <!-- EVENT END -->
                 <label for = "end">
@@ -93,52 +90,52 @@
                 </label>
                 <!-- "{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}" -->
                 <input  id      = "datepicker"
-                        type    = "date" 
-                        name    = "end" 
-                        class   = "input-event" 
+                        type    = "date"
+                        name    = "end"
+                        class   = "input-event"
                         value   = "{{end}}">
               </div>
 
-<!-- EVENT TITLE --> 
+<!-- EVENT TITLE -->
               <div class = "single-event-pop">
                 <label for = "title">
                   Training Title
                 </label>
-                <input  type  = "text" 
-                        name  = "title" 
-                        class = "input-event" 
+                <input  type  = "text"
+                        name  = "title"
+                        class = "input-event"
                         value = "{{event.title}}">
-              </div> 
+              </div>
             </div>
-            
+
             <div class="col-sm-6">
               <div class="single-event-pop">
-                
+
  <!-- START TIME -->
                 <label for = "start-time">
                   Start Time
                 </label>
-              
-                <input  type    = "time" 
-                        name    = "start-time" 
-                        class   = "input-event" 
+
+                <input  type    = "time"
+                        name    = "start-time"
+                        class   = "input-event"
                         value   = "{{event.startTime}}"
                         placeholder = "---- : ---- / ----">
-              </div> 
-              
+              </div>
+
               <div class="single-event-pop">
   <!-- END TIME -->
                 <label for = "end-time">
-                  Time End&nbsp;
+                 Time End&nbsp;
                 </label>
-                
-                <input  type    = "time" 
-                        name    = "end-time" 
-                        class   = "input-event" 
+
+                <input  type    = "time"
+                        name    = "end-time"
+                        class   = "input-event"
                         value   = "{{event.endTime}}"
                         placeholder = "---- : ---- / ----">
-              </div>             
-                         
+              </div>
+
               <div class="single-event-pop">
 <!-- EVENT DESCRIPTION -->
               <label for = "description">
@@ -151,7 +148,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-sm-12">
               <div class="single-event-pop">
@@ -166,7 +163,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-sm-12">
               <div class="single-event-pop">
@@ -181,17 +178,15 @@
           </div>
         </div>
       </div>
-    
-      
+
+
       <div class="row">
         <div class="col-sm-12 text-right">
           {{#if modalType 'edit'}}
-            <button class="event-btn pull-left delete-event mob-pull-left">Delete Event</button>
+            <button class="event-btn pull-left delete-event  mob-pull-left">Delete Event</button>
           {{/if}}
-          
-          
-		  
-		  {{#if modalType 'edit'}}
+
+          {{#if modalType 'edit'}}
 		  <button class         = "event-btn mob-pull-left"
                   data-dismiss  = "modal"
                   aria-label    = "close">
@@ -204,9 +199,9 @@
             Cancel
           </button>
 		   {{/if}}
-          
-		   
-          {{#if modalType 'edit'}}
+
+
+           {{#if modalType 'edit'}}
           <button class = "event-btn add mob-pull-left js-event-modal-button">
             {{modalLabel.button}} Event <span>+</span>
           </button>
@@ -215,13 +210,127 @@
             {{modalLabel.button}} Event <span>+</span>
           </button>
 		   {{/if}}
+
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>	
+								
+<script>
+$( document ).ready(function() {
 
+
+$("#add-edit-event-modal").scroll(function() {
+console.log("scroling..");
+$(".modal-backdrop+.select2-container").css("display","none");
+});
+
+$('#add-edit-event-modal').on('click', '.select2-search__field', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('[name="type"]' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('[name="type"]').select2("open");
+
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+$('#add-edit-event-modal').on('click', '.select2-container', function() {
+
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('[name="type"]' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('[name="type"]').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+
+$('#add-edit-event-modal').on('click', '.select2-search', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('[name="type"]' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('[name="type"]').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+
+});
+
+$('#add-edit-event-modal').on('click', '.selection', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('[name="type"]' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('[name="type"]').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#add-edit-event-modal').on('click', '.select2-selection__rendered', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('[name="type"]' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('[name="type"]').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#add-edit-event-modal').on('click', '.select2-search .select2-search--inline', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('[name="type"]' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('[name="type"]').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+
+});
+</script>
 
 </template>

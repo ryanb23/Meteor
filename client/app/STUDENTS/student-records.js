@@ -39,8 +39,29 @@ Template.studentRecords.onRendered(function(){
   $( '#cover' ).delay( 500 ).fadeOut( 'slow', function() {
     $("#cover").hide();
     $( ".dashboard-header-area" ).fadeIn( 'slow' );
-  });  
+  });
   */
+});
+
+
+/*
+ * EVENTS
+ */
+Template.studentRecords.events({
+  'click .button-restart'(event) {
+    event.preventDefault();
+    const target = $(event.target);
+    const index = target.data('index');
+    const link_id = target.data('id');
+    Meteor.call('courses.restart', index, (err) => {
+      if (err) {
+        console.log('Error: ', err);
+        Bert.alert('Failed to restart the course', 'danger');
+      } else {
+        console.log('YAAAY');
+      }
+    });
+  }
 });
 
 
@@ -66,7 +87,7 @@ Template.studentRecords.helpers({
     return a;
   },
 */
-/*  
+/*
   current_courses() {
     let c;
     try {
@@ -74,7 +95,7 @@ Template.studentRecords.helpers({
     } catch(e) {
       console.log( e );
       return;
-    } 
+    }
     var lim = c.length;
     if ( lim >= 0 ) {
       for( let i = 0; i < lim; i++ ) {
@@ -83,13 +104,17 @@ Template.studentRecords.helpers({
     }
     return c;
   },
-*/ 
+*/
   courses_completed() {
-    try{
-      var c = ( Students.find( {_id: Meteor.userId()}, {}).fetch()[0].courses_completed );
-    } catch(e) {
+    const student = Students.findOne(Meteor.userId());
+    if(!student) {
       return;
     }
+    const c = student.courses_completed;
+    // const current = student.current_courses;
+    // const c = completed.filter(({ link_id }) => {
+    //   return !_.findWhere(current, { link_id });
+    // });
     var lim = c.length;
     if ( lim > 0 ) {
       for( let i=0; i<lim; i++ ) {
@@ -122,7 +147,7 @@ Template.studentRecords.helpers({
       return;
     }
   },
-  
+
   required_credits() {
     try {
       let req     = Students.find({ _id: Meteor.userId() }).fetch()[0];
@@ -133,7 +158,7 @@ Template.studentRecords.helpers({
       //console.log( 'err ' + e );
     }
   },
-  
+
   current_credits() {
     try {
       return Students.find({_id: Meteor.userId() } ).fetch()[0].current_credits;

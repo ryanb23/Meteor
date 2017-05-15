@@ -5,7 +5,7 @@
  * @copyright  2016-1027 Collective Innovations
  */
 
-
+ import { Students } from './collections/api/students.js';
 
 /**
  * Main Pages
@@ -451,8 +451,6 @@ adminRoutes.route('/dashboard/students/import-csv/:_id', {
 });
 
 
-
-
 /**************************************
  * SUPER ADMIN ROUTES
  **************************************/
@@ -461,10 +459,22 @@ adminRoutes.route('/dashboard/students/import-csv/:_id', {
 let superAdminRoutes = FlowRouter.group({
   prefix: '/super-admin',
   name: 'super-admin',
-  triggersEnter: [function( context, redirect ) {
-
-  }]
+  triggersEnter: [context => {
+    const user = Meteor.user();
+    if ((!user || user && !user.roles.superadmin) && context.route.name !== 'super-admin-login') {
+      FlowRouter.go('/super-admin/login');
+    }
+  }],
 });
+
+/* SUPER ADMIN LOGIN PAGE */
+superAdminRoutes.route( '/login', {
+  name: 'super-admin-login',
+  action: () => {
+    BlazeLayout.render( 'superAdminLogin' )
+  },
+});
+
 
 /* SUPER ADMIN DASHBOARD */
 superAdminRoutes.route( '/dashboard/:_id', {
@@ -581,9 +591,6 @@ superAdminRoutes.route('/dashboard/degree-cert-edit/:_id', {
 });
 
 
-
-
-
 /**
  * VERIFY EMAIL
  */
@@ -591,21 +598,43 @@ FlowRouter.route( '/verify-email/:token', {
   name: 'verify-email',
   action( params ) {
     BlazeLayout.render( 'plain', {main: 'verifyEmail'} ),
-    Accounts.verifyEmail( params.token, ( error ) =>{
+    Accounts.verifyEmail( params.token, ( error, res ) =>{
       if ( error ) {
-        console.log( error.message );
         console.log( error );
+        FlowRouter.go( '/login' );
       } else {
-
-        //console.log( params.token );
-        //console.log(Meteor.user().emails[0].verified)
-        //console.log( Meteor.userId() );
-
+        console.log('res: ', res)
         Bert.alert( 'Email verified! Thanks!', 'success' );
-
-        FlowRouter.go( 'admin-dashboard',   { _id: Meteor.userId() });
-
+        const user = Meteor.user();
+        let emailObj;
+        if (user.emails.length > 1) {
+          for (let i = user.emails.length - 1; i >= 0; i--) {
+            if (user.emails[i].verified) {
+              emailObj = user.emails[i];
+              break;
+            }
+          }
+          if (emailObj) {
+            Meteor.users.update({ _id: user._id }, { $set: { emails: [emailObj], username: emailObj.address }});
+            Meteor.call('users.updateEmail', user._id, emailObj.address, err => {
+              if (err) {
+                console.log('Error: ', err);
+                Bert.alert( 'Failed to update student', 'danger' );
+              }
+            });
+          }
+        }
+        const { role } = Students.findOne(user._id);
+        console.log('user._id: ', user._id);
+        FlowRouter.go( `${role}-dashboard`,   { _id: Meteor.userId() });
       }
     });
   }
 });
+
+
+function getSubdomain(){
+  //TODO add checking here so that there actually is a subdomain to be fetched
+  // or otherwise it will return main domain if none provided.
+  return location.hostname.split('.')[0];
+}

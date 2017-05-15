@@ -77,18 +77,18 @@
 
                 if ( error ) throw error;
 
-				        a_img_id = Images.insert({
-                        				          loaded:           result.loaded,
-                        				          percent_uploaded: result.percent_uploaded,
-                        				          relative_url:     result.relative_url,
-                        				          secure_url:       result.secure_url,
-                        				          status:           result.status,
-                        				          total:            result.total,
-                        				          uploader:         result.uploader,
-                        				          url:              result.url,
-                        				          file:             result.file,
-                        				          created_at:       moment().format()
-				                                });
+                a_img_id =  Meteor.call('addFileData', 'img',
+                                result.loaded,
+                                result.percent_uploaded,
+                                result.relative_url,
+                                result.secure_url,
+                                result.status,
+                                result.total,
+                                result.uploader,
+                                result.url,
+                                result.file,
+                                moment().format()
+                         );
 
                 img_id = result.secure_url;
                 //style="width:400px;height:400px;"
@@ -96,7 +96,8 @@
                   $('#fb-template').append( `
                       
                         <div id="ig-${master_num}" 
-                             style="background-image:url(${img_id});
+                             style="position:absolute;
+                                    background-image:url(${img_id});
                                     width:200px;
                                     height:200px;
                                     background-size:cover;">
@@ -107,13 +108,36 @@ $(`#ig-${master_num}`).draggable({
     containment: "#fb-template",
 	scroll: false
 });
-$(`#ig-${master_num}`).resizable({ containment: "#fb-template" });
+$(`#ig-${master_num}`).resizable({ containment: "#fb-template",
+                                    resize: function(event, ui){
+                                      src = t.$( `#ig-${master_num}` ).css('background-image')
+                                      , id  = `ig-${master_num}`
+                                      , idx = P.indexOf( `ig-${master_num}` );
+                                        
+                                      //P.remove( `ig-${master_num}` );
+                                      P.removeAt( idx );
+                                      P.insert( idx, {
+                                                    page_no:         page_no,
+                                                    type:            'image',
+                                                    id:              `ig-${master_num}`,
+                                                    img_lnk:         a_img_id,
+                                                    top:             $(`#ig-${master_num}`).css('top'),
+                                                    left:            $(`#ig-${master_num}`).css('left'),
+                                                    opacity:         $(`#ig-${master_num}`).css('opacity'),
+                                                    width:           $(`#ig-${master_num}`).width(),
+                                                    height:          $(`#ig-${master_num}`).height(),
+                                                    zIndex:          $( `#ig-${master_num}` ).css('z-index'),
+                                                    src:             rmvQuotes( src )
+                                      });
+                                    }
+                                  });
 
+                  if(img_id.indexOf('url')===-1) img_id = 'url(' + img_id + ')';
                   P.append({
                             page_no:         page_no,
                             type:            'image',
                             id:              `ig-${master_num}`,
-                            img_lnk:         a_img_id,
+                            file_lnk:         a_img_id,
                             top:             $( `#ig-${master_num}` ).css('top'),
                             left:            $( `#ig-${master_num}` ).css('left'),
                             width:           $( `#ig-${master_num}` ).width(),
@@ -130,7 +154,6 @@ $(`#ig-${master_num}`).resizable({ containment: "#fb-template" });
                     $( `#ig-${master_num}` ).on("mouseup", function(){
                       e.preventDefault();
                   
-    console.log('clk');
                     //SHOW MEDIA TOOLBAR
                     $( '#cb-video-toolbar').hide();
                     $( '#cb-title-toolbar' ).hide();
@@ -139,9 +162,16 @@ $(`#ig-${master_num}`).resizable({ containment: "#fb-template" });
                     
                     t.$( '#cb-current' ).val( `ig-${master_num}` );
                     
-                    src = t.$( `#ig-${master_num}` ).css('background-image')
-                  , id  = `ig-${master_num}`
-                  , idx = P.indexOf( `ig-${master_num}` );
+                  }); //onmouseup
+
+
+                    $( `#ig-${master_num}` ).on("dragstop", function(){
+                      e.preventDefault();
+                  
+                    
+                      src = t.$( `#ig-${master_num}` ).css('background-image')
+                    , id  = `ig-${master_num}`
+                    , idx = P.indexOf( `ig-${master_num}` );
                       
                     //P.remove( `ig-${master_num}` );
                     P.removeAt( idx );
@@ -158,11 +188,13 @@ $(`#ig-${master_num}`).resizable({ containment: "#fb-template" });
                                   zIndex:          $( `#ig-${master_num}` ).css('z-index'),
                                   src:             rmvQuotes( src )
                     });
-                  }); //onmouseup
+                  });
                 })( master_num );//anon func
             
                   itype = null;
                   ext = null;
+
+                  S3.collection.remove({});
                   $( '#preview-image' ).attr( 'src', null );
                   t.$( '#add-image' ).modal( 'hide' );
                   t.$( '#course-builder-image' ).val('');

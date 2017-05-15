@@ -30,7 +30,9 @@
     e.preventDefault();
 
     t.$( '#fb-template' ).append( `<span  style="cursor:move;
+                                                 word-break:break-all;
                                                  z-index:0;
+                                                 padding-left: 10px;
                                                  top:10px 
                                                  left:80px
                                                  background-color:white;
@@ -86,37 +88,38 @@ P.print();
       $( '#cb-media-toolbar' ).hide();
 
       //INSERT CURRENT ELEMENT IN HIDDEN INPUT
+
+     t.$( '#cb-prev' ).val( t.$( '#cb-current' ).val() );
      t.$( '#cb-current' ).val( `txt-${master_num}` );
+
+    });//mouseup
+
+
+    t.$( `#txt-${master_num}` ).on("dragstop", function(){
+      e.preventDefault();
+      //INSERT CURRENT ELEMENT IN HIDDEN INPUTum}` );
 
       let id  = `txt-${master_num}`
         , str = $( `#txt-${master_num}` ).html()
         , idx = P.indexOf( `txt-${master_num}` );
 
-      
-      //pos.left = Math.abs(pos.left);
-      //pos.top = Math.abs(pos.top);
-
-
-
       P.removeAt( idx );
 
       P.insert( idx, {
-      page_no:        page_no,
-      id:             id,
-      type:           'text',
-      text:           str,
-      top:            t.$( `#txt-${master_num}` ).css('top'),
-      left:           t.$( `#txt-${master_num}` ).css('left'),
-      zIndex:         t.$( `#txt-${master_num}` ).css('z-index')        || 0,
-      fontSize:       t.$( `#txt-${master_num}` ).css('font-size')      || 16,
-      border:         t.$( `#txt-${master_num}` ).css('border')         || '',
-      fontWeight:     t.$( `#txt-${master_num}` ).css('font-weight')    || '',
-      fontStyle:      t.$( `#txt-${master_num}` ).css('font-style')     || 'normal',
-      textDecoration: t.$( `#txt-${master_num}` ).css('text-decoration') || 'none',
-      opacity:        t.$( `#txt-${master_num}` ).css('opacity')         || 1 
-    });
-    
-P.print();
+        page_no:        page_no,
+        id:             id,
+        type:           'text',
+        text:           str,
+        top:            t.$( `#txt-${master_num}` ).css('top'),
+        left:           t.$( `#txt-${master_num}` ).css('left'),
+        zIndex:         t.$( `#txt-${master_num}` ).css('z-index')        || 0,
+        fontSize:       t.$( `#txt-${master_num}` ).css('font-size')      || 16,
+        border:         t.$( `#txt-${master_num}` ).css('border')         || '',
+        fontWeight:     t.$( `#txt-${master_num}` ).css('font-weight')    || '',
+        fontStyle:      t.$( `#txt-${master_num}` ).css('font-style')     || 'normal',
+        textDecoration: t.$( `#txt-${master_num}` ).css('text-decoration') || 'none',
+        opacity:        t.$( `#txt-${master_num}` ).css('opacity')         || 1 
+      });
     });//mouseup
   })( master_num );//anon func
 //---------------------------------------------------------

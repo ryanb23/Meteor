@@ -22,14 +22,14 @@
                     <h2>Turn on credit requirements?</h2>
                   </div>
                 </div>
-                                    
+
                 <div class = "col-sm-5">
                   <div class = "credit-required">
                     <div class = "single-credit-required">
                       <label id = "credit-on" for="yes_credit">
                         <img src = "/img/on.png" alt="">
                       </label>
-                    </div>  
+                    </div>
                     <div class="single-credit-required">
                       <label id="credit-off" for="no_credit">
                         <img src="/img/off.png" alt="">
@@ -37,26 +37,28 @@
                     </div>
                   </div>
                 </div>
-                                  
+
               </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="advance-title">
-                    <h2>How many credits do you require to be completed for each student? </h2>
+              {{#if creditsRequired}}
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="advance-title">
+                      <h2>How many credits do you require to be completed for each student? </h2>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="advance-time-input">
+                      <input class="js-credits-required" id="js-credits-required" type="number" value="{{credits}}">
+                    </div>
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="advance-time-button">
+                      <button data-value="quarterly" type="button">Quarterly</button>
+                      <button data-value="yearly"    type="button">Yearly</button>
+                    </div>
                   </div>
                 </div>
-                <div class="col-sm-4">
-                  <div class="advance-time-input">
-                    <input class="js-credits-required" type="number" value="145">
-                  </div>
-                </div>
-                <div class="col-sm-8">
-                  <div class="advance-time-button">
-                    <button data-value="quarterly" type="button">Quarterly</button>
-                    <button data-value="yearly"    type="button">Yearly</button>
-                  </div>
-                </div>
-              </div>
+              {{/if}}
               <div class="row">
                 <div class="col-sm-5">
                   <div class="advance-title">
@@ -65,7 +67,7 @@
                 </div>
                 <div class="col-sm-7">
                   <div class="advance-url">
-                    <input class="js-priv-url" type="url">
+                    <input class="js-priv-url" id="js-priv-url" type="url">
                   </div>
                 </div>
               </div>

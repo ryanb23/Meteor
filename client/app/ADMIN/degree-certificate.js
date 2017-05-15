@@ -47,7 +47,11 @@ Template.degreeCertificate.onCreated( function() {
       $( '#search-cert-deg' ).select2({
         allowClear: true
       });
+	  
+	  $( '.select2-container' ).css("width","100%");
+	  
     });
+	
     //console.log('degreeCertificate:: chosen,jquery.min.js loaded...');
   }).fail( function(jqxhr, settings, exception ) {
     console.log( 'degreeCertificate:: load select2.js fail' );

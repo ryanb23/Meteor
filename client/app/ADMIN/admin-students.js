@@ -5,146 +5,101 @@
  * @copyright  2016-2017 Collective Innovation
  */
 import { Template }     from 'meteor/templating';
-import { ReactiveVar }  from 'meteor/reactive-var';
-
-import '../../../public/css/select2.min.css';
-
 import { Students }     from '../../../both/collections/api/students.js';
-import { Newsfeeds }    from '../../../both/collections/api/newsfeeds.js';
-import { Comments }     from '../../../both/collections/api/comments.js';
 import { Departments }  from '../../../both/collections/api/departments.js';
 import { Companies }    from '../../../both/collections/api/companies.js';
 
-import '../../templates/admin/admin-students.html';
-
-
-/*=========================================================
- * CREATED
- *=======================================================*/
-Template.adminStudents.onCreated( function() {
-
-  //$("#students-cover").show();
-
-  Tracker.autorun( () => { 
-    Meteor.subscribe('students');
-    Meteor.subscribe('newsfeeds');
-    Meteor.subscribe('comments');
-    Meteor.subscribe('departments');
-    Meteor.subscribe('companies');
-  });
-  
-  /********************
-   * BOOTSTRAP3-DIALOG
-   *******************/
-  $.getScript( '/bower_components/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js', function() {
-      //console.log('student:: bootstrap-dialog loaded...');
-  }).fail( function( jqxhr, settings, exception ) {
-    console.log( 'student:: load bootstrap-dialog.min.js fail' );
-    //console.log( 'jqxhr ' + jqxhr );
-    //console.log( 'settings ' + settings );
-    //console.log( 'exception: ' + exception );
-  });
-//---------------------------------------------------------
-
-
-  /********************************************************
-   * SELECT2
-  ********************************************************/
-  $.getScript( '/js/select2.min.js', function() {
-    $( document ).ready(function(){
-      
-      $( '#search-students' ).select2({
-        placeholder: "Search students",
-        allowClear: true,
-        multiple: false,
-        tags:false
-      });
-      
-      $( '.js-dept' ).select2({
-        placeholder: "Department",
-        allowClear: true,
-        multiple: false,
-        tags:true,
-        //maximumSelectionLength: 2,
-
-      });
-
-      $( '.js-role' ).select2({
-        placeholder: "User class",
-        allowClear: true,
-        multiple: false,
-        tags:false
-      });
-
-    });
-    //console.log('students:: chosen,jquery.min.js loaded...');
-  }).fail( function(jqxhr, settings, exception ) {
-    console.log( 'students:: load select2.js fail' );
-    //console.log( 'jqxhr ' + jqxhr );
-    //console.log( 'settings ' + settings );
-    //console.log( 'exception: ' + exception );
-  });
-//--------------------------------------------------------- 
-});
-
-
-
-/**********************************************************
- * RENDERED
- *********************************************************/
-Template.adminStudents.onRendered( function() {
-/*
-  $( '#students-cover' ).delay( 100 ).fadeOut( 'slow', function() {
-    $("#students-cover").hide();
-    $( ".filter-buttons" ).fadeIn( 'slow' );
-  });
-*/
-//---------------------------------------------------------
-});
-
-
-
-/*=========================================================
- * HELPERS
- *=======================================================*/
-Template.adminStudents.helpers({
-
-  students() {
-    try {
-      let s   = Students.find({ company_id: Meteor.user().profile.company_id }).fetch();
-      let len = s.length;
-      for( let i=0; i<len; i++ ) {
-        s[i].created_at = moment( s[i].created_at ).format( 'M-D-Y' ) //modify array in place
+Template.adminStudents.onCreated(() => {
+  Tracker.autorun( () => {
+    const admin = Meteor.user();
+    if (admin) {
+      Meteor.subscribe('singleCompany', admin.profile.company_id);
+      const company = Companies.findOne(admin.profile.company_id);
+      if (company) {
+        const departmentSubscription = Meteor.subscribe('companyStudents', company._id);
+        const companySubscription = Meteor.subscribe('companyDepartments', company._id);
+        if(departmentSubscription && companySubscription) {
+          $.getScript( '/js/select2.min.js', () => {
+            $(document).ready(() => {
+				
+              $('#search-students').select2({
+                placeholder: 'Search students',
+                allowClear: true,
+                multiple: false,
+                tags: false,
+              });
+			  
+			  $( '#search-students+.select2-container' ).css("width","100%");
+			  $( '.search-box' ).css("width","100%");
+			  $( '#search-students+.select2-container' ).css("height","auto");
+			  
+			 
+              $( '#addStudentModal .js-dept' ).select2({
+                placeholder: 'Department',
+                allowClear: true,
+                multiple: false,
+                tags: true,
+              });		 
+			  
+              $('#editStudentModal .js-dept' ).select2({
+                placeholder: 'Department',
+                allowClear: true,
+                multiple: false,
+                tags: true,
+              });
+			  
+			  
+			  $( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+			  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+			 $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","0px");
+			 $( '.js-dept+.select2-container' ).css("margin-top","15px");
+			  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+			  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+			  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("height","46px");
+			  
+			  
+            });
+          });
+        }
       }
-  
-      return s;
-    } catch(e) {
-      return;
     }
+  });
+});
+
+Template.adminStudents.helpers({
+  students() {
+    const admin = Meteor.user();
+    if (admin) {
+      return Students.find({
+        company_id: admin.profile.company_id,
+      }).fetch().map(student => ({...student, created_at: moment(student.created_at).format( 'M-D-Y')}));
+    }
+    return [];
   },
-//---------------------------------------------------------
 
   departments() {
-    try {
-      return Departments.find({ company_id: Meteor.user().profile.company_id }).fetch();
-    } catch(e) {
-      return;
+    const admin = Meteor.user();
+    if (admin) {
+      return Departments.find({ company_id: admin.profile.company_id }).fetch();
     }
+    return [];
   },
-//---------------------------------------------------------
+
+  departmentsReady() {
+    const admin = Meteor.user();
+    if (admin) {
+      return Departments.find({ company_id: admin.profile.company_id }).count() > 0;
+    }
+    return false;
+  },
+
+  roles() {
+    return ['student', 'teacher', 'admin'];
+  },
 });
 
-
-
-/*=========================================================
- * EVENTS
- *=======================================================*/
 Template.adminStudents.events({
-
-  /********************************************************
-   * #SEARCH-STUDENTS  ::(CHANGE)::
-   *******************************************************/
-  'change #search-students'( e, t ) {
+  'change #search-students'( e ) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -153,339 +108,168 @@ Template.adminStudents.events({
       $( 'tr' ).css( 'border', '' );
       $( 'tr#' + idx ).css( 'border', '1px solid' );
       $( 'html, body' ).animate({
-        scrollTop: $( 'tr#' + $( e.currentTarget ).val() ).offset().top + 'px'
+        scrollTop: $( 'tr#' + $( e.currentTarget ).val() ).offset().top + 'px',
       }, 'fast' );
     }
-//-------------------------------------------------------------------
   },
 
-
-  /********************************************************
-   * #CLOSE-SEARCH  ::(CLICK)::
-   *******************************************************/
-  'click #close-search'( e, t ) {
+  'click #close-search'( e ) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
     $( '#search-students' ).val('');
-//-------------------------------------------------------------------
   },
 
-
-
-  /********************************************************
-   * .JS-STUDENT  ::(CLICK)::
-   *******************************************************/
-  'click .js-student'( e, t ) {
+  'click .js-student'( e ) {
     e.preventDefault();
     e.stopImmediatePropagation();
-
-    if ( Meteor.userId() == $( e.currentTarget ).data( 'id' ) ) return;
-
+    if ( Meteor.userId() === $( e.currentTarget ).data( 'id' ) ) return;
     FlowRouter.go( 'student-record', { _id: $(e.currentTarget).data('id') });
-
-    //$(e.currentTarget).data('id'));
-    //console.log( Template.instance().view.parentView );
-    //console.log( Template.adminStudentsBase );
-//-------------------------------------------------------------------
   },
 
-
-  /********************************************************
-   * .JS-IMPORT-STUDENTS-CSV  ::(CLICK)::
-   *******************************************************/
-  'click .js-import-students-csv'( e, t ) {
+  'click .js-import-students-csv'( e ) {
     e.preventDefault();
     e.stopImmediatePropagation();
-
     FlowRouter.go( 'admin-import-csv', { _id: Meteor.userId() });
-//-------------------------------------------------------------------
   },
 
-
-  /********************************************************
-   * .JS-ADD-STUDENT  ::(CLICK)::
-   *******************************************************/
-  'click .js-add-student'( e, t ) {
-    e.preventDefault();
-
-    //DEPT MUST HAVE A VALUE
-/*
-    let dpt = Departments.find({}).fetch();
-
-    //clear created by code options
-    $( '.js-dept option' ).each(function(){
-      $(this).remove();
-    });
-
-    Meteor.setTimeout(function(){
-
-      $( '.js-dept' ).append( '<option></option>' );
-      
-      for( let i = 0, l = dpt.length; i < l; i++ ){
-        if ( dpt[i].name != '')
-          $( '.js-dept' ).append( `<option value="${dpt[i]._id}">` +
-                                  `${dpt[i].name}</option>` 
-                              );
-      }
-    }, 500);
-*/
-//---------------------------------------------------------
-  },
-
-
-  /********************************************************
-   * .JS-STUDENT-ADD-SUBMIT  ::(CLICK)::
-   *******************************************************/
-  'click .js-add-student-submit'( e, t ) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-
-      //DEPT MUST HAVE A VALUE
-      //option value
-      //console.log( t.$('.js-dept').val() );
-
-      //INSERT ADDED DEPT TO DEPT DB if it doesn't exist
-/*
-      let foo
-        , opt_dpt_id = t.$('.js-dept option:selected').val()
-        , opt_dpt_nm = t.$('.js-dept option:selected').text().toLowerCase();
-
-      try {
-        if ( opt_dpt_id != null && opt_dpt_id != '' )
-          foo = Departments.findOne({ _id: opt_dpt_id })._id;
-      } catch( e ) {
-        if ( opt_dpt_id != null && opt_dpt_id != '' )
-          foo = Departments.insert({ company_id: Meteor.user().profile.company_id, name: opt_dpt_nm });
-      }
-*/
-
-      let co = Companies.findOne({ _id: Meteor.user().profile.company_id });
-
-      let fname     = $( '.js-fn' ).val().trim();
-      let lname     = $( '.js-ln' ).val().trim();
-      let email     = $( '.js-email' ).val().trim();
-      let dept      = "" //$( '.js-dept :selected' ).text().trim();
-      let opt       = $( '#sel1' ).val().trim();
-      
-      if ( fname == '' || _.isNull(fname) || _.isUndefined(fname) ) {
+  'click .js-add-student-submit'(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const admin = Meteor.user();
+    if (admin) {
+      const company = Companies.findOne({ _id: admin.profile.company_id });
+      const fname = $('#addStudentModal .js-fn').val().trim();
+      const lname = $('#addStudentModal .js-ln').val().trim();
+      const email = $('#addStudentModal .js-email').val().trim();
+      const departmentId = $('#addStudentModal .form-control.input-lg.mob-margin-btm').val(); //not used for now
+      const role = $('#sel1' ).val();
+	  $('#addStudentModal .js-dept').css("height","46px");
+      if (fname === '' || _.isNull(fname) || _.isUndefined(fname)) {
         Bert.alert('First Name is a required field', 'danger');
         return;
       }
-      if ( lname == '' || _.isNull(lname) || _.isUndefined(lname) ) {
+      if ( lname === '' || _.isNull(lname) || _.isUndefined(lname) ) {
         Bert.alert('Last Name is a required field', 'danger');
         return;
       }
-      if ( email == '' || _.isNull(email) || _.isUndefined(email) ) {
+      if ( email === '' || _.isNull(email) || _.isUndefined(email) ) {
         Bert.alert('Email is a required field', 'danger');
         return;
       }
-  /*
-      if ( dept == '' || _.isNull(dept)   || _.isUndefined(dept) ) {
+      if ( role === '' || _.isNull(role)   || _.isUndefined(role) ) {
+        Bert.alert('Role is a required field', 'danger');
+        return;
+      }
+      if ( departmentId === '' || _.isNull(departmentId)   || _.isUndefined(departmentId) ) {
         Bert.alert('Department is a required field', 'danger');
         return;
       }
-  */
-      $( '#addStudentModal' ).modal( "hide" );
-      
-      //let password    = 'afdsjkl83212'
-      
-      /* ASSIGN random password */
-      let password = generateRandomPassword()
-        , adminEmail  = 'admin@collectiveuniversity.com'
-        , videoLink   = 'TO BE ADDED';  //BE SURE TO MAKE IT: http:// xxx
-      
-      opt           = opt.toLowerCase();
-      
-      
-      /* 
-       *  CHANGE THIS FOR PRODUCTION
-       */
-      let url = 'http://collectiveuniversity.com/login';
-      
-      let text      = `Hello ${fname},\n\nThis organization has set up its own Collective University to help provide training and more sharing of internal knowledge.  Your plan administrator will be providing more details in the coming days.\n\nTo login to your account and enroll in classes, please visit: ${url}.\n\nUsername: ${email}\nPass: ${password}\n\nFrom here you'll be able to enroll in courses, to request credit for off-site training and conferences, and keep track of all internal training meetings.\nIn Student Records, you'll see all the classes and certifications you have completed.  For a more complete overview, please see this video: ${videoLink}\n\nIf you have any questions, please contact: ${adminEmail}`;
 
-      //ALL FIELDS MUST BE FILLED OUT OR ERR
-      Meteor.call( 'addUser', email, password, fname, lname, opt, dept, co.name, co._id );
-
-      if ( opt == 'student' || opt == 'teacher' ) {
-        
-        //                        TO      FROM                              SUBJECT       BODY
-        Meteor.call( 'sendEmail', email, 'admin@collectiveuniversity.com', 'New Account', text );
-      }
-      
- /*
-  * HANDLE:
-  * IF opt == 'admin'
-  */
-
-      //clear created by code options
-      //$( '.js-dept option').each(function(){
-        //$(this).remove();
-      //});
-
-      $( '.js-fn' ).val('');
-      $( '.js-ln' ).val('');
-      $( '.js-email' ).val('');
-
-      Bert.alert( 'Account Created', 'success', 'growl-top-right' );
-
-//---------------------------------------------------------
+      Meteor.call('users.add', { fname, lname, email, role, company, departmentId }, (err, studentId) => {
+        if (err) {
+          let errorMessage = 'Failed to add a user';
+          if (err.reason === 'Username already exists.') {
+            errorMessage += ` :user with ${email} email already exists`;
+          }
+          Bert.alert(errorMessage, 'danger', 'growl-top-right');
+        } else {
+          const { password } = Students.findOne(studentId);
+          const adminEmail = admin.emails[0].address;
+          const videoLink = '';
+          if (role === 'teacher' || role === 'student') {
+            const text = `Hello ${fname},\n\nThis organization has set up its own Collective University to help provide training and more sharing of internal knowledge.  Your plan administrator will be providing more details in the coming days.\n\nTo login to your account and enroll in classes, please visit: ${Meteor.absoluteUrl()}login.\n\nUsername: ${email}\nPassword: ${password}\n\nFrom here you'll be able to enroll in courses, to request credit for off-site training and conferences, and keep track of all internal training meetings.\nIn Student Records, you'll see all the classes and certifications you have completed.${videoLink ? `For a more complete overview, please see this video: ${videoLink}` : ''}\n\nIf you have any questions, please contact: ${adminEmail}`;
+            Meteor.call('sendEmail', email, adminEmail, 'New Account', text, err => {
+              if (err) {
+                Bert.alert('Failed to send an email to new user', 'danger');
+              } else {
+                Bert.alert('User seccessfully added', 'success');
+                $('#addStudentModal').modal('hide');
+              }
+            });
+          } else if (role === 'admin') {
+            Meteor.call('users.sendSignupVerificationEmail', studentId, err => {
+              if (err) {
+                Bert.alert('Failed to send an email to new user', 'danger');
+              } else {
+                Bert.alert('User seccessfully added', 'success');
+                $('#addStudentModal').modal('hide');
+              }
+            });
+          } else {
+            Bert.alert('Failed to send an email to new user', 'danger');
+          }
+        }
+      });
+    }
   },
 
-
-
-  /********************************************************
-   * .JS-EDIT-STUDENT  ::(CLICK)::
-   *******************************************************/
-  'click .js-edit-student'( e, t ) {
-      e.preventDefault();
-
-      //DEPT MUST HAVE A VALUE
-
-      const sTypes = [ 'student', 'teacher', 'admin' ];
-
-      let id = t.$( e.currentTarget ).data( 'id' );
-      let s  = Students.findOne({ _id: id });
-
-      //DISPLAY VALUES CURRENTLY IN THE DATABASE
-      t.$( '.js-fn' ).attr( 'placeholder', s.fname );
-      t.$( '.js-ln' ).attr( 'placeholder', s.lname );
-      t.$( '.js-email' ).attr( 'placeholder', s.email );
-      
-      //SET EDIT RECORDS ID
-      t.$( '#edit-student-modal-id' ).data('id',id);
-      
-      let dpt = Departments.find( {} ).fetch();
-
-      //clear created by code options
-      $( '.js-dept option' ).each(function(){
-        $(this).remove();
-      });
-      
-      
-      $( '.js-role option' ).each(function(){
-        $(this).remove();
-      });
-      
-
-      Meteor.setTimeout(function(){
-        
-        for( let i = 0, l = dpt.length; i < l; i++ ){
-          
-          $( '.js-dept' ).append( '<option value="' + dpt[i]._id + '">' +
-                                    dpt[i].name + '</option>' 
-                                );
-        }
-        
-        
-        for( let i = 0, l = sTypes.length; i < l; i++ ){
-          
-          $( '.js-role' ).append( '<option value="' + sTypes[i] +  '">'  +
-                                  capitalizeFirstLetter( sTypes[i] ) + '</option>' 
-                                );
-        }
-        //$( `select[value*="${s.department}"]` ).attr('selected',true);
-        
-        $( 'select[name="js-dept"]').find('option:contains("' + s.department + '")').attr('selected',true);
-    
-        $( 'select[name="js-role"]').find('option:contains("' + capitalizeFirstLetter(s.role) + '")' ).attr( "selected",true );
-      }, 500);
-//---------------------------------------------------------
+  'click .js-edit-student'( event) {
+    event.preventDefault();
+    const id = $(event.currentTarget ).data('id');
+    const { fname, lname, email, department, role } = Students.findOne({ _id: id });
+    $('#editStudentModal .js-fn').val(fname);
+    $('#editStudentModal .js-ln').val(lname);
+    $('#editStudentModal .js-email').val(email);
+    $('#editStudentModal .js-role').val(role);
+    $('#editStudentModal .js-dept').val(department).trigger('change');
+    $('#edit-student-modal-id').data('id', id);
   },
 
-
-
-  /********************************************************
-   * .JS-EDIT-STUDENT-SUBMIT  ::(CLICK)::
-   *******************************************************/
-  'click .js-edit-student-submit'( e, t ) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    let id = t.$( '#edit-student-modal-id' ).data( 'id' );
-
-    let s  = Students.findOne({ _id: id });
-
-    let r   = $( '.js-role' ).select2( 'data' )[0].text.toLowerCase().trim(),
-        fn  = $( '.js-fn' ).attr('placeholder').trim(),
-        em  = $( '.js-email' ).attr('placeholder').trim(),
-        d   = $( '.js-dept' ).select2( 'data' )[0].text;
-        
-        /*
-         * CHANGE THIS URL FOR PRODUCTION
-         */
-        url = 'http://collectiveuniversity/login';
-  
-    //if ( d == '' ) d = 'sales';
-    if ( d == '' || _.isNull(d) || _.isUndefined(d) ) {
+  'click .js-edit-student-submit'(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const studentId = $('#edit-student-modal-id').data('id');
+    const role = $('#editStudentModal .js-role :selected').val();
+    const fname = $('#editStudentModal .js-fn').val();
+    const email = $('#editStudentModal .js-email').val();
+    const departmentId = $('#editStudentModal .js-dept').val(); //not used for now
+    if (email === '' || _.isNull(email) || _.isUndefined(email)) {
+      Bert.alert('Email must not be blank', 'danger');
+      return;
+    }
+    if (!validateEmail(email)) {
+      Bert.alert('Please enter a valid email', 'danger');
+      return;
+    }
+    if ( departmentId === '' || _.isNull(departmentId) || _.isUndefined(departmentId) ) {
       Bert.alert('Department must not be blank', 'danger');
       return;
-    } else if ( r == '' || _.isNull(r) || _.isUndefined(r) ) {
+    } else if ( role === '' || _.isNull(role) || _.isUndefined(role) ) {
       Bert.alert('User Role must not be blank', 'danger');
       return;
     }
-    
-    
-    // ALL FIELDS MUST BE FILLED OUT OR ERROR
-    Students.update({ _id: id },
-                    {$set:{ role: r,
-                            email:em,
-                            department:d,
-                            updated_at: new Date() } });
-
-
-    // ALL FIELDS MUST BE FILLED OUT OR ERROR
-    Meteor.users.update({ _id: id }, {$set:{ roles: { [r] : true } }  });
-
-    if ( r == 'teacher' ) {
-      let text = `Hello ${fn},\n\nThe administrator of Collective University has upgraded your account to teacher level so that you may now create courses and schedule training sessions within our Corporate University.  As an expert within the organization, it's important to provide you the opportunity to share your knowledge with others so you will get credit for every class you teach and course you build.\n\nYou can login here: ${url}\n\nUser: ${em}\n`;
-      
-      Meteor.call('sendEmail', em, 'admin@collectiveuniversity.com', 'Upgraded Account', text );
+    const student = Students.findOne(studentId);
+    if (email !== student.email || role !== student.role || departmentId !== student.department) {
+      Meteor.call('users.update', { studentId, email, role, departmentId }, err => {
+        if (err) {
+          console.log('Error: ', err);
+          Bert.alert('Failed to update user', 'danger');
+        } else {
+          if (role === 'teacher') {
+            const text = `Hello ${fname},\n\nThe administrator of Collective University has upgraded your account to teacher level so that you may now create courses and schedule training sessions within our Corporate University.  As an expert within the organization, it's important to provide you the opportunity to share your knowledge with others so you will get credit for every class you teach and course you build.\n\nYou can login here: ${Meteor.absoluteUrl()}login\n\nUser: ${email}\n`;
+            Meteor.call('sendEmail', student.email, 'admin@collectiveuniversity.com', 'Upgraded Account', text, err => {
+              if (err) {
+                Bert.alert('Failed to send email to user', 'danger');
+              }
+            });
+          }
+          Bert.alert( 'Edits to student record are saved', 'success', 'growl-top-right' );
+          $('#editStudentModal').modal('hide');
+        }
+      });
     }
-    
-/*
- * CHECK FOR ADMIN CREATED USER AND SEND EMAIL
- */
-
-    t.$( '.js-fn' ).attr( 'placeholder',     "" );
-    t.$( '.js-ln' ).attr( 'placeholder',     "" );
-    t.$( '.js-email' ).attr( 'placeholder',  "" );
-
-    //clear created by code options
-   // $( '.js-dept option' ).each(function(){
-     // $(this).remove();
-    //});
-    $( '.js-role option' ).each(function(){
-      $(this).remove();
-    });
-
-    Bert.alert( 'Edits to student record are saved', 'success', 'growl-top-right' );
-    $( '#editStudentModal' ).modal( "hide" );
-
-//---------------------------------------------------------
   },
-
-
 
   /********************************************************
    * #POPUP-CLOSE  ::(CLICK)::
    *******************************************************/
-   'click #popup-close'( e, t ){
-     e.preventDefault();
-      t.$( '.js-fn' ).attr( 'placeholder', "" );
-      t.$( '.js-ln' ).attr( 'placeholder', "" );
-      t.$( '.js-email' ).attr( 'placeholder', "" );
-
-      //clear created by code options
-      //t.$( '.js-dept option' ).each(function(){
-        //t.$(this).remove();
-      //});
-
-      t.$( '.js-role option' ).each(function(){
-        t.$(this).remove();
-      });
-   },
+  'click #popup-close'(event) {
+    event.preventDefault();
+    $('.js-fn').val('');
+    $('.js-ln').val('');
+    $('.js-email').val('');
+  },
 //---------------------------------------------------------
 
 
@@ -506,8 +290,6 @@ Template.adminStudents.events({
 //-------------------------------------------------------------------
   },
 
-
-
   /********************************************************
    * .JS-STUDENT-DELETE-SUBMIT  ::(CLICK)::
    *******************************************************/
@@ -517,18 +299,18 @@ Template.adminStudents.events({
 
     let id = t.$( '.name' ).data( 'id' );
 
-    Students.remove( id );
-    Meteor.users.remove( id );
-
-    Bert.alert( 'Student record deleted','success' );
-
-    t.$( '#fnln' ).html( "" );
-    t.$( '.name' ).data( 'id', "" );
-    t.$( '#stdimg' ).attr( 'src', "" );
-
-    $( '#deleteStudentModal' ).modal( 'hide' );
-
-//---------------------------------------------------------
+    Meteor.call('users.remove', id, (err) => {
+      if (err) {
+        Bert.alert('Failed to delete student record', 'danger');
+        console.log('Error: ', err);
+      } else {
+        Bert.alert('Student record deleted', 'success');
+        t.$( '#fnln' ).html( "" );
+        t.$( '.name' ).data( 'id', "" );
+        t.$( '#stdimg' ).attr( 'src', "" );
+        $( '#deleteStudentModal' ).modal( 'hide' );
+      }
+    });
   },
 
 
@@ -554,57 +336,19 @@ Template.adminStudents.events({
  * Example usage: someTemplate.parentTemplate() to get the immediate parent
  */
 Blaze.TemplateInstance.prototype.parentTemplate = function (levels) {
-    var view = this.view;
-    if (typeof levels === "undefined") {
-        levels = 1;
+  var view = this.view;
+  if (typeof levels === "undefined") {
+    levels = 1;
+  }
+  while (view) {
+    if ( view.name.substring(0, 9) === "Template." && !( levels-- ) ) {
+      return view.templateInstance();
     }
-    while (view) {
-        if ( view.name.substring(0, 9) === "Template." && !( levels-- ) ) {
-            return view.templateInstance();
-        }
-        view = view.parentView;
-    }
+    view = view.parentView;
+}
 };
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-
-/****************************
- * RANDOME PASSWORD GENERATOR
- ***************************/
-function generateRandomPassword() {
-  let pw    = ''
-  
-      // ! # $ % & * + ? ~ @
-    , punc  =  [33,35,36,37,38,42,43,63,64,126];
-    
-    
-  do {   
-    //RETURN PUNC CHARACTER 20% OF THE TIME
-    if (  Math.floor( (Math.random() * 100) + 1) <= 20  ) {
-      let pran = Math.floor( (Math.random() * 9));		//0 - 9
-      pw += String.fromCharCode(punc[pran]);
-    } else {
-      //80% OF THE TIME RETURN EITHER UPPER OR LOWER CASE LETTER
-	    pw += returnRandomLetterAndCase(); 
-    }
-  } while ( pw.length != 8 ); //8 CHARACTER PASSWORDS RETURNED
-  
-  return pw;                  //RETURN CREATED PASSWORD
+function validateEmail(email) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
 }
-
-function returnRandomLetterAndCase() {
-	let lran = Math.floor( (Math.random() * 25) ) + 97 	//LOWERCASE LETTER
-	  , uran = Math.floor( (Math.random() * 25) ) + 65	//UPPERCASE LETTER
-	  , l = '';
-
-	if ( Math.floor( (Math.random() * 100) + 1) <= 51  ) {
-		l = String.fromCharCode(lran);         		
-	} else if ( Math.floor(  (Math.random() * 100) + 1) > 52 ) {
-		l = String.fromCharCode(uran);
-	}
-	return l;
-}
-//-----------------END RANDOM PASSWORD GENERATOR-----------

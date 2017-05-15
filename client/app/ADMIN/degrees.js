@@ -27,12 +27,12 @@ Template.degrees.onCreated(function() {
 
   $( "#degree-cover" ).show();
 
-  Tracker.autorun( () => { 
+  Tracker.autorun( () => {
     Meteor.subscribe('courses');
     Meteor.subscribe('diplomas');
     Meteor.subscribe('newsfeeds');
   });
-  
+
   /*
    * JQUERY-UI SORTABLE
    */
@@ -95,8 +95,7 @@ Template.degrees.onRendered(function(){
      	    d.removeChild( d.lastChild );
         }
 
-        let c   = Courses.find( { company_id: Meteor.user().profile.company_id },
-                                {limit: 7}).fetch();
+        let c   = Courses.find( { company_id: Meteor.user().profile.company_id }).fetch();
         return initC( d, c );
       } catch (e) {
         return;
@@ -305,17 +304,17 @@ Template.degrees.events({
 //console.log( credits_total )
 //console.log( ids );
 
-    Diplomas.insert({
-      name:             course_name,
-      courses:          ids,
-      credits:          credits_total,
-      num:              ids.length,
-      icon:             "/img/icon-5.png",
-      company_id:       c_id,
-      type:             "Diplomas",
-      times_completed:  0,
-      created_at:       new Date()
-    });
+    Meteor.call('addDiplomaCertificate', 'degree',
+      course_name,
+      ids,
+      credits_total,
+      ids.length,
+      "/img/icon-5.png",
+      c_id,
+      "Diplomas",
+      0,
+      new Date()
+    );
 
     Bert.alert( 'Degree Created!', 'success', 'growl-top-right' );
 
@@ -440,7 +439,7 @@ function touchHandler(event) {
         false, false, false, 0, null);
 
     touch.target.dispatchEvent(simulatedEvent);
-    event.preventDefault();
+   // event.preventDefault();
 }
 
 function initC( d, c ) {
@@ -478,4 +477,9 @@ document.addEventListener("touchstart", touchHandler, true);
 document.addEventListener("touchmove", touchHandler, true);
 document.addEventListener("touchend", touchHandler, true);
 document.addEventListener("touchcancel", touchHandler, true);
+
+//$( "#degree-search" ).focus();
+
+
+
 }

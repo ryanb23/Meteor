@@ -26,9 +26,9 @@ Template.newsfeed.onCreated(function(){
 
   Session.setDefault( 'active_click_id', '' );
   
-  Tracker.autorun(() => {
-    Meteor.subscribe('students');
-    Meteor.subscribe('newsfeeds');
+  Tracker.autorun(() => { 
+    // Meteor.subscribe('students');
+    // Meteor.subscribe('newsfeeds');
     Meteor.subscribe('comments');
   });
 

@@ -96,3 +96,17 @@ Template.registerHelper( 'isExpired', () => {
     return new Error(e);
   }
 });
+
+Template.registerHelper('capitalize', string => {
+  if(typeof string === 'string') {
+    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+  }
+  return string;
+});
+
+Template.registerHelper('capitalizeAll', str => {
+  if(typeof str === 'string') {
+    return str.split(' ').map(string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`).join(' ');
+  }
+  return str;
+});

@@ -3735,7 +3735,80 @@ html .ui-button.ui-state-disabled:active {
 .analyticsTableNameCell .name-container {
     width: auto;
 }
+
+.ui-datepicker-calendar {
+  position: static !important;
+}
+
+.comiseo-daterangepicker-buttonpanel button {
+  width: auto !important;
+}
+
+.amcharts-scrollbar-grip-left, .amcharts-scrollbar-grip-right, .amcharts-zoom-out-image, .amcharts-zoom-out-label{
+  display: none;
+}
+
 .mob-margin-btm{
 	margin-bottom: 15px;
     margin-top: 15px;
+}
+
+
+.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    height: 46px;
+    font-weight: bold;
+    color: black;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder{
+	color: black;
+}
+
+.course-build .pop-up-area{
+	 background: url(/img/course_bg.png) no-repeat scroll center bottom; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.center-text{
+	text-align:center;
+}
+.width-100{
+width:100%;
+}
+
+.pop-up-area button.cb-popup-close {
+    font-weight: 300;
+    color: #83d0f3;
+    font-size: 18px;
+    text-transform: uppercase;
+    position: absolute;
+    top: 11px;
+    right: 15px;
+    background: transparent;
+    border: 0;
+    box-shadow: 0 0 0;
+    width: 40px;
+    height: 40px;
+    z-index: 9999;
+    border-radius: 50%;
+    background: #6aa1ba;
+}
+.course-build .popup-body input[type="submit"]{
+	background:#0280d8;
+}
+.course-build .popup-body input[type="submit"]:hover{
+	opacity:0.9;
 }

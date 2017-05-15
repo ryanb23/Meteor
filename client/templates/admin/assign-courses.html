@@ -29,13 +29,9 @@
             </div>
             <br />
             <div class="list-title">
-              <h2>Assign Courses:</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="col-sm-4 col-sm-offset-8">
+             <div class="col-sm-8">  <h2>Assign Courses:</h2> </div>
+			 
+			 <div class="col-sm-4">
               <form action="">
                 <select id="search-courses">
                   <option>Search Courses...</option>
@@ -52,6 +48,12 @@
                 -->
               </form>
             </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            
             <div class="search-list assign">
               <table class="table">
                 <tbody>
@@ -107,7 +109,7 @@
           </div>
         </div>
 
-<!-- abn removed -->                        
+<!-- abn removed -->
 <!-- <input id="assign-due-date" type="date" class="form-control" /> -->
 
 
@@ -115,16 +117,16 @@
 <!-- START MODAL -->
 
 <div  class = "search-list assign">
-<div  id              = "assign-modal" 
-      class           = "modal fade left" 
-      tabindex        = "-1" 
-      role            = "dialog" 
+<div  id              = "assign-modal"
+      class           = "modal fade left"
+      tabindex        = "-1"
+      role            = "dialog"
       aria-labelledby = "myModalLabel">
     <div class = "modal-dialog">
       <div class = "pop-up-area students">
-        <button type          = "button" 
-                id            = "popup-close" 
-                data-dismiss  = "modal" 
+        <button type          = "button"
+                id            = "popup-close"
+                data-dismiss  = "modal"
                 aria-label    = "Close">x</button>
         <div class = "popup-body">
           <h2>Assign:</h2>
@@ -133,22 +135,22 @@
               <div class = "col-sm-6">
                 <div class = "single-assign">
                   <div class = "assign-title">
-                    
+
                     <input  id    = "all-students-radio"
-                            type  = "radio" 
-                            name  = "checkbox" 
+                            type  = "radio"
+                            name  = "checkbox"
                             class = "css-checkbox">
-                    <label id     = "all-students" 
+                    <label id     = "all-students"
                             class ="css-label radGroup1">
                       Assign all students
                     </label>
                     <span>OR</span>
                   </div>
-                  
+
                     <div id="wrap-by-name" class="assign-body">
-                      <select data-placeholder  = "student name" 
-                              id                = "by-name" 
-                              style             = "" 
+                      <select data-placeholder  = "student name"
+                              id                = "by-name"
+                              style             = ""
                               multiple>
                         {{#with names}}
                           {{#each this}}
@@ -159,25 +161,25 @@
                     </div>
                 </div>
               </div>
-              
+
               <div class="col-sm-6">
                 <div class="single-assign">
                   <div class="assign-title">
-                    
+
                       <input  id    = "assign-by-dept-radio"
-                              type  = "radio" 
-                              name  = "checkbox" 
+                              type  = "radio"
+                              name  = "checkbox"
                               class = "css-checkbox">
-                      <label  id    = "assign-by-dept" 
+                      <label  id    = "assign-by-dept"
                               class = "css-label radGroup1">
                         Assign by department
                       </label>
                   </div>
-                  
+
                   <div class="assign-body">
-                    <select id                = "by-dept" 
+                    <select id                = "by-dept"
                             style             = ""
-                            data-placeholder  = "dept name" 
+                            data-placeholder  = "dept name"
                             multiple>
                       {{#with dept}}
                         {{#each this}}
@@ -192,23 +194,138 @@
             <div class="row">
               <div class="col-sm-12 text-right">
                 <!-- <input type="submit" value="SAVE"> -->
-                <input  type  = "submit" 
-                        class = "add-course" 
+                <input  type  = "submit"
+                        class = "add-course"
                         value = "SAVE">
               </div>
             </div>
           </form>
         </div>
-      </div>                                         
+      </div>
     </div>
   </div>
 </div>
-<!-- END MODAL --> 
- 
- 
+<!-- END MODAL -->
+
+<script>
+$( document ).ready(function() {
+
+
+$("#assign-modal").scroll(function() {
+console.log("scroling..");
+$(".modal-backdrop+.select2-container").css("display","none");
+});
+
+$('#assign-modal').on('click', '.select2-search__field', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#by-name' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#by-name').select2("open");
+
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+$('#assign-modal').on('click', '.select2-container', function() {
+
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#by-name' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#by-name').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+
+$('#assign-modal').on('click', '.select2-search', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#by-name' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#by-name').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+
+});
+
+$('#assign-modal').on('click', '.selection', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#by-name' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#by-name').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#assign-modal').on('click', '.select2-selection__rendered', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#by-name' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#by-name').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#assign-modal').on('click', '.select2-search .select2-search--inline', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#by-name' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Add Attendees...',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#by-name').select2("open");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+
+});
+</script>
+
      </div>
     </div>
   </div>
 </div>
 {{/if}}
+
+
 </template>

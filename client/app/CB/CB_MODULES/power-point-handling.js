@@ -7,14 +7,19 @@
 
 
 let pp    = ''
-  , pp_id = '';
+  , ppt_id = '';
 
   /**
    *
    * #COURSE-BUILDER-POWERPOINT  ::(CHANGE)::
    *
    */
-   export function cbPowerPointChange( e, t, tbo, PowerPoints ) {
+   export function cbPowerPointChange( e, 
+                            t, 
+                            page_no,
+                            Ppts,
+                            P,
+                            master_num ) {
 
     if ( e.currentTarget.files === 'undefined' || e.currentTarget.files == '' ) {
       console.log( 'aborted' );
@@ -61,23 +66,23 @@ console.log( e.currentTarget );           //element
 			        },
 
 			        function( e, r ){
-				        //console.log( r );
+				        console.log( r );
 				        //delete r._id;
 				        pp    = r.secure_url;
 
-				        pp_id = PowerPoints.insert({
-				          loaded:           r.loaded,
-				          percent_uploaded: r.percent_uploaded,
-				          relative_url:     r.relative_url,
-				          secure_url:       r.secure_url,
-				          status:           r.status,
-				          total:            r.total,
-				          uploader:         r.uploader,
-				          url:              r.url,
-				          file:             r.file,
-				          created_at:       moment().format()
-				        });
-		          }
+                ppt_id = Meteor.call('addFileData', 'powerpoint',
+                                result.loaded,
+                                result.percent_uploaded,
+                                result.relative_url,
+                                result.secure_url,
+                                result.status,
+                                result.total,
+                                result.uploader,
+                                result.url,
+                                result.file,
+                                moment().format()
+                         );
+		            }
 		);//s3.upload()
    };
 
@@ -90,7 +95,7 @@ console.log( e.currentTarget );           //element
    * id = add-powerpoint
    * powerpoint dialog
    */
-  export function cbPowerPointSave( e, t, tbo, PowerPoints ) {
+  export function cbPowerPointSave( e, t, page_no, tbo, P, master_num) {
     e.preventDefault();
 
     //------------------------------------------------------------
@@ -101,28 +106,38 @@ console.log( e.currentTarget );           //element
     //------------------------------------------------------------
 
 
-    console.log('save');
-    console.log( pp_id );
-
     let ct = Session.get('contentTracker');
-    ct.page_no[page_no].ppts++;
-    Session.set('contentTracker', ct );
+    // ct.page_no[page_no].ppts++;
+    // Session.set('contentTracker', ct );
+
 
     if ( pp ) {
       Bert.alert('Please stand-by. Processing', 'success' );
-      console.log( pp_id );
+      // console.log( pp_id );
 
-      $( '#cb-toolbar-video' ).show();
-      t.$('#cb-current').val( '#ppp' );
-
+      $( '#cb-video-toolbar' ).show();
+      t.$( '#cb-current' ).val( `ppt-${master_num}` );
       let obj =
-      `<embed width="100%" height="600" src="${ppt}" type="application/pdf"></embed>`;
+      `<iframe id="ppt-${master_num}" src="http://docs.google.com/gview?url=${pp}&embedded=true" style="width:100%; height:600px;" frameborder="0"></iframe>`;
+      // `<embed width="100%" height="600" src="${pp}" type="application/pdf"></embed>`;
       t.$( '#fb-template' ).empty();
       t.$( '#fb-template' ).append( obj );
 
+      P.append({
+                    page_no:  page_no,
+                    id:       `ppt-${master_num}`,
+                    type:     'ppt',
+                    url:      obj,
+                    s3:       pp,
+                    file_lnk:  ppt_id
+              });
+
+      console.log( "pp");
       ppt = null;
+
     }
-    console.log( tbo );
+    // console.log( tbo );
+    S3.collection.remove({});
     t.$('#add-powerpoint').modal('hide');
 //-----------------------------------------------------------------------------
   }

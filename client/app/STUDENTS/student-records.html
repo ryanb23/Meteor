@@ -12,7 +12,7 @@
     <div class="col-md-12">
       <div class="search-list">
         <div style="margin-left:40%;">
-          
+
           <span style="text-align:left;">
             <em>Credits Remaining To Meet Goal: &nbsp;&nbsp;</em>
               {{#if required_credits }}
@@ -22,22 +22,22 @@
               {{/if}}
           </span>
           <br />
-          
+
           <span style="text-align:left;">
             <em>Due Date:&nbsp; &nbsp;</em><strong></strong>
           </span>
           <br />
-          
+
           <span style="text-align:left;">
             <em>Total Credits Accumulated:&nbsp; &nbsp;</em><strong>{{current_credits}}</strong>
           </span>
-          
+
         </div>
         <br />
         <br />
         <br />
         <br />
-        
+
       {{#if certificates}}
       <center>
         <h2>
@@ -50,7 +50,7 @@
             {{#each this}}
             <tr>
               <th class="name">
-                <img  src="/img/icon-6.png" 
+                <img  src="/img/icon-6.png"
                       alt="">
                   &nbsp;{{name}}
               </th>
@@ -60,16 +60,16 @@
               <td>
                 Expires {{expiry}}
               </td>
-              
+
               <td>
-                
+
                 <a href="#">
                   Renew
                 </a>
-                
-                
-                <input  type="hidden" 
-                        name="id" 
+
+
+                <input  type="hidden"
+                        name="id"
                         value="{{id}}"/>
               </td>
               <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
@@ -83,7 +83,7 @@
         {{#if more}}
         <div class="more">
           <button>
-            <img  src="/img/more.png" 
+            <img  src="/img/more.png"
                   alt="">
           </button>
         </div>
@@ -100,24 +100,24 @@
           </h2>
         </center>
           <table class="table">
-            
+
             <tbody>
             {{#with degrees}}
             {{#each this}}
-            
+
               <tr>
                 <th class="name">
-                  <img  src="/img/icon-5.png" 
+                  <img  src="/img/icon-5.png"
                         alt="">
                   &nbsp;{{name}}
                 </th>
-                
+
                 <td>
-                  <input  type="hidden" 
-                          name="id" 
+                  <input  type="hidden"
+                          name="id"
                           value="{{id}}"/>
                 </td>
-                
+
               </tr>
             {{/each}}
             {{/with}}
@@ -128,7 +128,7 @@
           {{#if more}}
           <div class="more">
             <button>
-              <img  src="/img/more.png" 
+              <img  src="/img/more.png"
                     alt="">
             </button>
           </div>
@@ -137,7 +137,7 @@
           <br />
           <br />
 
-          
+
 <!--
           {{#if approved}}
           <center>
@@ -147,24 +147,24 @@
           </center>
           <table class="table">
             <thead>
-              
+
               <th></th>
-              
+
               <th>
                 Credits
               </th>
-              
+
               <th>
                 Approved on
               </th>
-              
+
             </thead>
             <tbody>
               {{#with approved}}
               {{#each this}}
               <tr>
                 <th class="name">
-                  <img  src="/img/icon-4.png" 
+                  <img  src="/img/icon-4.png"
                         alt="">
                   {{course}}
                 </th>
@@ -195,7 +195,7 @@
           {{#if more}}
           <div class="more">
             <button>
-              <img  src="/img/more.png" 
+              <img  src="/img/more.png"
                     alt="">
             </button>
           </div>
@@ -209,12 +209,12 @@
               Completed Courses
             </h2>
           </center>
-          
+
           <table class="table">
             <thead>
-              
+
               <th></th>
-              
+
               <th>
                 # of course
               </th>
@@ -224,21 +224,21 @@
               <th>
                 Completed on
               </th>
-              
+
             </thead>
-            
+
             <tbody>
               {{#with courses_completed}}
               {{#each this}}
-              
+
               <tr>
-                
+
                 <th class="name">
-                  <img  src="/img/icon-4.png" 
+                  <img  src="/img/icon-4.png"
                         alt="">
                   {{name}}
                 </th>
-                  
+
                 <td>
                   {{num}}
                 </td>
@@ -248,10 +248,10 @@
                 <td>
                   {{date_completed}}
                 </td>
-                
+
                 <td>
-                  
-                  <a href="#">
+
+                  <a class="button-restart" data-index="{{@index}}" data-id="{{link_id}}">
                     Restart
                   </a>
                   <!--
@@ -261,7 +261,7 @@
                 </td>
                 <!-- <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td> -->
               </tr>
-              
+
               {{/each}}
               {{/with}}
             </tbody>
@@ -270,12 +270,12 @@
 
           {{#if more}}
           <div class="more">
-            
+
             <button>
-              <img  src="/img/more.png" 
+              <img  src="/img/more.png"
                     alt="">
             </button>
-            
+
           </div>
           {{/if}}
 
@@ -288,49 +288,49 @@
               Current Courses
             </h3>
           </center>
-          
+
           <table class="table">
             <thead>
-              
+
               <th></th>
-              
+
               <th>
                 # of course
               </th>
-              
+
               <th>
                 Credits
               </th>
-              
+
               <th>
                 Started on
               </th>
-              
+
             </thead>
             <tbody>
               {{#with current_courses}}
               {{#each this}}
-              
+
               <tr>
-                
+
                 <th class="name">
-                  <img  src="/img/icon-4.png" 
+                  <img  src="/img/icon-4.png"
                         alt="">
                   {{name}}
                 </th>
-                
+
                 <td>
                   {{num}}
                 </td>
-                
+
                 <td>
                   {{credits}}
                 </td>
-                
+
                 <td>
                   {{started_date}}
                 </td>
-                
+
                 <td>
 -->
                   <!--
@@ -353,12 +353,12 @@
 
         {{#if more}}
         <div class="more">
-          
+
           <button>
-            <img  src="/img/more.png" 
+            <img  src="/img/more.png"
                   alt="">
           </button>
-          
+
         </div>
         {{/if}}
         <br />

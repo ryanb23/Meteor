@@ -41,7 +41,9 @@ let P           = new PageObject()
   , total
   , rtn
   , return_page
-  , editor;
+  , editor
+  , editMode
+  , isLoaded;
 
 /*=========================================================
  *  CREATED
@@ -56,7 +58,7 @@ Template.courseBuilderPage.onCreated( function() {
 
   this.rtn          = new ReactiveVar( FlowRouter.getQueryParam('rtn') );
   this.return_page  = new ReactiveVar(this.rtn.get());
-  this.page         = new ReactiveVar(1)
+  this.page         = new ReactiveVar(1);
   this.total        = new ReactiveVar(1);
   this.page.set(1);
   this.total.set(1);
@@ -203,7 +205,8 @@ Template.courseBuilderPage.onCreated( function() {
               $( '#cb-next-btn' ).prop('disabled', true );
               $( '#cb-prev-btn' ).prop('disabled', true );
 
-			       editor = CKEDITOR.appendTo( 'editor1', config, html );
+              editor = CKEDITOR.appendTo( 'editor1', config, html );
+              $('#cb-current').val(null);
               //addText( evt.pageX, evt.pageY );
               break;
           case 'g-image':
@@ -612,6 +615,7 @@ Template.courseBuilderPage.onCreated( function() {
  * RENDERED
  *========================================================*/
 Template.courseBuilderPage.onRendered( function() {
+  if(!P) P = new PageObject();
   $( '#cover' )
     .delay( 1000 )
     .fadeOut( 'slow',
@@ -632,39 +636,51 @@ Template.courseBuilderPage.onRendered( function() {
  * WE'RE HERE TO EDIT?
  */
   if (
-      FlowRouter.getQueryParam('rtn')   &&
+      // FlowRouter.getQueryParam('rtn')   &&
       FlowRouter.getQueryParam('id')    &&
       FlowRouter.getQueryParam('edit')  &&
       FlowRouter.getQueryParam('name')
      )
   {
+    editMode = true;
     let ed = FlowRouter.getQueryParam('edit')
       , nm = FlowRouter.getQueryParam('name')
       , id = FlowRouter.getQueryParam('id')
       , bc;
       
     Session.set('my_id', id);
-    
-    if ( Number(ed) == 1 ) { //WE'RE HERE TO EDIT
-    
+    if ( Number(ed) == 1) { //WE'RE HERE TO EDIT
       this.autorun(function() {
-        
-        try {
+
+        if(!isLoaded){
+          try {
+            $( '#cb-load-overlay' ).show();
             bc = BuiltCourses.find({ _id: id }).fetch()[0];
-          console.log( bc );
-          console.log( bc.pages );
+            if(bc)$( '#cb-load-overlay' ).hide();
+            $( '#course-builder-name').val(bc.cname);
+            $( '#course-builder-credits' ).val(bc.credits);
+            $( '#course-builder-percent' ).val(bc.passing_percent);
+            $( '#tags' ).val(bc.keywords);
+            P.load(bc.pages);
+            if(bc.page_num) Template.instance().total.set(bc.page_num);
+            master_num = P.size();
+            $('#cb-prev-btn').click();
+            isLoaded = true;
+
             Session.set('cinfo', {
-                              cname: bc.cname,
-                              credits: Number(bc.credits),
-                              passing_percent: Number(bc.passing_percent),
-                              keywords: bc.keywords,
-                              icon: "/img/icon-4.png",
-                              company_id: bc.company_id,
-                              creator_type: bc.creator_type,
-                              creator_id: bc.creator_id
+              cid: FlowRouter.getQueryParam('id'),
+              cname: bc.cname,
+              credits: Number(bc.credits),
+              passing_percent: Number(bc.passing_percent),
+              keywords: bc.keywords,
+              icon: '/img/icon-4.png',
+              company_id: bc.company_id,
+              creator_type: bc.creator_type,
+              creator_id: Meteor.userId()
             });
-        } catch (e) {
-          ;
+          } catch (e) {
+            ;
+          }
         }
       });//autorun
     }//if
@@ -802,10 +818,12 @@ Template.courseBuilderPage.events({
     $( '#cb-title-toolbar' ).hide();
     $( '#cb-video-toolbar' ).hide();
     $('#cb-current').val(null);
+    $('#cb-prev').val(null);
     let p   = t.page.get()
       , tt  = t.total.get()
       , chk = P.dumpPage(p);
       
+    if(!tt) tt=total;
     if ( chk == undefined ) {
       console.log('here');
       return;
@@ -875,8 +893,8 @@ Template.courseBuilderPage.events({
   'click #cb-initial-dialog'( e, t ) {
     e.preventDefault();
       // SET PAGE COUNTS
-      t.page.set( 1 );
-      t.total.set( 1 );
+      // t.page.set( 1 );
+      // t.total.set( 1 );
       let credits = t.$( '#course-builder-credits' ).val()
       , name    = t.$( '#course-builder-name'    ).val()
       , percent = t.$( '#course-builder-percent' ).val()
@@ -899,7 +917,7 @@ Template.courseBuilderPage.events({
                   );
         return;
       }
-      if ( Courses.findOne({ name: name }) != undefined )
+      if ( Courses.findOne({ name: name }) != undefined && !editMode)
       {
         Bert.alert(
                     'There is already a course with that name!',
@@ -915,7 +933,8 @@ Template.courseBuilderPage.events({
             
       if ( keys == null ) keys = [""];
       
-      Session.set('cinfo', {
+      if(!editMode)
+        Session.set('cinfo', {
                             cname: name,
                             credits: Number(credits),
                             passing_percent: Number(percent),
@@ -924,7 +943,15 @@ Template.courseBuilderPage.events({
                             company_id: cid,
                             creator_type: role,
                             creator_id: creator_id
-      });
+        });
+      else {
+        let cinfo = Session.get('cinfo');
+        cinfo.cname = name;
+        cinfo.credits = Number(credits);
+        cinfo.passing_percent = Number(percent);
+        cinfo.keywords = keys;
+        Session.set('cinfo', cinfo);
+      }
       let my_id = pp.insert({ pages: [] });
       Session.set( 'my_id', my_id );
       t.$( '#intro-modal' ).modal( 'hide' );
@@ -984,6 +1011,7 @@ Template.courseBuilderPage.events({
    *******************************************************/
   'click #cb-leave-yes'( e, t ) {
     e.preventDefault();
+    P = null;
     // ADVANCE PAGE COUNTS
     t.page.set( 1 );
     t.total.set( 1 );
@@ -1075,15 +1103,19 @@ Template.courseBuilderPage.events({
     let uname = Students.findOne( { _id: Meteor.userId() },
                                   { fullName:1 } ).fullName
       , cinfo = Session.get('cinfo'); 
-      
+
     let pobj = P.dump();
     if ( pobj.length <= 0 ) {
       Bert.alert("You can't save an EMPTY course!!", 'danger');
       return;
     }
-
-    Meteor.setTimeout(function(){
-      Meteor.call('saveBuiltCourse',  cinfo.cname,
+    console.log('pobj' + pobj);
+    console.log(cinfo);
+    let page_num = Template.instance().total.get();
+    page_num = P.dumpPage(page_num).length<=0?page_num-1:page_num;
+    // Meteor.setTimeout(function(){
+      Meteor.call('saveBuiltCourse',  cinfo.cid,
+                                      cinfo.cname,
                                       cinfo.company_id,
                                       cinfo.creator_type,
                                       cinfo.credits,
@@ -1092,32 +1124,10 @@ Template.courseBuilderPage.events({
                                       cinfo.icon,
                                       pobj,
                                       uname,
-                                      function( error, result )
-      {
-          if( error ) {
-            alert( 'Error' );
-          } else {
-            console.log( 'result is ' + result );
-            //Session.set("data", result)
-            Courses.insert({
-              _id:              result,
-              credits:          cinfo.credits,
-              name:             cinfo.cname,
-              passing_percent:  cinfo.passing_percent,
-              company_id:       [cinfo.company_id],
-              times_completed:  0,
-              icon:             cinfo.icon,
-              public:           false,
-              creator_type:     cinfo.creator_type,
-              creator_id:       cinfo.creator_id,
-              created_at:       new Date(),
-              approved:         true,
-              type:             'course',
-              isArchived:       false
-            });
-          }
-    });
+                                      cinfo.creator_id,
+                                      page_num);
     
+    console.log("cb-save");
       //-----------------------------------------------
       /*
        * IF THE COURSE CREATOR IS A TEACHER
@@ -1133,7 +1143,7 @@ Template.courseBuilderPage.events({
       // SET PAGE COUNTS
       t.page.set( 1 );
       t.total.set( 1 );
-    }, 300);
+    // }, 300);
     
     P = null;
     
@@ -1288,12 +1298,19 @@ Template.courseBuilderPage.events({
 
       //IE #txt-0
       let currentItem = t.$( '#cb-current' ).val()
+        , prevItem = t.$( '#cb-prev' ).val()
         , text        = t.$( `#${currentItem}` ).html()
         , config      = {};
+
 
       $( `#${currentItem}` ).hide();
 
       // Creates a new editor instance
+      if(editor) {
+        $( `#${prevItem}` ).show();
+        editor.destroy();
+        editor = null;
+      }
       editor = CKEDITOR.appendTo( 'editor1', config, text );
 
       //CKEDITOR.instances.editor.setData(text);
@@ -1354,7 +1371,6 @@ console.log(txt);
 		  $('#cb-text-toolbar').hide();
 
     
-      $('#cb-current').val(null);
       
       editor.focusManager.blur(true);
       editor && editor.destroy();
@@ -1364,7 +1380,7 @@ console.log(txt);
       $( '#cb-next-btn' ).prop('disabled', false );
       $( '#cb-prev-btn' ).prop('disabled', false );
 		
-		  return;
+		  // return;
 
    } else {   
       //WE'RE CREATING A NEW TEST ELEMENT
@@ -1437,7 +1453,7 @@ console.log('creating');
     $( '#cb-current' ).val('');
      pp.update( { _id: Session.get('my_id') },
               { $pull: { pages:{ id: cur} } });
-console.log( pp.find({}).fetch() );
+    console.log( pp.find({}).fetch() );
     P.print();
     $('#fb-template').css( 'border', '' );
     $( '#fb-template iframe' ).remove();
@@ -1579,7 +1595,7 @@ console.log( pp.find({}).fetch() );
   'click #cb-powerpoint-save'( e, t ) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    CBPP.cbPowerPointSave( e, t, Session.get('contentTracker') );
+    CBPP.cbPowerPointSave( e, t, t.page.get(), Session.get('contentTracker'), P, master_num++);
     t.$( '#add-powerpoint' ).modal( 'hide' );
 //---------------------------------------------------------
   },
@@ -1626,10 +1642,10 @@ console.log( pp.find({}).fetch() );
     console.log( 'pattern test = ' + rslt );
     Session.set( 'resp', rslt )
     */
-    return;
-    CBSCORM.cbScormSave( e, t );
-    Template.instance().page.set(   Template.instance().page.get()  + 1 );
-    Template.instance().total.set(  Template.instance().total.get() + 1 );
+    // return;
+    CBSCORM.cbScormSave( e, t, t.page.get(), Session.get('contentTracker'), P, master_num++ );
+    // Template.instance().page.set(   Template.instance().page.get()  + 1 );
+    // Template.instance().total.set(  Template.instance().total.get() + 1 );
     t.$( '#add-scorm' ).modal( 'hide' );
 //---------------------------------------------------------
   },

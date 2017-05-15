@@ -18,26 +18,25 @@ import '../../templates/admin/assign-courses.html';
  * ON CREATED
  *========================================================*/
 Template.assignCourses.onCreated(function() {
-
-  Tracker.autorun( () => { 
+  Tracker.autorun( () => {
     Meteor.subscribe('students');
     Meteor.subscribe('courses');
     Meteor.subscribe('departments');
     Meteor.subscribe('diplomas');
     Meteor.subscribe('certifications');
   });
-  
+
   //$("#assign-courses-cover").show();  //set-up fade-in screen
 
   Session.set('assign-toggle-cert', false );
   Session.set('assign-toggle-dip', false);
-  
+
   /********************************************************
    * MULTI-SELECT AUTOCOMPLETE COMBOBOX
    *******************************************************/
   $.getScript( '/js/select2.min.js', function() {
     $( document ).ready(function(){
-      
+
       $( '#search-courses' ).select2({
         allowClear: true
       });
@@ -47,6 +46,10 @@ Template.assignCourses.onCreated(function() {
       $( '#by-dept' ).select2({
         //allowClear: true
       });
+	  
+     $( '.select2-container' ).css("width","100%");
+     $( '.list-title h2' ).css("margin-bottom","20px");
+	  
     });
     //console.log('Assign Courses:: chosen,jquery.min.js loaded...');
   }).fail( function( jqxhr, settings, exception ) {
@@ -79,11 +82,11 @@ Template.assignCourses.helpers({
     let cours, certs, dips, ary = [];
     try {
       cours = Courses.find({ company_id: Meteor.user().profile.company_id}).fetch();
-      
+
       certs = Certifications.find({ company_id: Meteor.user().profile.company_id}).fetch();
-    
+
       dips  = Diplomas.find({ company_id: Meteor.user().profile.company_id}).fetch();
-      
+
       if ( cours ) ary.push( cours );
       if ( certs ) ary.push( certs );
       if ( dips )  ary.push( dips  );
@@ -95,7 +98,7 @@ Template.assignCourses.helpers({
       return;
     }
   },
-  
+
   dept: () => {
     try {
       return Departments.find({ company_id: Meteor.user().profile.company_id }).fetch();
@@ -103,7 +106,7 @@ Template.assignCourses.helpers({
       return;
     }
   },
-  
+
   names: () => {
     try {
       return Students.find({ company_id: Meteor.user().profile.company_id }).fetch();
@@ -111,7 +114,7 @@ Template.assignCourses.helpers({
       return;
     }
   },
-  
+
 });
 
 
@@ -126,7 +129,7 @@ Template.assignCourses.events({
    *******************************************************/
   'click .asn-course'( e, t ) {
     e.preventDefault();
-    
+
     try {
       let id  = $( e.currentTarget ).data('id');
        // , bld = $( e.currentTarget ).data('builder');
@@ -143,18 +146,18 @@ Template.assignCourses.events({
     }
 
   },
-  
-  
-  
+
+
+
   /********************************************************
    * #ASSIGN-CERT  ::(CLICK)::
    *******************************************************/
   'click #assign-cert'( e, t ) {
     e.preventDefault();
-    
+
     let tog = Session.get( 'assign-toggle-cert' );
     tog = !tog;
-    
+
     if ( tog ) {
       try {
         let cos = [], recs = [];
@@ -165,19 +168,19 @@ Template.assignCourses.events({
         for ( let j = 0, jlen = cos.length; j < jlen; j++ ) {
           recs[j] = Courses.find({ _id: cos[j] }).fetch()
         }
-        
+
         for ( let k = 0, klen = recs.length; k < klen; k++ ) {
           let li = document.createElement( 'li' );
           let a  = document.createElement( 'a'  );
-          
+
           a.href =  `/admin/dashboard/course-viewer/${Meteor.userId()}?course=${recs[k][0]._id}`;
           a.innerHTML   = recs[k][0].name;
           a.dataset.dc  = recs[k][0].credits;
           a.dataset.di  = recs[k][0]._id
-          
+
           li.appendChild( a );
           document.getElementById('cert-courses').appendChild( li );
-          
+
         }
         Session.set( 'assign-toggle-cert', tog );
       } catch(e) {
@@ -188,22 +191,22 @@ Template.assignCourses.events({
       $( '#cert-courses' ).empty();
     }
   },
-  
-  
-  
+
+
+
   /********************************************************
    * #ASSIGN-DIPLOMA  ::(CLICK)::
    *******************************************************/
   'click #assign-diploma'( e, t ) {
     e.preventDefault();
-    
+
     let tog = Session.get('assign-toggle-dip');
     tog = !tog;
-    
+
     if ( tog ) {
       try {
         let cos = [], recs = [];
-        
+
         let dips    = Diplomas.find({ company_id: Meteor.user().profile.company_id}).fetch();
         for ( let i = 0, ilen = dips.length; i < ilen; i++ ) {
           cos = (dips[i].courses);
@@ -211,18 +214,18 @@ Template.assignCourses.events({
         for ( let j = 0, jlen = cos.length; j < jlen; j++ ) {
           recs[j] = Courses.find({ _id: cos[j] }).fetch()
         }
-        
+
         for ( let k = 0, klen = recs.length; k < klen; k++ ) {
           let li         = document.createElement( 'li' );
           let a          = document.createElement( 'a'  );
-  
+
           a.href         = `/admin/dashboard/course-viewer/${Meteor.userId()}?&course=${recs[k][0]._id}`;
           a.innerHTML    = recs[k][0].name;
           a.dataset.dc   = recs[k][0].credits;
           a.dataset.di   = recs[k][0]._id;
-          
+
           li.appendChild(a);
-          
+
           document.getElementById('dip-courses').appendChild( li );
         }
         Session.set('assign-toggle-dip', tog);
@@ -234,9 +237,9 @@ Template.assignCourses.events({
       $( '#dip-courses' ).empty();
     }
   },
-  
-  
-   
+
+
+
   /*
    * #SEARCH-COURSES  ::(CHANGE)::
    * scroll to selected search result
@@ -267,7 +270,7 @@ Template.assignCourses.events({
     t.$( '.add-course' ).attr( 'data-credits', $( e.currentTarget ).data( 'credits' ));
     t.$( '.add-course' ).attr( 'data-name', $( e.currentTarget ).data( 'name' ));
     t.$( '.add-course' ).attr( 'data-icon', $( e.currentTarget ).data( 'icon' ));
-    
+
     let typ = $( e.currentTarget ).data('type');
     if ( typ == '' || typ == undefined || ! typ ) {
       t.$( '.add-course' ).attr( 'data-type', 'Courses');
@@ -278,22 +281,22 @@ Template.assignCourses.events({
     //SELECTS
     t.$( '#assign-by-dept-radio' ).val( false ).trigger( 'change' );
     t.$( '#assign-by-dept-radio' ).attr('disabled',false);
-    
+
     t.$( '#all-students-radio' ).val(false).trigger( 'change' );
     t.$( '#all-students-radio' ).attr('disabled',false);
-    
+
     t.$( '#assign-by-dept' ).css("background-position", "0% 0%");
     t.$( '#assign-by-dept' ).attr('disabled',false);
-    
+
     t.$( '#all-students' ).css("background-position", "0% 0%");
     t.$( '#all-students' ).attr('disabled',false);
-    
+
     t.$( "#by-dept" ).val( null ).trigger( "change" );           // department name(s)
     t.$( '#by-dept' ).attr('disabled',false);
-    
+
     t.$( "#by-name" ).val( null ).trigger( "change" );           // student name(s)
     t.$( '#by-name' ).attr('disabled',false);
-    
+
     t.$( '#assign-modal' ).modal( 'show' );
 //-------------------------------------------------------------------
   },
@@ -318,7 +321,7 @@ Template.assignCourses.events({
       , assignByDept  = $( '#by-dept' ).val()             // department name(s)
       , assignByName  = $( '#by-name' ).val()             // student name(s)
       , as            = $( '#all-students-radio' ).val(); // all-students radio
-      
+
     if ( assignByName != null ) {
       abn = true;
     }
@@ -326,37 +329,38 @@ Template.assignCourses.events({
     if ( assignByDept != null ) {
       abd = true;
     }
-    
+
     type    = type.slice( 0 );
- 
-      let o   = { id: idx, 
-                  name: nm, 
-                  credits: cr, 
-                  num: 1, 
-                  icon: ic, 
-                  type: type, 
-                  date_assigned: new Date() 
+
+      let o   = { id: idx,
+                  name: nm,
+                  credits: cr,
+                  num: 1,
+                  icon: ic,
+                  type: type,
+                  date_assigned: new Date()
                 };
-    
+
+
     /*-----------------------------------------------------
      * ALL STUDENTS
      *---------------------------------------------------*/
     if ( as == true ) {
 
-    //let url = 'https://collective-university-nsardo.c9users.io/login';
-    //let text_wo_due_date  = `Hello ${s[i].fname},\n\nYou've been enrolled in ${nm}.\n\nYou can log in here: ${url}\nUser: s[i].email\nYour password remains the same.`;
-    //let text_w_due_date   = `Hello ${s[i].fname},\n\nYou've been enrolled in ${nm}.  Please complete this by:  ${assignDueDate}.\n\nYou can log in here: ${url}\nUser: s[i].email\nYour password remains the same.`;
+      let url = 'https://collective-university-nsardo.c9users.io/login';
+      let text_wo_due_date  = `Hello ${s[i].fname},\n\nYou've been enrolled in ${nm}.\n\nYou can log in here: ${url}\nUser: ${s[i].email}\nYour password remains the same.`;
+      // let text_w_due_date   = `Hello ${s[i].fname},\n\nYou've been enrolled in ${nm}.  Please complete this by:  ${assignDueDate}.\n\nYou can log in here: ${url}\nUser: s[i].email\nYour password remains the same.`;
+
 
       let s     = Students.find({ company_id: Meteor.user().profile.company_id }).fetch();
       let slen  = s.length;
 
       for ( let i = 0; i < slen; i++ ) {
         if ( s[i].role == 'admin' ) continue;
-        Students.update({ _id: s[i]._id },{ $push:{ assigned_courses: o } });
-
-        //Meteor.call('sendEmail', s[i].email, 'admin@collectiveuniversity.com', 'Assigned Course', text_wo_due_date);
+        Meteor.call('students.assignCourse', s[i]._id, o);
+        Meteor.call('sendEmail', s[i].email, 'admin@collectiveuniversity.com', 'Assigned Course', text_wo_due_date);
       }
-      
+
       Bert.alert( `${type} has been assigned`, 'success', 'growl-top-right' );
 
     /*-----------------------------------------------------
@@ -382,13 +386,24 @@ Template.assignCourses.events({
       for ( let i = 0; i < slen; i++ ) { //number of students
         for ( let j = 0; j < alen; j++ ) { //number of names assigned
           if ( s[i].role == 'admin' ) continue; //don't assign to admin
+          if (!(typeof s[i].fullName === 'string' || s[i].fullName instanceof String)) continue;
           if ( (s[i].fullName).indexOf( assignByName[j] ) != -1 ) {
 
-            Students.update({ _id: s[i]._id },{ $push:{ assigned_courses: o } });
+            let url = 'https://collective-university-nsardo.c9users.io/login';
+            let text_wo_due_date  = `Hello ${s[i].fname},\n\nYou\'ve been enrolled in ${nm}.\n\n
+            You can log in here: ${url}\nUser: ${s[i].email}\nYour password remains the same.`;
+            Meteor.call('students.assignCourse', s[i]._id, o , function(err) {
+              if(err) console.log(err.reason);
+              else {
+                Meteor.call('sendEmail', s[i].email, 'admin@collectiveuniversity.com',
+                 'Assigned Course', text_wo_due_date);
+              }
+            });
+            break;
           }
         }
       }
-      
+
       Bert.alert( `${type} has been assigned`, 'success', 'growl-top-right' );
 
 
@@ -413,16 +428,25 @@ Template.assignCourses.events({
         for ( let j = 0; j < dlen; j++ ) {
           if ( s[i].role == 'admin') continue;
           if ( (s[i].department).indexOf( assignByDept[j] ) != -1 ) {
-            Students.update( { _id: s[i]._id },{ $push:{ assigned_courses: o } });
+            let url = 'https://collective-university-nsardo.c9users.io/login';
+            let text_wo_due_date  = `Hello ${s[i].fname},\n\nYou\'ve been enrolled in ${nm}.\n\n
+            You can log in here: ${url}\nUser: ${s[i].email}\nYour password remains the same.`;
+            Meteor.call('students.assignCourse', s[i]._id, o , function(err) {
+              if(err) console.log(err.reason);
+              else {
+                Meteor.call('sendEmail', s[i].email, 'admin@collectiveuniversity.com',
+                 'Assigned Course', text_wo_due_date);
+              }
+            });
           }
         }
       }
-      
+
       Bert.alert( `${type} has been assigned`, 'success', 'growl-top-right' );
 
 
     } else {
-      
+
       Bert.alert( "You MUST select one of:\n 'all students', \n'names', or \n'departments'",
                   'danger' );
       return;
@@ -456,14 +480,14 @@ Template.assignCourses.events({
 
     t.$( '#all-students-radio' ).attr('disabled',false);
     t.$( '#all-students-radio' ).val(true).trigger("change");
-    
+
     t.$( '#all-students' ).css("background-position", "0% 100%");
     t.$( '#assign-by-dept' ).css("background-position", "0% 0%");
-    
+
     t.$( '#assign-by-dept-radio' ).val(false).trigger('change');
     t.$( '#by-dept' ).val(null).trigger("change"); //empty select2
     t.$( '#by-dept' ).attr( 'disabled', true );
-    
+
     t.$( '#by-name' ).val(null).trigger("change"); //empty select2
     t.$( '#by-name' ).attr('disabled',true);
 //-----------------------------------------------------------------
@@ -475,59 +499,59 @@ Template.assignCourses.events({
    *******************************************************/
   'click #assign-by-dept'( e, t ) {
     e.preventDefault();
-    
+
     $( '#by-dept' ).attr('disabled',false);
-    
-    if ( $( '#by-dept' ).val() != null ) 
+
+    if ( $( '#by-dept' ).val() != null )
       console.log( 'DEBUG: ' + $( '#by-dept' ).val() );
-    
+
     t.$( '#assign-by-dept' ).css("background-position", "0% 100%");
     t.$( '#all-students' ).css("background-position", "0% 0%");
 
     $( '#assign-by-dept-radio' ).attr( 'disabled', false );
     $( '#assign-by-dept-radio' ).val(true).trigger("change");
     $( '#by-dept' ).attr('disabled',false);
-    
+
     $( '#all-students-radio' ).val(false).trigger("change");
     $( '#all-students-radio' ).attr('disabled',true);
-    
+
     $( '#by-name' ).val(null).trigger("change");
     $( '#by-name' ).attr('disabled',true);
 //-----------------------------------------------------------------
   },
-  
-  
+
+
   /********************************************************
    * #WRAP-BY-NAME  ::(CLICK)::
    *******************************************************/
   'click #wrap-by-name'( e, t ){
     e.preventDefault();
-    
+
     $( '#by-name' ).attr('disabled',false);
-    
+
     t.$( '#all-students' ).css("background-position", "0% 0%");
     t.$( '#assign-by-dept' ).css("background-position", "0% 0%");
-    
+
     $( '#assign-by-dept-radio' ).val( false ).trigger( 'change' );
     $( '#assign-by-dept-radio' ).attr( 'disabled', true );
     $( '#by-dept' ).val(null).trigger("change");
     $( '#by-dept' ).attr('disabled',true);
-    
+
     $( '#all-students-radio').val(false).trigger('change');
     $( '#all-students-radio').attr('disabled', true);
     $( '#all-students').attr('disabled',true);
 //-----------------------------------------------------------------
   },
-  
-  
+
+
   /********************************************************
    * #BY-NAME ( ASSIGN-BY-NAME )  ::(click)::
    *******************************************************/
   'change #by-name'( e, t ) {
     e.preventDefault();
-    
+
     if ( $( '#by-name' ).val() == null ) return;
-    
+
     if ( $( '#by-name' ).val() != null ) {
       console.log( 'DEBUG: ' + $( '#by-name' ).val() );
     }

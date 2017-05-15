@@ -94,6 +94,17 @@
         $( '#cb-media-toolbar').hide();
         $( '#cb-video-toolbar').hide();
         
+        
+      });//onmouseup
+
+      $( `#tit-${master_num}` ).on( "dragstop", function(){
+        e.preventDefault();
+        
+        let str = $( `#tit-${master_num}` ).text().trim()
+          , id  = `tit-${master_num}`
+          , idx = P.indexOf( `tit-${master_num}` )
+        
+        
         //P.remove( `tit-${master_num}` );
         P.removeAt( idx );
         P.insert( idx, { 
@@ -111,7 +122,7 @@
                       textDecoration:   $( `#tit-${master_num}` ).css('text-decoration') || 'none',
                       opacity:          $( `#tit-${master_num}` ).css('opacity') || 1
                   });
-      });//onmouseup
+      });//ondragstop
 
     })( master_num, my_id );//anon function
 //---------------------------------------------------------------------------

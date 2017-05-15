@@ -21,7 +21,7 @@ Template.adminDashboard.onCreated( function() {
   $( '#cover' ).show();
 
   Tracker.autorun(() => {
-    Meteor.subscribe('students');
+    // Meteor.subscribe('students');
   });
 });
 //---------------------------------------------------------
@@ -37,7 +37,6 @@ Template.adminDashboard.onRendered( function() {
     $( "#cover" ).hide();
     $( ".dashboard-header-area" ).fadeIn( 'slow' );
   });
-  
   //console.log( moment().date() ) ; //day number
 
 });
@@ -53,7 +52,6 @@ Template.adminDashboard.helpers({
  foo() {
     let s   = Students.find({ _id: Meteor.userId(), }).fetch()
       , d   = new Date();
-    
     if ( moment(s.start_date).add(14, 'days') == moment(d) ) {
       FlowRouter.go( '/trial-ended' );
     }

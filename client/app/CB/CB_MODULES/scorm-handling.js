@@ -39,8 +39,35 @@ http://scorm.academy-smart.org.ua/player/listStudentCourses/company_id/user_id
    * id = add-scorm
    * scorm dialog
    */
-  export function cbScormSave( e, t, tbo, contentTracker ) {
+
+  let pp    = '',
+    scorm_id = '';
+  export function cbScormSave(e, t, page_no, tbo, P, master_num) {
     e.preventDefault();
+
+    if ( pp ) {
+      Bert.alert('Please stand-by. Processing', 'success' );
+
+      $( '#cb-video-toolbar' ).show();
+      t.$('#cb-current').val( `scorm-${master_num}` );
+      let obj =
+      `<a id="scorm-${master_num}" href="${pp}" target="_self">Click here to Download file</a>`;
+      // `<embed width="100%" height="600" src="${pp}" ></embed>`;
+      t.$( '#fb-template' ).empty();
+      t.$( '#fb-template' ).append( obj );
+
+      P.append({
+                    page_no:  page_no,
+                    id:       `scorm-${master_num}`,
+                    type:     'scorm',
+                    url:      obj,
+                    s3:       pp,
+                    file_lnk:  scorm_id
+              });
+      pp = null;
+    }
+    // console.log( tbo );
+    // t.$('#add-scorm').modal('hide');
 
     return;
     
@@ -76,4 +103,37 @@ http://scorm.academy-smart.org.ua/player/listStudentCourses/company_id/user_id
       $('#course-builder-scorm').val('')
       return;
     }
+
+    let fil = t.$( '#course-builder-scorm' )[0].files
+      , sf  = t.$( '#course-builder-scorm' ).data('subfolder');
+
+    S3.upload(
+              {
+                files:  fil,  //files,
+                path:   sf    //"subfolder"
+              },
+
+              function( e, r ){
+                console.log( r.secure_url );
+                //delete r._id;
+                pp    = r.secure_url;
+
+                scorm_id =  Meteor.call('addFileData', 'scorm',
+                                result.loaded,
+                                result.percent_uploaded,
+                                result.relative_url,
+                                result.secure_url,
+                                result.status,
+                                result.total,
+                                result.uploader,
+                                result.url,
+                                result.file,
+                                moment().format()
+                         );
+
+                S3.collection.remove({});
+
+              }
+    );
+
   }

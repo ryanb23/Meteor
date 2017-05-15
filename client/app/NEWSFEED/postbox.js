@@ -23,8 +23,8 @@ Template.postbox.onCreated(function() {
   Session.setDefault( 'photoClicked', false );
   
   Tracker.autorun(() => {
-    Meteor.subscribe('newsfeeds');
-    Meteor.subscribe('students');
+    // Meteor.subscribe('newsfeeds');
+    // Meteor.subscribe('students');
   });
   
 });

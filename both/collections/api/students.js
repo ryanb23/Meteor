@@ -5,6 +5,7 @@
 import { Mongo } from 'meteor/mongo';
 
 export const Students = new Mongo.Collection("students");
+
 /*
 Students.allow({
   insert: () => true,
@@ -157,8 +158,8 @@ let StudentsSchema = new SimpleSchema({
     type: String,
     optional:ntrue
   }
-  
- 
+
+
 });
 
 Students.attachSchema( StudentsSchema );

@@ -47,6 +47,7 @@ Template.library.onCreated(function() {
         allowClear: true,
         placeholder: 'Search Courses...'
       });
+	  $( '.select2-container' ).css("width","100%");
     });
     //console.log('library:: chosen,jquery.min.js loaded...');
   }).fail( function(jqxhr, settings, exception ) {

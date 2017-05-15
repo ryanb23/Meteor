@@ -22,11 +22,11 @@ Template.adminCreditRequests.onCreated( function() {
 
   //$('#cover').show();
 
-  Tracker.autorun( () => { 
-    Meteor.subscribe('newsfeeds');
-    Meteor.subscribe('students');
+  Tracker.autorun( () => {
+    // Meteor.subscribe('newsfeeds');
+    // Meteor.subscribe('students');
   });
-  
+
   $.getScript( '/bower_components/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js', function() {
       //console.log('AdminCreditRequest:: bootstrap-dialog loaded...');
   }).fail( function( jqxhr, settings, exception ) {
@@ -108,41 +108,43 @@ Template.adminCreditRequests.events({
               action: function( dialog ) {
                 let credits     = parseInt( $( '#credits' ).val().trim() );
                   if ( _.isNaN(credits) ) {
-                    BootstrapDialog.confirm('By leaving without adding credit, no credit will be posted.', function(result){
-                      if(result) {
-                        console.log('in true');
-                        dialog.close()
-                      }else {
-                        console.log('in false')
-                      }
-                    });
+                    Bert.alert('Please enter the number of credits', 'danger');
                   } else {
                     let credits     = parseInt( $( '#credits' ).val().trim() );
                     let tot_credits = credits + cur_cred;
-          
-                    Students.update({ _id: student},
-                                    {
-                                      $set: { current_credits: tot_credits },
-                                      $inc: { compl_courses_cnt: 1 },
-                                      $push:{ approved_courses: { course:option, credits:credits, date: new Date() }}
-                                    });
-  
-                    Newsfeeds.remove({ _id: recordId });                    
-                    
-                    dialog.close();
 
-                    Meteor.setTimeout(function() {
-                      FlowRouter.go( 'admin-dashboard', { _id: Meteor.userId() });
-                      Bert.alert( `Student assigned ${credits} credits for training.`, 'success');
-                    }, 1500);
-                  } 
+                    Meteor.call('students.approveCourse', {
+                      studentId: student,
+                      totalCredits: tot_credits,
+                      option,
+                      credits,
+                    }, (err) => {
+                      if (err) {
+                        console.log('Error: failed to add credit', err);
+                        // TODO: invoke Bert error message
+                        Bert.alert('Failed to assigned credits.', 'danger');
+                      } else {
+                        Newsfeeds.remove({ _id: recordId });
+                        FlowRouter.go('admin-dashboard', { _id: Meteor.userId() });
+                        Bert.alert( `Student assigned ${credits} credits for training.`, 'success');
+                      }
+                    });
+                    dialog.close();
+                  }
               }
       },
       {
               label: 'CANCEL',
               cssClass: 'btn-success',
               action: function( dialog ) {
-                   
+                BootstrapDialog.confirm('By leaving without adding credit, no credit will be posted.', function(result){
+                  if(result) {
+                    console.log('in true');
+                    dialog.close()
+                  }else {
+                    console.log('in false')
+                  }
+                });
               }
       }]//Buttons
     });

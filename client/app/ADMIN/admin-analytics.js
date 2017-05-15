@@ -1,11 +1,14 @@
 import { Students }   from '../../../both/collections/api/students.js';
 import { Courses }   from '../../../both/collections/api/courses.js';
+import { Companies }   from '../../../both/collections/api/companies.js';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 Tracker.autorun(() => {
   Meteor.subscribe('students');
   Meteor.subscribe('courses');
+  Meteor.subscribe('companies');
 });
+
 
 const rangeStart = new ReactiveVar(moment().subtract(1, 'months').toDate());
 const rangeEnd = new ReactiveVar(new Date());
@@ -41,9 +44,17 @@ Template.analytics.onRendered(() => {
 });
 
 Template.analytics.helpers({
+  renderCharts() {
+    if (scriptsLoaded.get()) {
+      renderCourseChart();
+      renderPerformersChart();
+      renderOverdueChart();
+      renderCompletedCreditsChart();
+    }
+  },
   tableSettings() {
     return {
-      collection: Students.find({}),
+      collection: Students.find({ company_id: Meteor.user().profile.company_id }),
       rowsPerPage: 10,
       showFilter: true,
       fields: [
@@ -76,11 +87,6 @@ Template.analytics.helpers({
         },
       ],
     };
-  },
-  renderCharts() {
-    if (scriptsLoaded.get()) {
-      renderCharts();
-    }
   },
 });
 
@@ -129,16 +135,14 @@ function getScript(urls, index = 0, ck = () => {}) {
   return ck();
 }
 
-function renderCharts() {
-  renderCourseChart();
-  renderPerformersChart();
-  renderOverdueChart();
-  renderCompletedCreditsChart();
-}
-
 function renderCourseChart() {
+  const user = Meteor.user();
+  if (!user || !user.profile) {
+    return;
+  }
+  const companyId = user.profile.company_id;
   const MAX_COURSES = 6;
-  const courses = Courses.find({}, {
+  const courses = Courses.find({ company_id: companyId }, {
     limit: MAX_COURSES,
     sort: { times_completed: -1 },
   }).fetch();
@@ -173,12 +177,67 @@ function renderCourseChart() {
 
 function renderPerformersChart() {
   const MAX_PERFORMERS = 5;
-  const performers = Students.find({}, {
+  const performers = Students.find({ company_id: Meteor.user().profile.company_id }, {
     limit: MAX_PERFORMERS,
     sort: {
       current_credits: -1,
     },
   }).fetch();
+  //
+  // console.log('performers: ', performers);
+  //
+  // const start = moment(rangeStart.get()).startOf('day').toDate();
+  // const end = moment(rangeEnd.get()).endOf('day').toDate();
+  // const dataProvider = [];
+  // const dateFormat = 'YYYY-MM-DD';
+  // while(start.diff(end, 'days') < 1) {
+  //   const startOfDay = start.startOf('day').toDate();
+  //   const endOfDay = start.endOf('day').toDate();
+  //   const students = Students.find({
+  //      company_id: Meteor.user().profile.company_id,
+  //     'courses_completed.date_completed': {
+  //       $gte: startOfDay,
+  //       $lte: endOfDay,
+  //     },
+  //   }).fetch();
+  //
+  //   start.add(1, 'days');
+  // }
+
+  // console.log('start: ', start);
+  // console.log('end: ', end);
+  //
+  // const students = Students.find({
+  //   company_id: Meteor.user().profile.company_id,
+  //   $or: [
+  //     {
+  //       'courses_completed.date_completed': {
+  //         $gte: start,
+  //         $lte: end,
+  //       },
+  //     }, {
+  //       'approved_courses.date_completed': {
+  //         $gte: start,
+  //         $lte: end,
+  //       },
+  //     }, {
+  //       'completed_trainings.date_completed': {
+  //         $gte: start,
+  //         $lte: end,
+  //       },
+  //     },
+  //   ],
+  // }).fetch();
+  //
+  // const performers = students.map({ fullName, current_credits, avatar } => {
+  //   return {
+  //     name: fullName,
+  //     credits: current_credits,
+  //     avatar,
+  //     color: getRandomColor(),
+  //   }
+  // })
+  // return;
   AmCharts.makeChart('performersChart', {
     'type': 'serial',
     'theme': 'light',
@@ -220,10 +279,23 @@ function renderPerformersChart() {
 }
 
 function renderOverdueChart() {
-  const overdueCount = Students.find({
-    '$where': 'this.required_credits > this.current_credits',
-  }).count();
-  const upToDateCount = Students.find({}).count() - overdueCount;
+  const { creditsRequired, required_credits, frequency } = Companies.findOne(Meteor.user().profile.company_id);
+  let upToDateCount = 100;
+  let overdueCount = 0;
+  if (creditsRequired && required_credits > 0) {
+    const months = frequency === 'quarterly' ? 3 : 12;
+    const start = new Date();
+    const end = moment(new Date()).subtract(months, 'month').toDate();
+    const students = Students.find({
+      company_id: Meteor.user().profile.company_id,
+    }).fetch();
+    students.forEach(student => {
+      if (student.current_credits < required_credits) {
+        overdueCount++;
+      }
+    });
+    upToDateCount = students.length - overdueCount;
+  }
   AmCharts.makeChart('overdueChart', {
     'type': 'pie',
     'theme': 'light',
@@ -257,6 +329,7 @@ function renderCompletedCreditsChart() {
     const startOfDay = start.startOf('day').toDate();
     const endOfDay = start.endOf('day').toDate();
     const students = Students.find({
+      company_id: Meteor.user().profile.company_id,
       'courses_completed.date_completed': {
         $gte: startOfDay,
         $lte: endOfDay,

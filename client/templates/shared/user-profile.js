@@ -11,9 +11,9 @@ let ig  = '';
 
 Template.userProfile.onCreated(function() {
   Tracker.autorun( () => {
-    Meteor.subscribe('students');
-    Meteor.subscribe('newsfeeds');
-    Meteor.subscribe('comments');
+    // Meteor.subscribe('students');
+    // Meteor.subscribe('newsfeeds');
+    // Meteor.subscribe('comments');
   });
 });
 

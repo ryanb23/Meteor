@@ -27,16 +27,27 @@ Companies.deny({
 
 let CompaniesSchema = new SimpleSchema({
   'name': {
-    type: String
+    type: String,
   },
   'logo': {
-    type: String
+    type: String,
   },
   'insert_code': {
     type: String,
-    optional: true
-  }
-  
+    optional: true,
+  },
+  'creditsRequired': {
+    type: Boolean,
+    optional: true,
+  },
+  'required_credits': {
+    type: Number,
+    optional: true,
+  },
+  'frequency': {
+    type: String,
+    optional: true,
+  },
 });
 
 Companies.attachSchema( CompaniesSchema );

@@ -14,11 +14,13 @@ export class CreateDOM {
     this.texts  = [];
     this.images = [];
     this.pdfs   = [];
+    this.ppts   = [];
+    this.scorms   = [];
     this.videos = [];
     this.markup = [];
   }
   
-  makeTitle( obj ){
+  makeTitle( obj , isviewer){
 	  
 	//Rahman: changes on makeTitle for course viewer alignment fixes for mobile & desktop
   //nfs: changes media selector match (experimental)
@@ -34,7 +36,12 @@ export class CreateDOM {
                               ${obj.text}
                           </span>`);
                           
-        this.markup.push(
+        if(isviewer)          
+          this.markup.push(
+                          `$('#${obj.id}').css({ 'margin-bottom':'10px' });`
+                          );
+        else
+          this.markup.push(
                           `$('#${obj.id}').css({ 'margin-bottom':'10px' });`,
                           `$('#${obj.id}').draggable({ containment: "#fb-template", scroll: false });`
                         );				
@@ -54,15 +61,21 @@ export class CreateDOM {
                           ${obj.text}
                       </span>`);
                       
-    this.markup.push(
-                      `$('#${obj.id}').css({ top: ${obj.top}, left: ${obj.left} });`,
+
+    if(isviewer)              
+      this.markup.push(
+                      `$('#${obj.id}').css({ top: "${obj.top}", left: "${obj.left}" });`
+                    );
+    else
+      this.markup.push(
+                      `$('#${obj.id}').css({ top: "${obj.top}", left: "${obj.left}" });`,
                       `$('#${obj.id}').draggable({ containment: "#fb-template", scroll: false });`
                     );
 			
     }
   }
   
-  makeText( obj ){
+  makeText( obj , isviewer){
     try {
       if ( obj && obj.offset == undefined ) {
         obj.offset = $(`#${obj.id}`).offset()
@@ -84,7 +97,12 @@ export class CreateDOM {
                           ${obj.text}
                       </span>`);
                       
-        this.markup.push(
+        if(isviewer)           
+          this.markup.push(
+                      `$('#${obj.id}').css({ 'margin-bottom':'10px' });`
+                    );      
+        else
+          this.markup.push(
                       `$('#${obj.id}').css({ 'margin-bottom':'10px' });`,
                       `$('#${obj.id}').draggable({ containment: "#fb-template", scroll: false });`
                     );			
@@ -104,8 +122,14 @@ export class CreateDOM {
                       </span>`);
  console.log( `${obj.top}` );
  console.log( `${obj.left}` );
-      this.markup.push(
-                      `$('#${obj.id}').css({ top: ${obj.top}, left: ${obj.left} });`,
+
+      if(isviewer)
+        this.markup.push(
+                      `$('#${obj.id}').css({ top: "${obj.top}", left: "${obj.left}" });`
+                    );
+      else
+        this.markup.push(
+                      `$('#${obj.id}').css({ top: "${obj.top}", left: "${obj.left}" });`,
                       `$('#${obj.id}').draggable({ containment: "#fb-template", scroll: false });`
                     );
 					
@@ -115,7 +139,7 @@ export class CreateDOM {
 //Rahman: changes on makeText for course viewer alignment fixes for mobile & desktop
 //nfs: changes media selector match (experimental)
     
-  makeImage( obj ) {
+  makeImage( obj , isviewer) {
     if (window.matchMedia("(max-width: 768px)").matches) {
      
 		  this.images.push( `
@@ -125,10 +149,16 @@ export class CreateDOM {
                                                   height:${obj.height}px;
                                                   background-size:cover;">
                        </div>`);
-      this.markup.push(
+      if(isviewer)
+        this.markup.push(
+                      `$('#${obj.id}').css({ 'margin-bottom':'10px' });`
+                    );
+      else
+        this.markup.push(
                       `$('#${obj.id}').css({ 'margin-bottom':'10px' });`,
                       `$('#${obj.id}').draggable({ containment: "#fb-template", scroll: false });`,
-                      `$('#${obj.id}').resizable({ autoHide: false, aspectRatio: true, containment: "#fb-template" });`
+                      `$('#${obj.id}').resizable({ containment: "#fb-template" });`
+                      // `$('#${obj.id}').resizable({ autoHide: false, aspectRatio: true, containment: "#fb-template" });`
                     );
 
     } else {
@@ -143,10 +173,16 @@ export class CreateDOM {
                                                   height:${obj.height}px;
                                                   background-size:cover;">
                        </div>`);
-      this.markup.push(
-                      `$('#${obj.id}').css({ top: ${obj.offset.top}, left: ${obj.offset.left} });`,
+      if(isviewer)
+        this.markup.push(
+                      `$('#${obj.id}').css({ top: "${obj.top}", left: "${obj.left}" });`
+                      );
+      else
+        this.markup.push(
+                      `$('#${obj.id}').css({ top: "${obj.top}", left: "${obj.left}" });`,
                       `$('#${obj.id}').draggable({ containment: "#fb-template", scroll: false });`,
-                      `$('#${obj.id}').resizable({ autoHide: false, aspectRatio: true, containment: "#fb-template" });`
+                      `$('#${obj.id}').resizable({ containment: "#fb-template" });`
+                      // `$('#${obj.id}').resizable({ autoHide: false, aspectRatio: true, containment: "#fb-template" });`
                     );
 					
       }
@@ -154,25 +190,41 @@ export class CreateDOM {
 
   makeVideo( obj ) {
     this.videos.push( obj.url );
+    $('#cb-current').val(`${obj.id}`);
   }
   makePdf( obj ) {
     this.pdfs.push( obj.url );
+    $('#cb-current').val(`${obj.id}`);
+  }
+  makePpt( obj ) {
+    this.ppts.push( obj.url );
+    $('#cb-current').val(`${obj.id}`);
+  }
+  makeScorm( obj ) {
+    this.scorms.push( obj.url );
+    $('#cb-current').val(`${obj.id}`);
   }
 
-  buildDOM() {
+  buildDOM(isviewer) {
     for ( let i = 0, ilen = this.domObj.length; i < ilen; i++ ) {
       switch( this.domObj[i].type ) {
         case 'title':
-          this.makeTitle( this.domObj[i] );
+          this.makeTitle( this.domObj[i], isviewer );
           break;
         case 'text':
-          this.makeText( this.domObj[i] );
+          this.makeText( this.domObj[i], isviewer );
           break;
         case 'image':
-          this.makeImage( this.domObj[i] );
+          this.makeImage( this.domObj[i], isviewer );
           break;
         case 'pdf':
           this.makePdf( this.domObj[i] );
+          break;
+        case 'ppt':
+          this.makePpt( this.domObj[i] );
+          break;
+        case 'scorm':
+          this.makeScorm( this.domObj[i] );
           break;
         case 'video':
           this.makeVideo( this.domObj[i] );
@@ -195,6 +247,12 @@ export class CreateDOM {
     }
     for ( let n = 0, nlen = this.videos.length; n < nlen; n++ ) {
       ret_str += this.videos[n];
+    }
+    for ( let m = 0, mlen = this.ppts.length; m < mlen; m++ ) {
+      ret_str += this.ppts[m];
+    }
+    for ( let m = 0, mlen = this.scorms.length; m < mlen; m++ ) {
+      ret_str += this.scorms[m];
     }
     return [ret_str, this.markup];
   }

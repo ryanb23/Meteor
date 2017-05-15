@@ -13,8 +13,11 @@ import { Diplomas }       from '../both/collections/api/diplomas.js';
 import { Departments }    from '../both/collections/api/departments.js';
 import { Images }         from '../both/collections/api/images.js';
 import { Pdfs }           from '../both/collections/api/pdfs.js';
+import { PowerPoints }    from '../both/collections/api/powerpoints.js';
 import { Tests }          from '../both/collections/api/tests.js';
 import { Scorms }         from '../both/collections/api/scorms.js';
+import { TimeZones }         from '../both/collections/api/timezones.js';
+
 
 Meteor.publish("userRoles", function() {
   if ( this.userId ) {
@@ -39,12 +42,12 @@ Meteor.publish("company_id", function( id ){
   return Students.find({ _id: id},{fields:{company_id:1}} );
 });
 
-Meteor.publish( 'builtCourses', function() { 
-  return BuiltCourses.find({});  
+Meteor.publish( 'builtCourses', function() {
+  return BuiltCourses.find({});
 });
 
-Meteor.publish( 'events', function() { 
-  return Events.find({}); 
+Meteor.publish( 'events', function() {
+  return Events.find({});
 });
 
 Meteor.publish( 'certifications', function(){
@@ -52,11 +55,17 @@ Meteor.publish( 'certifications', function(){
 });
 
 Meteor.publish( 'comments', function(){
+  console.log('comments');
   return Comments.find({});
 });
 
 Meteor.publish( 'companies', function(){
+  console.log('companies');
   return Companies.find({});
+});
+
+Meteor.publish( 'singleCompany', companyId => {
+  return Companies.find({ _id: companyId });
 });
 
 Meteor.publish( 'courses', function(){
@@ -67,6 +76,8 @@ Meteor.publish( 'departments', function(){
   return Departments.find({});
 });
 
+Meteor.publish( 'companyDepartments', companyId => Departments.find({ company_id: companyId }));
+
 Meteor.publish( 'diplomas', function(){
   return Diplomas.find({});
 });
@@ -76,6 +87,7 @@ Meteor.publish( 'images', function(){
 });
 
 Meteor.publish( 'newsfeeds', function(){
+  console.log('newsfeed');
   return Newsfeeds.find({});
 });
 
@@ -84,7 +96,7 @@ Meteor.publish( 'pdfs', function(){
 });
 
 Meteor.publish( 'powerpoints', function(){
-  return Powerpoints.find({});
+  return PowerPoints.find({});
 });
 
 Meteor.publish( 'scorms', function(){
@@ -92,8 +104,15 @@ Meteor.publish( 'scorms', function(){
 });
 
 Meteor.publish( 'students', function(){
+  console.log('student');
   return Students.find({});
 });
+
+Meteor.publish( 'timezones', function(){
+  return TimeZones.find({});
+});
+
+Meteor.publish( 'companyStudents', companyId => Students.find({ company_id: companyId }));
 
 Meteor.publish( 'tests', function(){
   return Tests.find({});

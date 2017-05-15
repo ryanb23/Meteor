@@ -25,6 +25,12 @@ export class PageObject {
       this.prev     = null;
     }
   }
+
+  load(prototype){
+    for(let i = 0; i < prototype.length; i++){
+      this.append(prototype[i]);
+    }
+  }
   
   append( element ) {
 

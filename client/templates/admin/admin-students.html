@@ -17,10 +17,10 @@
   <div class="row">
     <div class="col-sm-12"><!-- 8 -->
       <div class="import-navigation">
-          <ul>
-              <li><a href="#" id="dashboard-page"><i class="fa fa-home"></i>Dashboard</a></li>
-              <li style="color:blue;text-decoration:undeline;">Students</li>
-          </ul>
+        <ul>
+            <li><a href="#" id="dashboard-page"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li style="color:blue;text-decoration:undeline;">Students</li>
+        </ul>
       </div>
       <br />
     </div>
@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-sm-8">
       <div class="filter-buttons studentpage">
-        
+
         <button class       = "js-add-student"
                 type        = "button"
                 id          = "add_students"
@@ -37,124 +37,96 @@
           <span>+</span>
           Add Student
         </button>
-        
-        <button id    = "import_student" 
+
+        <button id    = "import_student"
                 class = "js-import-students-csv">
           Import Students CSV
         </button>
-        
-        
-<!-- ADD STUDENT MODAL -->    
-<div  class           = "modal fade left" 
-      id              = "addStudentModal" 
-      tabindex        = "-1" 
-      role            = "dialog" 
+
+
+<!-- ADD STUDENT MODAL -->
+<div  class           = "modal fade left"
+      id              = "addStudentModal"
+      role            = "dialog"
       aria-labelledby = "myModalLabel">
-  
+
   <div class="modal-dialog">
     <div class="pop-up-area students">
-      
-      <button type          = "button" 
-              id            = "popup-close" 
-              data-dismiss  = "modal" 
+
+      <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
               aria-label    = "Close">x</button>
       <br><br>
-      <center><h2 style="color:white;" >ADD STUDENT</h2></center>
+      <center><h2 style="color:white;">ADD STUDENT</h2></center>
       <div class="popup-body">
         <br><br>
         <form action="">
           <div class="row">
-            
+
             <div class="col-sm-6">
-              
-              <input  class       = "js-fn input-lg mob-margin-btm" 
-                      type        = "text" 
+
+              <input  class       = "js-fn input-lg  mob-margin-btm"
+                      type        = "text"
                       placeholder = "First Name"
                       style       = "width:100%;">
             </div>
-            
+
+
             <div class="col-sm-6">
-			
-                <input  class       = "js-ln input-lg mob-margin-btm" 
-                        type        = "text" 
+                <input  class       = "js-ln input-lg  mob-margin-btm"
+                        type        = "text"
                         placeholder = "Last Name"
                         style       = "width: 100%;">
             </div>
-            
+
           </div>
-          
-          
+
+
           <div class="row">
-            
+
             <div class="col-sm-6">
-			
-                <input  class       = "js-email input-lg mob-margin-btm" 
-                        type        = "text" 
+                <input  class       = "js-email input-lg  mob-margin-btm"
+                        type        = "text"
                         placeholder = "Email"
                         style       = "width: 100%;">
             </div>
-            
-            <div class="col-sm-6">
-			
-              <select id    = "sel1"  
-                      class = "form-control input-lg mob-margin-btm">
-                
-                <option value = "student">Student</option>
-                <option value = "teacher">Teacher</option>
-                <option value = "admin" >Admin</option>
-                
-              </select>
-            </div>
- <!--         
-            <div class="col-sm-6">
 
-              <select class="js-dept form-control input-lg">
-                <option></option>
-                {{#with departments}}
-                {{#each this}}
-                <option value="{{_id}}">{{name}}</option>
-                {{/each}}
-                {{/with}}
-              </select>
-                
-            </div>
- -->           
-          </div>
-         
-          <br>
-<!--         
-          <div class="row">
-            <br>
             <div class="col-sm-6">
-              
-              <select id    = "sel1"  
-                      class = "form-control input-lg">
-                
-                <option value = "student">Student</option>
-                <option value = "teacher">Teacher</option>
-                <option value = "admin" >Admin</option>
-                
+              <select name="js-dept-name" class="js-dept form-control input-lg form-control input-lg mob-margin-btm" id="js-dept-add" >
+                {{#with departments}}
+                  {{#each this}}
+                    <option value="{{_id}}">{{name}}</option>
+                  {{/each}}
+                {{/with}}
+              </select>			  
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-sm-6">
+              <select id    = "sel1"
+                      class = "form-control input-lg  mob-margin-btm">
+
+                {{#each roles}}
+                  <option value="{{this}}">{{capitalize this}}</option>
+                {{/each}}
               </select>
-              
-              
-              <select id          = "sel1"  
-                      class       = "js-role form-control" 
-                      data-style  = "btn-sss"></select>
-              
             </div>
           </div>
--->
+          <br>
+
           <div class="row">
-            <br><br>
             <div class="col-sm-12 text-right">
-              <input  class   = "js-add-student-submit mob-margin-btm" 
-                      type    = "submit" 
+              <input  class   = "js-add-student-submit  mob-margin-btm"
+                      type    = "submit"
                       value   = "SAVE">
             </div>
           </div>
         </form>
       </div>
-    </div>                                         
+    </div>
   </div>
 </div>
 <!-- /ADD STUDENT MODAL -->
@@ -162,20 +134,15 @@
 
       </div><!-- filter buttons -->
     </div>
-    
+
     <div class="col-sm-4">
         <div class="search-box">
             <form action="">
-             
-              <div class="col-sm-2">
-              
+
+              <div class="col-sm-12">
+
                 <!-- <img src="/img/search-1.png" alt=""> -->
-              
-              </div>
-              
-              <!-- <div class="col-sm-9"> -->
-                <!-- <input type="text" placeholder="Search Material"> -->
-                <select id="search-students" style="">
+				<select id="search-students" style="">
                   <option></option>
                   {{#with students}}
                   {{#each this}}
@@ -183,12 +150,18 @@
                   {{/each}}
                   {{/with}}
                 </select>
+
+              </div>
+
+              <!-- <div class="col-sm-9"> -->
+                <!-- <input type="text" placeholder="Search Material"> -->
+                
               <!-- </div> -->
                 <!--<button id="close-search">X</button>-->
             </form>
         </div>
     </div>
-    
+
   </div>
 
       <div class="row">
@@ -211,8 +184,8 @@
                         <span>
                           <img src = "{{avatar}}" alt="">
                         </span>
-                        <a  class   = "js-student" 
-                            data-id = "{{_id}}" 
+                        <a  class   = "js-student"
+                            data-id = "{{_id}}"
                             href    = "#">
                           {{fname}} {{lname}}
                         </a>
@@ -234,7 +207,7 @@
                                 data-toggle = "modal"
                                 data-target = "#editStudentModal"
                                 id          = "edit">
-                          
+
                           <img src = "/img/edit.png" alt="">
                         </button>
                         {{#if isCurrentUser _id}}
@@ -245,7 +218,7 @@
                                 id          = "delete"
                                 style       = "opacity:.5;filter:alpha(opacity=50);"
                                 disabled>
-                          
+
                           <img src = "/img/delete.png" alt="">
                         </button>
                         {{else}}
@@ -254,7 +227,7 @@
                                 data-toggle = "modal"
                                 data-target = "#deleteStudentModal"
                                 id          = "delete">
-                          
+
                           <img src = "/img/delete.png" alt="">
                         </button>
                         {{/if}}
@@ -277,124 +250,491 @@
 
 
 <!-- EDIT STUDENT MODAL -->
-<div  class           = "modal fade left" 
-      id              = "editStudentModal" 
-      tabindex        = "-1" 
-      role            = "dialog" 
+<div  class           = "modal fade left"
+      id              = "editStudentModal"
+      role            = "dialog"
       aria-labelledby = "myModalLabel">
-  
+
   <div class="modal-dialog">
     <div class="pop-up-area students">
-      
-      <button type          = "button" 
-              id            = "popup-close" 
-              data-dismiss  = "modal" 
+
+      <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
               aria-label    = "Close">x</button>
       <br><br>
-      
+
       <center><h2 style="color:white;">EDIT STUDENT</h2></center>
-      
+
       <div class="popup-body">
-        
+
         <input type="hidden" id="edit-student-modal-id">
-        
+
         <br><br>
         <form action="">
           <div class="row">
             <div class="col-sm-6">
-              <br>
-                                <input  class       = "js-fn form-control input-lg" 
-                                        type        = "text" 
-                                        placeholder = "" 
+                                <input  class       = "js-fn form-control input-lg mob-margin-btm"
+                                        type        = "text"
+                                        placeholder = "First Name"
                                         style       = "width:100%;" readonly/>
             </div>
-            <br>
             <div class="col-sm-6">
-                                <input  class       = "js-ln form-control input-lg" 
-                                        type        = "text" 
-                                        placeholder = "" 
+                                <input  class       = "js-ln form-control input-lg mob-margin-btm"
+                                        type        = "text"
+                                        placeholder = "Last Name"
                                         style       = "width:100%;" readonly/>
             </div>
           </div>
-          <br>
           <div class="row">
-            <br>
+            
             <div class="col-sm-6">
-                                <input  class       = "js-email form-control input-lg" 
-                                        type        = "text" 
-                                        placeholder = "" 
+                                <input  class       = "js-email form-control input-lg mob-margin-btm"
+                                        type        = "text"
+                                        placeholder = "Email"
                                         style       = "width:100%;"/>
             </div>
-            
-            
             <div class="col-sm-6">
-              
-              <select name  = "js-dept" 
-                      class = "js-dept form-control input-lg">
-              <!--
-               <option></option>
-               
+
+              <select name="js-dept" class = "js-dept form-control input-lg form-control input-lg mob-margin-btm" id="js-dept-edit">
+
                   {{#with departments}}
-                  {{#each this}}
-                  <option value="{{_id}}">{{name}}</option>
-                  {{/each}}
+                    {{#each this}}
+                      <option value="{{_id}}">{{name}}</option>
+                    {{/each}}
                   {{/with}}
-              -->
               </select>
-                   
+
             </div>
           </div>
-          <br>
+          
           <div class="row">
-            <br>
+            
             <div class="col-sm-6">
-              
-              <select class = "js-role form-control input-lg" 
-                      name  = "js-role"></select>
+
+              <select class = "js-role form-control input-lg mob-margin-btm"
+                      name  = "js-role">
+                  {{#each roles}}
+                    {{roles}}
+                    <option value="{{this}}">{{capitalize this}}</option>
+                  {{/each}}
+              </select>
 
             </div>
           </div>
           <div class="row">
             <br><br><br><br>
-            
+
             <div class="col-sm-12 text-right">
-              
-              <input  class = "js-edit-student-submit" 
-                      type  = "submit" 
+
+              <input  class = "js-edit-student-submit"
+                      type  = "submit"
                       value="SUBMIT">
             </div>
           </div>
         </form>
       </div>
-    </div>                                         
+    </div>
   </div>
 </div><!-- /EDIT STUDENT MODAL -->
 
+<script>
+$( document ).ready(function() {
 
+
+$("#addStudentModal").scroll(function() {
+console.log("scroling..");
+$(".modal-backdrop+.select2-container").css("display","none");
+});
+
+$('#addStudentModal').on('click', '.select2-search__field', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#addStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+
+$('#addStudentModal .js-dept').select2("open");
+$('#editStudentModal .js-dept').select2("close");
+
+
+ $( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");	
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+  $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+ 
+  }
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+$('#addStudentModal').on('click', '.select2-container', function() {
+
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#addStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#addStudentModal .js-dept').select2("open");
+$('#editStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+ var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+  $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+ 
+  }
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+
+$('#addStudentModal').on('click', '.select2-search', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#addStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#addStudentModal .js-dept').select2("open");
+$('#editStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+  $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+ 
+  }
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+  
+  
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+
+});
+
+$('#addStudentModal').on('click', '.selection', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#addStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#addStudentModal .js-dept').select2("open");
+$('#editStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+   $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+  }
+
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#addStudentModal').on('click', '.select2-selection__rendered', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#addStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#addStudentModal .js-dept').select2("open");
+$('#editStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+ $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+  }
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#addStudentModal').on('click', '.select2-search .select2-search--inline', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#addStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#addStudentModal .js-dept').select2("open");
+$('#editStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+   $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+  }
+
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+//End of add student scorlling issue
+
+$("#editStudentModal").scroll(function() {
+console.log("scroling..");
+$(".modal-backdrop+.select2-container").css("display","none");
+});
+
+$("#editStudentModal").scroll(function() {
+console.log("scroling..");
+$(".modal-backdrop+.select2-container").css("display","none");
+});
+
+$('#editStudentModal').on('click', '.select2-search__field', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#editStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#editStudentModal .js-dept').select2("open");
+$('#addStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+   $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+  }
+
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+$('#editStudentModal').on('click', '.select2-container', function() {
+
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#editStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#editStudentModal .js-dept').select2("open");
+$('#addStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+   $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+  }
+
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+});
+
+$('#editStudentModal').on('click', '.select2-search', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#editStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#editStudentModal .js-dept').select2("open");
+$('#addStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+   $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+  }
+
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+
+
+});
+
+$('#editStudentModal').on('click', '.selection', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#editStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#editStudentModal .js-dept').select2("open");
+$('#addStudentModal .js-dept').select2("close");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#editStudentModal').on('click', '.select2-selection__rendered', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#editStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#editStudentModal .js-dept').select2("open");
+$('#addStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+ if(widthwin>758){
+  $( '#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+  $( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+  }
+ 
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+$('#editStudentModal').on('click', '.select2-search .select2-search--inline', function() {
+var length=$('.modal-backdrop+.select2-container').length;
+
+$('#editStudentModal .js-dept' ).select2({
+allowClear:               true,
+tags:                     true,
+placeholder:              'Department',
+multiple: true,
+minimumResultsForSearch: Infinity
+});
+
+$('#editStudentModal .js-dept').select2("open");
+$('#addStudentModal .js-dept').select2("close");
+
+$( '.js-dept+.select2-container .select2-selection--single' ).css("height","46px");			  
+var widthwin=$(window).width();
+if(widthwin>758){
+$('#addStudentModal #js-dept-add+.select2-container' ).css("margin-top","15px");
+$( '#editStudentModal #js-dept-edit+.select2-container' ).css("margin-top","15px");
+}
+ 
+  
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__arrow' ).css("height","46px");
+  $( '.js-dept+.select2-container--default .select2-selection--single .select2-selection__rendered' ).css("line-height","46px");			  
+  $( '.select2-container--default.select2-container--focus .select2-selection--multiple' ).css("min-height","46px");
+
+//alert('New Item Here select2-search__field:'+length);
+$(".select2-container").css("display","inline-block");
+});
+
+
+});
+</script>
 
 
 <!-- DELETE STUDENT MODAL -->
-<div  class           = "modal fade left" 
-      id              = "deleteStudentModal" 
-      tabindex        = "-1" 
-      role            = "dialog" 
+<div  class           = "modal fade left"
+      id              = "deleteStudentModal"
+      tabindex        = "-1"
+      role            = "dialog"
       aria-labelledby = "myModalLabel">
-  
+
   <div class="modal-dialog">
     <div class="pop-up-area students">
-      
-      <button type          = "button" 
-              id            = "popup-close" 
-              data-dismiss  = "modal" 
+
+      <button type          = "button"
+              id            = "popup-close"
+              data-dismiss  = "modal"
               aria-label    = "Close">x</button>
       <br><br>
-      
+
       <center><h2 style="color:white;">DELETE STUDENT</h2></center>
-      
+
       <div class="popup-body">
         <br><br>
         <form action="">
-          
+
           <div class="row">
             <div class="col-sm-12">
               <br>
@@ -404,7 +744,7 @@
             </div>
           </div>
           <br>
-          
+
           <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
@@ -414,30 +754,30 @@
                     <img id = "stdimg" src="">
                   </span>
                 </div>
-                
-                <span id    = "fnln" 
+
+                <span id    = "fnln"
                       style = "color:white;font-size:2em;">
                 </span>
-                
+
               </center>
             </div>
             <div class="col-sm-2"></div>
           </div>
-          
+
 
           <div class="row">
             <br><br><br>
-            
+
             <div class="col-sm-12 text-right">
-              
-              <input  class = "js-delete-student-submit" 
-                      type  = "submit" 
+
+              <input  class = "js-delete-student-submit"
+                      type  = "submit"
                       value = "SUBMIT">
             </div>
           </div>
         </form>
       </div>
-    </div>                                         
+    </div>
   </div>
 </div><!-- /DELETE STUDENT MODAL -->
 {{/if}}

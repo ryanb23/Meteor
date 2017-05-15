@@ -27,8 +27,8 @@ let //certificate       = {}
 
 
 Template.degreeCertEdit.onCreated(function(){
-  
-  Tracker.autorun( () => { 
+
+  Tracker.autorun( () => {
     Meteor.subscribe('certifications');
     Meteor.subscribe('diplomas');
     Meteor.subscribe('courses');
@@ -95,8 +95,7 @@ Template.degreeCertEdit.onRendered(function(){
       }
 
       let c = Courses.find(
-                            { company_id: Meteor.user().profile.company_id,  _id: {$nin: current_courses } },
-                            { limit: 7 }
+                            { company_id: Meteor.user().profile.company_id,  _id: {$nin: current_courses } }
                           ).fetch();
 
       return initC( d, c );
@@ -188,12 +187,6 @@ Template.degreeCertEdit.helpers({
 
 
 Template.degreeCertEdit.events({
-
-  /*
-   *
-   * SAVE EDIT
-   *
-   */
   'click #degree-cert-save-edit'( e, t ) {
     e.preventDefault();
     let //count         = $( '#num' ).data('num')
@@ -226,56 +219,49 @@ Template.degreeCertEdit.events({
 
     switch( type ) {
       case 'Certifications':
-        Certifications.update({ _id: rec_id },
-                              {
-                                $set:
-                                {
-                                  courses:         ary,
-                                  name:            cname,
-                                  credits:         Number(credits_total),
-                                  num:             Number(counter),
-                                  edited_at:       new Date()
-                                }
-                              }
-        );
+        Meteor.call('certifications.update', rec_id, {
+          courses: ary,
+          name: cname,
+          credits: Number(credits_total),
+          num: Number(counter),
+        }, (err) => {
+          if(err) {
+            console.log('Error ', err);
+            Bert.alert( 'Failed to edit', 'danger', 'growl-top-right' );
+          } else {
+            Bert.alert( 'Record successfully edited', 'success', 'growl-top-right' );
+            if (Meteor.user() && Meteor.user().roles && Meteor.user().roles.admin) {
+              FlowRouter.go( 'admin-degrees-and-certifications', { _id: Meteor.userId() });
+              return;
+            } else if (Meteor.user() && Meteor.user().roles && Meteor.user().roles.SuperAdmin) {
+              FlowRouter.go( 'super-admin-degrees-and-certs', { _id: Meteor.userId() });
+              return;
+            }
+          }
+        });
         break;
       case 'Diplomas':
-        Diplomas.update({ _id: rec_id },
-                              {
-                                $set:
-                                {
-                                  courses:         ary,
-                                  name:            cname,
-                                  credits:         Number(credits_total),
-                                  num:             Number(counter),
-                                  edited_at:       new Date()
-                                }
-                              }
-        );
+        Meteor.call('diplomas.update', rec_id, {
+          courses: ary,
+          name: cname,
+          credits: Number(credits_total),
+          num: Number(counter),
+        }, (err) => {
+          if(err) {
+            console.log('Error ', err);
+            Bert.alert( 'Failed to edit', 'danger', 'growl-top-right' );
+          } else {
+            Bert.alert( 'Record successfully edited', 'success', 'growl-top-right' );
+            if (Meteor.user() && Meteor.user().roles && Meteor.user().roles.admin) {
+              FlowRouter.go( 'admin-degrees-and-certifications', { _id: Meteor.userId() });
+              return;
+            } else if (Meteor.user() && Meteor.user().roles && Meteor.user().roles.SuperAdmin) {
+              FlowRouter.go( 'super-admin-degrees-and-certs', { _id: Meteor.userId() });
+              return;
+            }
+          }
+        });
         break;
-    }
-
-    Bert.alert( 'Record successfully edited', 'success', 'growl-top-right' );
-
-    if (
-        Meteor.user() &&
-        Meteor.user().roles &&
-        Meteor.user().roles.admin
-       )
-    {
-      FlowRouter.go( 'admin-degrees-and-certifications',
-                    { _id: Meteor.userId() });
-      return;
-    } else
-        if (
-            Meteor.user() &&
-            Meteor.user().roles &&
-            Meteor.user().roles.SuperAdmin
-           )
-    {
-      FlowRouter.go( 'super-admin-degrees-and-certs',
-                    { _id: Meteor.userId() });
-      return;
     }
   },
 
@@ -363,8 +349,7 @@ Template.degreeCertEdit.events({
      let items = Courses.find({ company_id: Meteor.user().profile.company_id,
                                 name: { $regex: eval(patt1) },
                                 _id:  { $nin: current_courses }
-                              },
-                              { limit: 7 }).fetch();
+                              }).fetch();
 
      for( let i = 0, len = items.length; i < len; i++ ) {
 
