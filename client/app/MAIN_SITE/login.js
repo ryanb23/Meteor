@@ -19,7 +19,7 @@ import './login.html';
 Template.login.onCreated(function() {
 
   Tracker.autorun( () => {
-    Meteor.subscribe('students');
+    // Meteor.subscribe('students');
   });
 
 });

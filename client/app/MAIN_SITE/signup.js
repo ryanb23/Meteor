@@ -20,8 +20,8 @@ import './signup.html';
     $('[data-toggle="tooltip"]').tooltip();
 
     Tracker.autorun( () => {
-      Meteor.subscribe('students');
-      Meteor.subscribe('companies');
+      // Meteor.subscribe('students');
+      // Meteor.subscribe('companies');
     });
 //-------------------------------------------------------------------
  });

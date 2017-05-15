@@ -28,7 +28,7 @@ Template.newsfeed.onCreated(function(){
   
   Tracker.autorun(() => { 
     // Meteor.subscribe('students');
-    // Meteor.subscribe('newsfeeds');
+    Meteor.subscribe('newsfeeds');
     Meteor.subscribe('comments');
   });
 
